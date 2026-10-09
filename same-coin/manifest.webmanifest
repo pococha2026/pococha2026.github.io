@@ -1,0 +1,16 @@
+{
+  "id": "./",
+  "name": "Pococha1012 Pococha 同額コイン計算機",
+  "short_name": "コイン計算",
+  "lang": "ja",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#071426",
+  "theme_color": "#071426",
+  "description": "端末内で計算。オンラインでオフラインの準備を完了してから利用してください。",
+  "icons": [
+    {"src":"icon-192.png","sizes":"192x192","type":"image/png"},
+    {"src":"icon-512.png","sizes":"512x512","type":"image/png"}
+  ]
+}
