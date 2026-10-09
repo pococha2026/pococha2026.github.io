@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="Pococha関連ツール一覧">
+  <title>公開ツール一覧</title>
+  <rect width="512" height="512" fill="#11152b"/>
+  <rect x="52" y="52" width="192" height="192" rx="42" fill="#7466ef"/>
+  <rect x="268" y="52" width="192" height="192" rx="42" fill="#e75ba6"/>
+  <rect x="52" y="268" width="192" height="192" rx="42" fill="#43388b"/>
+  <rect x="268" y="268" width="192" height="192" rx="42" fill="#5145cd"/>
+  <g fill="none" stroke="#fff" stroke-width="14" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M96 202h108M101 178l35-39 33 20 34-53"/>
+    <rect x="312" y="94" width="104" height="110" rx="14"/>
+    <path d="M332 119h64"/>
+    <path d="M148 323c-19-13-39-15-56-10v95c17-5 37-3 56 10 19-13 39-15 56-10v-95c-17-5-37-3-56 10Zm0 0v95"/>
+    <circle cx="364" cy="364" r="54"/>
+    <path d="M364 331v34l25 17"/>
+  </g>
+  <g fill="#fff">
+    <circle cx="337" cy="151" r="7"/>
+    <circle cx="391" cy="151" r="7"/>
+    <circle cx="337" cy="179" r="7"/>
+    <circle cx="391" cy="179" r="7"/>
+  </g>
+</svg>

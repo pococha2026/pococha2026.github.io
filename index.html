@@ -1,64 +1,108 @@
 <!doctype html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#11152b">
-  <meta name="description" content="Pococha1012が作成したPococha関連ツールの公開一覧。メーター計算、同額コイン計算機、ポコチャレ解答集、時間稼ぎ・エール記録帳。">
-  <title>Pococha1012 作成ツール｜公開ツール一覧</title>
-  <style>
-    :root{color-scheme:light dark;--bg:#f5f6fc;--surface:#fff;--ink:#19203a;--muted:#566078;--line:#dce1ed;--accent:#5145cd;--accent-bg:#eeeaff;--header:#11152b}
-    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;font-size:16px;line-height:1.6}
-    header{background:var(--header);color:#fff;border-bottom:4px solid #e75ba6;padding:calc(28px + env(safe-area-inset-top)) 20px 24px}
-    .wrap{width:min(100%,800px);margin:auto}header .label{margin:0 0 6px;color:#d5cffd;font-size:14px;font-weight:700;letter-spacing:.08em}h1{margin:0;font-size:clamp(24px,5.3vw,34px);line-height:1.45;letter-spacing:.01em;font-weight:800}
-    main{padding:24px 20px 12px}.tools{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.tool{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:20px;min-width:0;box-shadow:0 3px 8px #15204005}.top{display:flex;gap:12px;align-items:center}.icon{width:44px;height:44px;flex:0 0 44px;display:grid;place-items:center;border-radius:12px;background:var(--accent-bg);color:var(--accent)}.icon svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}h2{font-size:18px;line-height:1.55;margin:0;font-weight:800}.tool p{margin:14px 0 18px;color:var(--muted);font-size:15px}.open{display:flex;align-items:center;justify-content:center;min-height:48px;border-radius:10px;background:var(--accent);color:#fff;text-decoration:none;font-weight:700;margin-top:auto;padding:10px 12px}.open:hover{background:#4236b8}.open:active{transform:translateY(1px)}a:focus-visible,button:focus-visible{outline:3px solid #e75ba6;outline-offset:4px}.share{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:24px 0 10px}.share button{appearance:none;border:1px solid var(--line);border-radius:10px;min-height:46px;padding:10px 18px;background:var(--surface);color:var(--ink);font:inherit;font-size:15px;font-weight:700;cursor:pointer}.share button:hover{border-color:var(--accent)}[hidden]{display:none!important}footer{text-align:center;padding:12px 20px calc(24px + env(safe-area-inset-bottom));color:var(--muted);font-size:13px}footer p{margin:5px 0}.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--header);color:#fff;max-width:calc(100% - 32px);width:max-content;padding:12px 18px;border-radius:12px;font-size:14px;box-shadow:0 4px 16px #0002}
-    .tool-links{display:flex;justify-content:center;flex-wrap:wrap;gap:6px 14px;margin-top:10px}.tool-links a{display:inline-flex;align-items:center;min-height:32px;color:var(--accent);font-size:13px;text-underline-offset:3px}
-    @media(max-width:600px){.tools{grid-template-columns:1fr;gap:14px}header{padding-left:18px;padding-right:18px}main{padding:20px 16px 10px}.tool{padding:18px}.tool p{margin:10px 0 16px}.top{gap:12px}}
-    @media(prefers-color-scheme:dark){:root{--bg:#101321;--surface:#1b2034;--ink:#f1f2ff;--muted:#bac3dd;--line:#363e58;--accent:#7466ef;--accent-bg:#302855}.open:hover{background:#6556e0}}
-    @media(prefers-reduced-motion:reduce){.open:active{transform:none}}
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#11152b">
+<meta name="description" content="Pococha1012の4つのツールをすぐ開く。お気に入り、前回のツール、ホーム画面への追加、共有QRに対応。">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Pocochaツール">
+<link rel="canonical" href="https://pococha2026.github.io/">
+<link rel="manifest" href="./hub.webmanifest">
+<link rel="icon" href="./hub-icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="./hub-icon-180.png">
+<title>Pococha1012 作成ツール｜すぐ開けるツール一覧</title>
+<style>
+:root{color-scheme:light dark;--bg:#f5f6fc;--surface:#fff;--ink:#19203a;--muted:#566078;--line:#dce1ed;--accent:#5145cd;--button-bg:#5145cd;--accent-bg:#eeeaff;--header:#11152b}
+*{box-sizing:border-box}html{scroll-padding-bottom:100px}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;font-size:16px;line-height:1.6;overflow-wrap:anywhere}button,input{font:inherit}button,a{touch-action:manipulation;-webkit-tap-highlight-color:transparent}button{cursor:pointer}a{color:var(--accent);text-underline-offset:3px}a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #e75ba6;outline-offset:3px}[hidden]{display:none!important}
+.wrap{width:min(100%,800px);margin:auto}header{background:var(--header);color:#fff;border-bottom:4px solid #e75ba6;padding:calc(22px + env(safe-area-inset-top)) max(20px,env(safe-area-inset-right)) 20px max(20px,env(safe-area-inset-left))}header .label{margin:0 0 4px;color:#d5cffd;font-size:13px;font-weight:700;letter-spacing:.08em}h1{margin:0;font-size:clamp(23px,5.3vw,32px);line-height:1.4;font-weight:800}header .intro{margin:8px 0 0;color:#e3e5f6;font-size:14px}main{padding:22px max(20px,env(safe-area-inset-right)) 12px max(20px,env(safe-area-inset-left))}section{scroll-margin-top:16px;margin-bottom:28px}h2{font-size:19px;line-height:1.5;margin:0 0 12px;font-weight:800}h3{font-size:18px;line-height:1.5;margin:0;font-weight:800}.hint{color:var(--muted);font-size:14px;margin:10px 0 14px}
+.quick-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.quick-item{position:relative;min-width:0;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:0 3px 8px #15204005}.quick-link{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;min-height:138px;padding:16px 8px 48px;text-align:center;text-decoration:none;font-size:15px;font-weight:800;color:var(--ink);border-radius:16px}.quick-link:hover{background:var(--accent-bg)}.icon{width:42px;height:42px;flex:0 0 42px;display:grid;place-items:center;border-radius:12px;background:var(--accent-bg);color:var(--accent)}.icon svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.pin{position:absolute;right:4px;bottom:3px;min-width:44px;min-height:44px;border:0;background:transparent;color:var(--muted);border-radius:10px;font-size:24px;line-height:1}.pin[aria-pressed=true]{color:var(--accent);background:var(--accent-bg)}.pin-label{position:absolute;left:12px;bottom:15px;font-size:11px;color:var(--muted);pointer-events:none}
+.saved{padding:16px;margin:0 0 18px;background:var(--surface);border:1px solid var(--line);border-radius:16px}.saved h2{font-size:16px;margin-bottom:8px}.saved-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.saved a,.recent a{display:flex;align-items:center;justify-content:center;min-height:48px;padding:10px;border-radius:10px;background:var(--accent-bg);font-size:14px;font-weight:800;text-align:center;text-decoration:none}.recent{margin:0 0 16px}.recent p{font-size:13px;color:var(--muted);margin:0 0 5px}.install-cta{display:flex;align-items:center;justify-content:center;min-height:48px;border:1px solid var(--line);border-radius:12px;background:var(--surface);font-weight:700;text-decoration:none;font-size:15px}
+.tools{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.tool{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:20px;min-width:0}.tool p{margin:14px 0 18px;color:var(--muted);font-size:15px}.open,.button{display:flex;align-items:center;justify-content:center;min-height:48px;border:0;border-radius:10px;background:var(--button-bg);color:#fff;text-decoration:none;font-weight:700;padding:10px 12px;text-align:center}.open{margin-top:auto}.open:hover,.button:hover{background:#4236b8}.tool-links{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin-top:10px}.tool-links a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:8px 10px;border:1px solid var(--line);border-radius:10px;font-size:13px}
+.panel{padding:20px;background:var(--surface);border:1px solid var(--line);border-radius:18px}.panel p{margin:10px 0}.panel details{border-top:1px solid var(--line)}summary{min-height:52px;padding:12px 2px;font-weight:800;cursor:pointer}ol{padding-left:24px;margin:0 0 16px}li{margin:8px 0}.source{display:inline-flex;align-items:center;min-height:44px;font-size:13px}.note{font-size:14px;color:var(--muted);padding:12px;background:var(--accent-bg);border-radius:10px}.share-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}.secondary{border:1px solid var(--line);background:var(--surface);color:var(--ink)}.secondary:hover{background:var(--accent-bg)}.qr-block{margin-top:16px;text-align:center}.qr-block img{display:block;width:200px;height:200px;max-width:100%;margin:12px auto;background:white;border-radius:8px}.qr-block a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:8px 12px}.address{display:block;width:100%;font-size:16px;min-height:48px;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}.manual-copy{margin-top:12px}.manual-copy label{display:block;font-size:14px;margin-bottom:6px}
+footer{text-align:center;padding:12px 20px calc(100px + env(safe-area-inset-bottom));color:var(--muted);font-size:13px}footer p{margin:5px 0}.dock{position:fixed;z-index:10;bottom:0;left:0;right:0;background:var(--surface);border-top:1px solid var(--line);padding:5px max(8px,env(safe-area-inset-right)) calc(5px + env(safe-area-inset-bottom)) max(8px,env(safe-area-inset-left));box-shadow:0 -3px 12px #15204008}.dock .wrap{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;max-width:600px}.dock a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;min-height:48px;font-size:12px;font-weight:800;text-decoration:none;border-radius:10px}.dock a:hover{background:var(--accent-bg)}.dock span{font-size:18px;line-height:1.2}.toast{position:fixed;z-index:20;left:50%;bottom:calc(86px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--header);color:#fff;max-width:calc(100% - 32px);width:max-content;padding:12px 18px;border-radius:12px;font-size:14px;box-shadow:0 4px 16px #0002}
+@media(max-width:600px){header{padding-top:calc(18px + env(safe-area-inset-top));padding-bottom:16px}main{padding:18px max(16px,env(safe-area-inset-right)) 10px max(16px,env(safe-area-inset-left))}.quick-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.quick-link{min-height:136px}.tools{grid-template-columns:1fr;gap:14px}.tool,.panel{padding:18px}.tool p{margin:10px 0 16px}.share-actions{grid-template-columns:1fr}section{margin-bottom:24px}}
+@media(prefers-color-scheme:dark){:root{--bg:#101321;--surface:#1b2034;--ink:#f1f2ff;--muted:#bac3dd;--line:#363e58;--accent:#b3a8ff;--button-bg:#6957e0;--accent-bg:#302855}.open:hover,.button:not(.secondary):hover{background:#6556e0}}
+@media(forced-colors:active){.pin[aria-pressed=true]{border:2px solid Highlight}.open,.button,.saved a{border:1px solid ButtonText}}
+</style>
 </head>
 <body>
-  <header><div class="wrap"><p class="label">公開ツール一覧</p><h1>Pococha1012 作成ツール</h1></div></header>
-  <main class="wrap">
-    <div class="tools">
-      <article class="tool">
-        <div class="top"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 19h16M5 15l4-5 4 3 6-8"/><path d="M15 5h4v4"/></svg></span><h2>Pocochaメーター計算</h2></div>
-        <p>目標値・現在値から、残りのKや必要なアイテムの目安を確認。</p>
-        <a class="open" href="./poco-meter/" aria-label="Pocochaメーター計算を開く">メーター計算を開く</a>
-      </article>
-      <article class="tool">
-        <div class="top"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 11h1m6 0h1M8 15h1m6 0h1M8 18h1m6 0h1"/></svg></span><h2>Pococha 同額コイン計算機</h2></div>
-        <p>総コイン数と人数から、同額で分けられる組み合わせを確認。</p>
-        <a class="open" href="./same-coin/" aria-label="Pococha同額コイン計算機を開く">コイン計算機を開く</a>
-      </article>
-      <article class="tool">
-        <div class="top"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 4h11a1 1 0 0 1 1 1v15H7a3 3 0 0 1-3-3V5a1 1 0 0 1 1-1h3ZM8 4v16M11 8h6m-6 4h6m-6 4h4"/></svg></span><h2>ポコチャレ解答集</h2></div>
-        <p>月別のオープン部門・ファミリー部門の解答を確認してコピー。</p>
-        <a class="open" href="./pococha-answers/" aria-label="ポコチャレ解答集を開く">解答集を開く</a>
-      </article>
-      <article class="tool">
-        <div class="top"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6m-3 0v3"/></svg></span><h2>時間稼ぎ・エール記録帳</h2></div>
-        <p>GitHub版。時間稼ぎ・エールを記録。記録は使用中の端末のブラウザに保存。</p>
-        <a class="open" href="./yell-log.html" aria-label="時間稼ぎ・エール記録帳のGitHub版を開く">記録帳を開く</a>
-        <div class="tool-links"><a href="./yell-log-share.html" aria-label="時間稼ぎ・エール記録帳の共有・QRページを開く">共有・QR</a><a href="./pococha-yell-log-offline.zip" download aria-label="時間稼ぎ・エール記録帳のオフラインZIPを保存">オフラインZIP</a></div>
-      </article>
-    </div>
-    <div class="share" aria-label="この一覧ページを共有"><button type="button" id="copy">一覧URLをコピー</button><button type="button" id="share" hidden>一覧を共有</button></div>
-  </main>
-  <footer><p>Pococha公式サービスではありません。</p><p>© Pococha1012 · 更新日 2026/10/09</p></footer>
-  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
-  <script>
-    (function(){
-      'use strict';
-      var pageUrl=new URL('./',window.location.href).href;
-      var toast=document.getElementById('toast'),timer;
-      function show(message){toast.textContent=message;toast.hidden=false;clearTimeout(timer);timer=setTimeout(function(){toast.hidden=true;},2500);}
-      function fallbackCopy(){var field=document.createElement('textarea');field.value=pageUrl;field.setAttribute('readonly','');field.style.cssText='position:fixed;left:0;top:0;opacity:0;font-size:16px';document.body.appendChild(field);field.select();field.setSelectionRange(0,field.value.length);var ok=false;try{ok=document.execCommand('copy');}catch(error){}field.remove();return ok;}
-      function copy(){if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(pageUrl).then(function(){show('一覧URLをコピーしました');},function(){show(fallbackCopy()?'一覧URLをコピーしました':'コピーできませんでした。アドレス欄のURLをコピーしてください。');});}else{show(fallbackCopy()?'一覧URLをコピーしました':'コピーできませんでした。アドレス欄のURLをコピーしてください。');}}
-      document.getElementById('copy').addEventListener('click',copy);
-      var share=document.getElementById('share');if(navigator.share){share.hidden=false;share.addEventListener('click',function(){navigator.share({title:document.title,url:pageUrl}).catch(function(error){if(error.name!=='AbortError'){copy();}});});}
-    })();
-  </script>
+<header><div class="wrap"><p class="label">公開ツール一覧</p><h1>Pococha1012 作成ツール</h1><p class="intro">使いたいツールを、ここからすぐに。</p></div></header>
+<main class="wrap">
+<section id="quick" aria-labelledby="quick-title">
+<div class="saved" id="favorites" hidden><h2>お気に入り</h2><div class="saved-links" id="favorite-links"></div></div>
+<div class="recent" id="recent" hidden><p>前回この一覧から開いたツール</p><a id="recent-link"></a></div>
+<h2 id="quick-title">ツールをすぐ開く</h2>
+<div class="quick-grid">
+<div class="quick-item"><a class="quick-link" href="./poco-meter/" data-tool="meter"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 19h16M5 15l4-5 4 3 6-8M15 5h4v4"/></svg></span>メーター計算</a><span class="pin-label" aria-hidden="true" hidden>お気に入り</span><button class="pin" data-pin="meter" type="button" aria-label="メーター計算をお気に入りに追加" aria-pressed="false" hidden>☆</button></div>
+<div class="quick-item"><a class="quick-link" href="./same-coin/" data-tool="coin"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 11h1m6 0h1M8 15h1m6 0h1M8 18h1m6 0h1"/></svg></span>同額コイン計算</a><span class="pin-label" aria-hidden="true" hidden>お気に入り</span><button class="pin" data-pin="coin" type="button" aria-label="同額コイン計算をお気に入りに追加" aria-pressed="false" hidden>☆</button></div>
+<div class="quick-item"><a class="quick-link" href="./pococha-answers/" data-tool="answers"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 4h11a1 1 0 0 1 1 1v15H7a3 3 0 0 1-3-3V5a1 1 0 0 1 1-1h3ZM8 4v16M11 8h6m-6 4h6m-6 4h4"/></svg></span>ポコチャレ解答</a><span class="pin-label" aria-hidden="true" hidden>お気に入り</span><button class="pin" data-pin="answers" type="button" aria-label="ポコチャレ解答をお気に入りに追加" aria-pressed="false" hidden>☆</button></div>
+<div class="quick-item"><a class="quick-link" href="./yell-log.html" data-tool="record"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6m-3 0v3"/></svg></span>時間・エール記録</a><span class="pin-label" aria-hidden="true" hidden>お気に入り</span><button class="pin" data-pin="record" type="button" aria-label="時間・エール記録をお気に入りに追加" aria-pressed="false" hidden>☆</button></div>
+</div>
+<p class="hint" id="favorite-hint" hidden>☆を押すと、お気に入りを上に表示。設定はこのブラウザに保存します。</p>
+<a class="install-cta" href="#install">ホーム画面に追加する方法を見る ↓</a>
+</section>
+<section aria-labelledby="details-title">
+<h2 id="details-title">ツールの使い道</h2>
+<div class="tools">
+<article class="tool"><h3>Pocochaメーター計算</h3><p>目標値・現在値から、残りのKや必要なアイテムの目安を確認。</p><a class="open" href="./poco-meter/" data-tool="meter">メーター計算を開く</a></article>
+<article class="tool"><h3>Pococha 同額コイン計算機</h3><p>総コイン数と人数から、同額で分けられる組み合わせを確認。</p><a class="open" href="./same-coin/" data-tool="coin">コイン計算機を開く</a></article>
+<article class="tool"><h3>ポコチャレ解答集</h3><p>月別のオープン部門・ファミリー部門の解答を確認してコピー。</p><a class="open" href="./pococha-answers/" data-tool="answers">解答集を開く</a></article>
+<article class="tool"><h3>時間稼ぎ・エール記録帳</h3><p>時間稼ぎ・エールを記録。記録は使用中の端末のブラウザに保存。</p><a class="open" href="./yell-log.html" data-tool="record">記録帳を開く</a><div class="tool-links"><a href="./yell-log-share.html">記録帳の共有・QR</a><a href="./pococha-yell-log-offline.zip" download>オフラインZIP</a></div></article>
+</div>
+</section>
+<section class="panel" id="install" aria-labelledby="install-title">
+<h2 id="install-title">ホーム画面からすぐ開く</h2>
+<p class="hint">この一覧をホーム画面に追加すると、次回はアイコンから開けます。</p>
+<button class="button" type="button" id="install-button" hidden>ホーム画面に追加</button>
+<p class="hint" id="installed" hidden>ホーム画面から開いています。</p>
+<details id="iphone-help"><summary>iPhone・iPad の追加方法</summary><ol><li>この一覧をSafariで開きます。</li><li>ページメニューの「共有」、または共有ボタンを押します。</li><li>「ホーム画面に追加」を選び、名前を確認して「追加」。表示される場合は「ウェブアプリとして開く」をオンにします。</li></ol><a class="source" href="https://support.apple.com/ja-jp/guide/iphone/iphea86e5236/ios" target="_blank" rel="noopener noreferrer">Apple公式の操作案内 ↗</a></details>
+<details id="android-help"><summary>Android の追加方法</summary><ol><li>この一覧をChromeで開きます。</li><li>右上の「⋮」から「インストールしてショートカットを作成」や「ホーム画面に追加」を選びます。</li><li>画面の案内に沿って追加します。上に「ホーム画面に追加」ボタンが出た場合は、そのボタンからも操作できます。</li></ol><a class="source" href="https://support.google.com/chrome/answer/9658361?co=GENIE.Platform%3DAndroid&amp;hl=ja" target="_blank" rel="noopener noreferrer">Google公式の操作案内 ↗</a></details>
+<details><summary>アプリ内で開いていて追加できないとき</summary><p>この一覧のURLをコピーして、SafariまたはChromeのアドレス欄に貼り付けて開いてください。</p><button class="button secondary" type="button" data-copy>一覧URLをコピー</button></details>
+<p class="note">記録帳は同じブラウザで使うと、保存した記録を続けて利用できます。別のブラウザやホーム画面版で記録が見えないときは、元のブラウザからバックアップして取り込んでください。</p>
+<p class="hint" id="launch-note" hidden>各ツールは新しい画面で開きます。ツールを閉じるか、この一覧のアイコンを押すと戻れます。</p>
+</section>
+<section class="panel" id="sharing" aria-labelledby="sharing-title">
+<h2 id="sharing-title">スマホに送る・共有する</h2>
+<div class="share-actions"><button class="button" type="button" id="copy" data-copy>一覧URLをコピー</button><button class="button secondary" type="button" id="share" hidden>一覧を共有</button></div>
+<div class="manual-copy" id="manual-copy" hidden><label for="manual-url">このURLを長押ししてコピーしてください</label><input class="address" id="manual-url" type="url" readonly value="https://pococha2026.github.io/"></div>
+<details class="qr-block"><summary>別のスマホで開くQRコード</summary><img src="./hub-qr.png" width="200" height="200" alt="公開ツール一覧 https://pococha2026.github.io/ のQRコード" loading="lazy"><p class="hint">別の端末のカメラで読み取って開けます。</p><a href="./hub-qr.png" download="pococha2026-tools-qr.png">QR画像を保存</a><p class="hint">https://pococha2026.github.io/</p></details>
+</section>
+<noscript><p class="note">上のボタンから各ツールを開けます。お気に入り・URLコピーはJavaScriptを有効にすると使えます。</p></noscript>
+</main>
+<footer><p>Pococha公式サービスではありません。</p><p>© Pococha1012 · 更新日 2026/10/09</p></footer>
+<nav class="dock" aria-label="一覧ページのメニュー"><div class="wrap"><a href="#quick"><span aria-hidden="true">▦</span>ツール</a><a href="#install"><span aria-hidden="true">＋</span>追加方法</a><a href="#sharing"><span aria-hidden="true">↗</span>共有・QR</a></div></nav>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+<script>
+(function(){
+'use strict';
+var pageUrl='https://pococha2026.github.io/';
+var tools={meter:{label:'メーター計算',href:'./poco-meter/'},coin:{label:'同額コイン計算',href:'./same-coin/'},answers:{label:'ポコチャレ解答',href:'./pococha-answers/'},record:{label:'時間・エール記録',href:'./yell-log.html'}};
+var storageKey='pococha2026:launcher:v1',state={favorites:[],recent:null};
+var toast=document.getElementById('toast'),timer,installPrompt=null;
+function show(message){toast.textContent=message;toast.hidden=false;clearTimeout(timer);timer=setTimeout(function(){toast.hidden=true;},3500);}
+function readState(){try{var saved=JSON.parse(localStorage.getItem(storageKey));state={favorites:[],recent:null};if(saved&&Array.isArray(saved.favorites)){state.favorites=saved.favorites.filter(function(id,index,list){return Object.prototype.hasOwnProperty.call(tools,id)&&list.indexOf(id)===index;});state.recent=Object.prototype.hasOwnProperty.call(tools,saved.recent)?saved.recent:null;}}catch(error){} }
+function saveState(){try{localStorage.setItem(storageKey,JSON.stringify(state));return true;}catch(error){return false;}}
+function isInstalled(){return navigator.standalone===true||['standalone','minimal-ui','fullscreen'].some(function(mode){return window.matchMedia('(display-mode: '+mode+')').matches;});}
+function prepareLink(link){if(isInstalled()){link.target='_blank';link.rel='noopener';}}
+function render(){var list=document.getElementById('favorite-links');list.textContent='';state.favorites.forEach(function(id){var link=document.createElement('a');link.href=tools[id].href;link.dataset.tool=id;link.textContent=tools[id].label+'を開く';prepareLink(link);list.appendChild(link);});document.getElementById('favorites').hidden=state.favorites.length===0;
+document.querySelectorAll('[data-pin]').forEach(function(button){var id=button.dataset.pin,pinned=state.favorites.indexOf(id)!==-1;button.hidden=false;button.setAttribute('aria-pressed',String(pinned));button.setAttribute('aria-label',tools[id].label+'をお気に入り'+(pinned?'から外す':'に追加'));button.textContent=pinned?'★':'☆';});
+document.getElementById('recent').hidden=!state.recent;if(state.recent){var recent=document.getElementById('recent-link');recent.href=tools[state.recent].href;recent.dataset.tool=state.recent;recent.textContent=tools[state.recent].label+'をもう一度開く';prepareLink(recent);}document.querySelectorAll('a[data-tool]').forEach(prepareLink);
+}
+document.getElementById('favorite-hint').hidden=false;document.querySelectorAll('.pin-label').forEach(function(label){label.hidden=false;});
+document.addEventListener('click',function(event){var pin=event.target.closest('button[data-pin]');if(pin){var id=pin.dataset.pin,index=state.favorites.indexOf(id);if(index===-1){state.favorites.push(id);}else{state.favorites.splice(index,1);}var saved=saveState();render();show(saved?(index===-1?'お気に入りに追加しました':'お気に入りから外しました'):'このブラウザでは設定を保存できません。今回の表示に反映しました。');return;}var link=event.target.closest('a[data-tool]');if(link&&Object.prototype.hasOwnProperty.call(tools,link.dataset.tool)){state.recent=link.dataset.tool;saveState();}});
+window.addEventListener('pageshow',function(){readState();render();});readState();render();
+function fallbackCopy(){var field=document.createElement('textarea');field.value=pageUrl;field.setAttribute('readonly','');field.style.cssText='position:fixed;left:0;top:0;opacity:0;font-size:16px';document.body.appendChild(field);field.select();field.setSelectionRange(0,field.value.length);var ok=false;try{ok=document.execCommand('copy');}catch(error){}field.remove();return ok;}
+function copied(ok){if(ok){show('一覧URLをコピーしました');}else{document.getElementById('manual-copy').hidden=false;var field=document.getElementById('manual-url');field.focus();field.select();show('表示したURLを長押ししてコピーしてください');}}
+function copy(){if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(pageUrl).then(function(){copied(true);},function(){copied(fallbackCopy());});}else{copied(fallbackCopy());}}
+document.querySelectorAll('[data-copy]').forEach(function(button){button.addEventListener('click',copy);});
+var share=document.getElementById('share');if(navigator.share){share.hidden=false;share.addEventListener('click',function(){navigator.share({title:'Pococha1012 作成ツール',url:pageUrl}).catch(function(error){if(error.name!=='AbortError'){copy();}});});}
+var installButton=document.getElementById('install-button');window.addEventListener('beforeinstallprompt',function(event){event.preventDefault();installPrompt=event;if(!isInstalled()){installButton.hidden=false;}});
+installButton.addEventListener('click',async function(){if(!installPrompt){return;}var prompt=installPrompt;installPrompt=null;installButton.hidden=true;try{await prompt.prompt();await prompt.userChoice;}catch(error){show('ブラウザのメニューからホーム画面に追加してください');}});
+window.addEventListener('appinstalled',function(){installPrompt=null;installButton.hidden=true;show('ホーム画面に追加しました');});
+if(isInstalled()){document.getElementById('installed').hidden=false;document.getElementById('launch-note').hidden=false;}
+var agent=navigator.userAgent;if(/iPhone|iPad|iPod/.test(agent)){document.getElementById('iphone-help').open=true;}else if(/Android/.test(agent)){document.getElementById('android-help').open=true;}
+})();
+</script>
 </body>
 </html>
