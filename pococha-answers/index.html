@@ -34,12 +34,15 @@ GitHub Terms and third-party rights are unaffected. Client checks are removable.
 /* Compact header actions and expandable help/disclosures. */
 .app-header{display:flex;flex-direction:column;align-items:stretch;gap:5px;margin:2px 0 8px;padding:6px;border-radius:12px;background:linear-gradient(115deg,#b94b05 0%,#bd2266 100%);color:#fff;box-shadow:0 3px 12px rgba(189,34,102,.16);font-size:.7rem}
 .app-header h1{margin:0;text-align:left;font-size:clamp(1rem,3.5vw,1.35rem);line-height:1.25;font-weight:900;letter-spacing:.01em;color:#fff;text-shadow:0 1px 2px rgba(75,17,34,.16);overflow-wrap:anywhere}
-.title-tools{display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-start;gap:4px;min-width:0;max-width:100%;overflow-x:auto;padding:3px 3px 6px;margin:-3px;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.7) transparent}
+.title-tools{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:flex-start;gap:4px;min-width:0;max-width:100%;overflow-x:auto;padding:3px 3px 6px;margin:-3px;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.7) transparent}
 .title-tools::-webkit-scrollbar{height:4px}
 .title-tools::-webkit-scrollbar-thumb{border-radius:4px;background:rgba(255,255,255,.7)}
 .app-header .toolbar-button,.app-header .refresh-mini,.app-header .share-mini{display:inline-flex;align-items:center;justify-content:center;flex:none;width:auto;min-width:34px;min-height:30px;height:auto;padding:4px;gap:4px;border:1px solid #fff;border-radius:7px;background:#fff;color:#872044;font-size:.7rem;line-height:1.25;font-weight:750;white-space:nowrap;box-shadow:none}
 .app-header .toolbar-button[aria-expanded="true"],.app-header button:hover{background:#fbe7ef}
-.app-header .share-mini{margin-left:auto}
+.title-right-tools{display:flex;flex-direction:column;align-items:flex-end;gap:3px;margin-left:auto;flex:none}
+.share-update-tools{display:flex;align-items:center;gap:4px}
+.app-header .admin-link{display:inline-flex;align-items:center;justify-content:flex-end;min-height:22px;padding:1px 3px;color:#fff;font-size:.7rem;line-height:1.25;white-space:nowrap;text-underline-offset:3px}
+.app-header .admin-link:focus-visible{outline:2px solid #fff;outline-offset:2px}
 .app-header button:focus-visible{outline:2px solid #fff;outline-offset:2px}
 .title-panel{min-width:0;max-width:100%}
 .title-panel[hidden]{display:none}
@@ -93,8 +96,15 @@ GitHub Terms and third-party rights are unaffected. Client checks are removable.
 <button class="toolbar-button" id="homeScreenToggle" type="button" aria-expanded="false" aria-controls="homeScreenHelp">ホーム画面へ追加</button>
 <button class="toolbar-button" id="disclaimerToggle" type="button" aria-expanded="false" aria-controls="footerDisclaimer">免責事項</button>
 <button class="toolbar-button" id="contactToggle" type="button" aria-expanded="false" aria-controls="footerContact">お問い合わせ</button>
+<div class="title-right-tools">
+<div id="adminFooter" class="admin-link-row" hidden>
+<a id="adminPage" class="admin-link" href="https://pococha-challenge.freefreelife2000.chatgpt.site/admin" target="_blank" rel="noopener noreferrer" aria-label="管理ページを新しいタブで開く" title="新しいタブで開く" hidden>管理ページ</a>
+</div>
+<div class="share-update-tools">
 <button class="share-mini" id="sharePage" type="button" aria-label="このページを共有" title="共有">共有</button>
 <button class="refresh-mini" id="refreshPage" type="button" aria-label="最新表示に更新" title="更新">更新</button>
+</div>
+</div>
 </div>
 <section class="title-panel" id="homeScreenHelp" aria-labelledby="homeScreenToggle" hidden>
 <div class="home-help-body title-detail-body">
@@ -159,13 +169,7 @@ GitHub Terms and third-party rights are unaffected. Client checks are removable.
 </section>
 <section class="departments" id="departments" aria-live="polite"></section>
 </main>
-<footer class="app-footer" id="adminFooter" aria-label="管理ページ" hidden>
 
-
-
-
-<a id="adminPage" class="admin-link" href="https://pococha-challenge.freefreelife2000.chatgpt.site/admin" target="_blank" rel="noopener noreferrer" aria-label="管理ページを新しいタブで開く" title="新しいタブで開く" hidden>管理ページ</a>
-</footer>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script id="distribution-guard">
 // This client-side check is removable. It is a distribution notice, not DRM,
