@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-uNaRaIumIn5v9WjqQEXs1MZ5RqTzBS0B49cDGxzj2Hs=' 'sha256-W+f55c6DGD5HoO2ye29wu5b+LF4YpxfFsrsL0B0u71Q=' 'sha256-uDo7avcTWolE6C/nlnXGWnGefTt/ZWrFsRd5YY9zEKE=' 'sha256-iHKlYec+f7BlCVfmaeLnrBLYahbzu6OjOKjiTb9vmIE='; style-src 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://pococha-challenge.freefreelife2000.chatgpt.site; base-uri 'none'; object-src 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#111827">
+<meta name="pococha-sync-project" content="appgprj_6ac5d38d4a1c819198d391565430e75d">
+<title>ポコチャレ解答集</title>
+<!-- Distribution policy: Share only https://pococha2026.github.io/pococha-answers/ .
+Unauthorized modification (including AI-assisted modification), file redistribution,
+and rehosting are not permitted. Owner-authorized maintenance is permitted.
+GitHub Terms and third-party rights are unaffected. Client checks are removable. -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="ポコチャレ解答集">
+<meta property="og:url" content="https://pococha2026.github.io/pococha-answers/">
+<style>
+:root{--bg:#f2f4f8;--card:#fff;--ink:#151923;--muted:#667085;--line:#d7dce5;--orange:#f97316;--orange-soft:#fff3e9;--pink:#e83e8c;--pink-soft:#fff0f7;--blue:#3157d5;--green:#087a55;--danger:#b42318;--shadow:0 8px 24px rgba(15,23,42,.08)}
+@media(prefers-color-scheme:dark){:root{--bg:#0f1219;--card:#171b24;--ink:#f2f4f7;--muted:#aab1bf;--line:#343b49;--orange-soft:#3a2417;--pink-soft:#381d2b;--blue:#91a5ff;--green:#63d3ac;--danger:#ff8b82;--shadow:none}}
+*{box-sizing:border-box}html{font-size:16px;-webkit-text-size-adjust:100%}body{margin:0;min-height:100vh;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic UI","Yu Gothic",Meiryo,sans-serif;padding:max(12px,env(safe-area-inset-top)) max(8px,env(safe-area-inset-right)) max(28px,env(safe-area-inset-bottom)) max(8px,env(safe-area-inset-left))}button,input{font:inherit}button{cursor:pointer;-webkit-tap-highlight-color:transparent}main{width:min(100%,980px);margin:auto}header{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin:2px 2px 10px}h1{font-size:clamp(1.15rem,4vw,1.65rem);line-height:1.2;margin:0;font-weight:900;letter-spacing:.01em}.header-note{margin:4px 0 0;color:var(--muted);font-size:.74rem;line-height:1.45}.badge{flex:none;padding:5px 9px;border-radius:999px;background:#111827;color:#fff;font-size:.68rem;font-weight:800;white-space:nowrap}.header-actions{display:flex;align-items:center;gap:5px;flex:none}.refresh-mini,.share-mini{height:26px;display:grid;place-items:center;padding:0;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--muted);font-size:.72rem;font-weight:900;line-height:1;box-shadow:none}.refresh-mini{width:26px;font-size:.82rem}.share-mini{min-width:34px;padding:0 6px}.refresh-mini:active,.share-mini:active{transform:scale(.94);background:var(--bg)}.controls{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:9px;box-shadow:var(--shadow);margin-bottom:9px}.month-row{display:grid;grid-template-columns:42px minmax(0,1fr) 42px;gap:7px;align-items:center}.nav,.month-input,.quick{min-height:42px;border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);font-weight:800}.nav{font-size:1.25rem;padding:0}.month-input{width:100%;padding:0 8px;text-align:center}.quick-row{display:flex;gap:6px;margin-top:7px;overflow-x:auto;padding-bottom:1px;scrollbar-width:none}.quick-row::-webkit-scrollbar{display:none}.quick{min-height:34px;padding:0 11px;white-space:nowrap;font-size:.78rem}.quick[aria-current="true"]{background:#111827;color:#fff;border-color:#111827}.status{margin:7px 3px 0;color:var(--muted);font-size:.72rem;line-height:1.45}.status strong{color:var(--ink)}.departments{width:100%;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:7px;align-items:start}.department{min-width:0;background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}.department.open{border-top:4px solid var(--orange)}.department.family{border-top:4px solid var(--pink)}.department-head{padding:9px 7px 7px;text-align:center}.open .department-head{background:var(--orange-soft)}.family .department-head{background:var(--pink-soft)}.department h2{margin:0;font-size:clamp(.84rem,3.1vw,1.12rem);line-height:1.2;font-weight:900;white-space:nowrap}.period{display:grid;gap:2px;margin-top:6px;font-size:clamp(.58rem,2.25vw,.74rem);line-height:1.3;color:var(--muted);font-variant-numeric:tabular-nums}.period b{color:var(--ink)}.copy-btn{width:calc(100% - 12px);min-height:38px;margin:6px;border:0;border-radius:10px;color:#fff;font-size:clamp(.66rem,2.35vw,.82rem);font-weight:900;padding:5px 3px}.open .copy-btn{background:var(--orange)}.family .copy-btn{background:var(--pink)}.copy-btn:active{transform:scale(.98)}.copy-btn:disabled{cursor:not-allowed;opacity:.52;transform:none}.department.locked{border-top-color:#98a2b3}.department.locked .department-head{background:var(--bg)}.locked-note{margin:4px 5px 8px;padding:8px 6px;border:1px dashed var(--line);border-radius:8px;color:var(--muted);font-size:clamp(.58rem,2.3vw,.74rem);font-weight:750;line-height:1.45;text-align:left}.verify-chip{display:inline-block;margin-top:5px;padding:3px 6px;border-radius:999px;background:#fff4cc;color:#7a5700;font-size:.62rem;font-weight:900}.research-summary{grid-column:1/-1;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;box-shadow:var(--shadow)}.research-summary h2{margin:0 0 6px;font-size:1rem}.research-summary p{margin:0;color:var(--muted);font-size:.78rem;line-height:1.6}.missions{list-style:none;margin:0;padding:0 5px 7px;display:grid;gap:3px}.mission{min-width:0;min-height:30px;display:flex;align-items:center;justify-content:flex-start;text-align:left;padding:4px 3px;border:1px solid var(--line);border-radius:8px;background:color-mix(in srgb,var(--card) 92%,var(--bg));font-size:clamp(.68rem,3vw,.88rem);font-weight:780;line-height:1.2;letter-spacing:-.045em;overflow-wrap:anywhere;word-break:normal}.mission .num{font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:950;margin-right:0;color:#173f8a}.mission .f{color:var(--pink);font-weight:950}.mission .need{display:inline-flex;align-items:center;justify-content:center;flex:none;min-width:max-content;margin-right:.28em;padding:.12em .34em;border-radius:999px;background:#e8f0ff;color:#123b7a;font-weight:950;line-height:1.15;white-space:nowrap}.mission .answer{min-width:0;font-weight:850;color:var(--ink);line-height:1.2;overflow-wrap:anywhere}.open .mission .need{background:#fff0e6;color:#a8430a}.family .mission .need{background:#ffeaf4;color:#9b245f}.empty{grid-column:1/-1;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px;text-align:center;color:var(--muted)}.info{margin-top:9px;display:grid;gap:7px}details{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}summary{list-style:none;cursor:pointer;padding:12px 14px;font-weight:900;font-size:.88rem;display:flex;align-items:center;justify-content:space-between;gap:8px;-webkit-tap-highlight-color:transparent}summary::-webkit-details-marker{display:none}summary::after{content:"＋";font-size:1.05rem;color:var(--muted)}details[open] summary::after{content:"−"}.detail-body{border-top:1px solid var(--line);padding:11px 13px;font-size:.78rem;line-height:1.7;color:var(--muted)}.detail-body p{margin:0 0 8px}.detail-body p:last-child{margin-bottom:0}.checks{display:grid;gap:5px;margin:0 0 10px;padding:0;list-style:none}.checks li{background:var(--bg);border-radius:9px;padding:7px 8px;color:var(--ink)}.source-list{display:grid;gap:7px}.source{border-left:3px solid var(--blue);padding:5px 7px;background:var(--bg);border-radius:0 8px 8px 0}.source a{color:var(--blue);font-weight:850;text-decoration:none;overflow-wrap:anywhere}.source small{display:block;margin-top:2px;line-height:1.5}.caution{color:var(--danger);font-weight:750}.manual-copy{width:100%;min-height:150px;margin-top:8px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);padding:9px;font-size:.75rem;line-height:1.5;resize:vertical}footer{padding:15px 6px 0;text-align:center;color:var(--muted);font-size:.68rem;line-height:1.6}.toast{position:fixed;z-index:10;left:50%;bottom:calc(16px + env(safe-area-inset-bottom));transform:translate(-50%,16px);opacity:0;pointer-events:none;background:#111827;color:#fff;border-radius:999px;padding:9px 14px;font-size:.78rem;font-weight:850;transition:.2s;max-width:calc(100vw - 24px);text-align:center;box-shadow:0 8px 24px rgba(0,0,0,.25)}.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:699px){.departments{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;gap:5px}.department{min-width:0}.department h2{white-space:nowrap}.mission{min-width:0;text-align:left;justify-content:flex-start}}
+@media(prefers-color-scheme:dark){.mission .num{color:#7fa6ff}.open .mission .need{background:#402719;color:#ffb27e}.family .mission .need{background:#402132;color:#ff9dcb}.mission .answer{color:var(--ink)}}
+@media(max-width:390px){.mission{font-size:clamp(.67rem,3.05vw,.76rem);line-height:1.18;letter-spacing:-.05em;padding-left:2px;padding-right:2px}.mission .num{margin-right:0}.mission .need{padding:.1em .28em;margin-right:.22em}.mission .answer{line-height:1.16}}
+@media(max-width:360px){body{padding-left:5px;padding-right:5px}.departments{gap:5px}.department{border-radius:13px}.department-head{padding-left:4px;padding-right:4px}.missions{padding-left:3px;padding-right:3px}.mission{padding-left:3px;padding-right:3px;min-height:29px}.copy-btn{width:calc(100% - 8px);margin:4px}}
+@media(min-width:700px){body{padding-left:18px;padding-right:18px}.departments{gap:14px}.department-head{padding:14px}.missions{padding:0 10px 12px;gap:5px}.mission{font-size:.88rem;min-height:35px;padding:6px 8px}.copy-btn{min-height:44px}.period{font-size:.82rem}}
+@media print{.controls,.copy-btn,.info,footer,.toast{display:none!important}.department{box-shadow:none}.departments{gap:10px}}
+
+.notice{margin:0 0 9px;padding:8px 10px;border:1px solid var(--line);border-radius:12px;background:#bfdbfe;color:var(--ink);font-size:.75rem;line-height:1.5;text-align:left;overflow-wrap:anywhere}.notice ul{margin:0;padding-left:1.25em}.notice li+li{margin-top:3px}
+@media(prefers-color-scheme:dark){.notice{background:#1e40af}}
+.copy-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;line-height:1.2}.copy-btn>span{display:block;white-space:nowrap}
+.mission .answer-copy{font:inherit;font-weight:850;letter-spacing:inherit;min-height:24px;flex:1;padding:2px 0;border:0;background:transparent;text-align:left;text-decoration:underline dotted;text-underline-offset:3px;color:var(--ink);cursor:pointer;-webkit-appearance:none;appearance:none}.answer-copy:hover{color:var(--blue)}.answer-copy:active{background:var(--bg);border-radius:3px}.answer-copy:focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:3px}
+
+/* Compact header actions and expandable help/disclosures. */
+.app-header{display:flex;flex-direction:column;align-items:stretch;gap:5px;margin:2px 0 8px;padding:6px;border-radius:12px;background:linear-gradient(115deg,#b94b05 0%,#bd2266 100%);color:#fff;box-shadow:0 3px 12px rgba(189,34,102,.16);font-size:.7rem}
+.app-header h1{margin:0;text-align:left;font-size:clamp(1rem,3.5vw,1.35rem);line-height:1.25;font-weight:900;letter-spacing:.01em;color:#fff;text-shadow:0 1px 2px rgba(75,17,34,.16);overflow-wrap:anywhere}
+.title-tools{display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-start;gap:4px;min-width:0;max-width:100%;overflow-x:auto;padding:3px 3px 6px;margin:-3px;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.7) transparent}
+.title-tools::-webkit-scrollbar{height:4px}
+.title-tools::-webkit-scrollbar-thumb{border-radius:4px;background:rgba(255,255,255,.7)}
+.app-header .toolbar-button,.app-header .refresh-mini,.app-header .share-mini{display:inline-flex;align-items:center;justify-content:center;flex:none;width:auto;min-width:34px;min-height:30px;height:auto;padding:4px;gap:4px;border:1px solid #fff;border-radius:7px;background:#fff;color:#872044;font-size:.7rem;line-height:1.25;font-weight:750;white-space:nowrap;box-shadow:none}
+.app-header .toolbar-button[aria-expanded="true"],.app-header button:hover{background:#fbe7ef}
+.app-header .share-mini{margin-left:auto}
+.app-header button:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.title-panel{min-width:0;max-width:100%}
+.title-panel[hidden]{display:none}
+.title-detail-body{padding:9px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);font-size:.75rem;line-height:1.6;overflow-wrap:anywhere}
+.title-detail-body p{margin:0 0 6px}
+.title-detail-body p:last-child{margin-bottom:0}
+.home-help-body{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.home-help-body section{min-width:0}
+.home-help-body>.panel-actions,.home-help-body>.home-browser-tools{grid-column:1/-1;margin-top:0}
+.browser-links{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:0 0 6px}
+.home-help-body .browser-launch{display:inline-flex;align-items:center;min-height:34px;padding:6px 8px;border:1px solid var(--line);border-radius:7px;background:var(--bg);color:var(--blue);font:inherit;font-weight:750;line-height:1.4;text-decoration:none;white-space:normal;text-align:left}
+.home-help-body .browser-launch:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.home-url-fallback{display:block;width:100%;min-height:62px;margin:6px 0;padding:6px;border:1px solid var(--line);border-radius:7px;background:var(--bg);color:var(--ink);font:inherit;overflow-wrap:anywhere}
+#homeCopyStatus:empty{display:none}
+.home-help-body h2{margin:0 0 5px;font-size:.8rem;font-weight:850}
+.home-help-body ol{margin:0 0 6px;padding-left:1.4em}
+.home-help-body li+li{margin-top:3px}
+.home-help-body a{display:inline-block;padding:4px 0;color:var(--blue);font-weight:700;text-underline-offset:3px}
+.contact-link{display:inline-flex;align-items:center;min-height:32px;padding:5px 8px;border:1px solid var(--line);border-radius:7px;background:var(--bg);color:var(--blue);font-size:.75rem;font-weight:750;text-underline-offset:3px}
+.contact-link:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.panel-actions{display:flex;justify-content:flex-end;margin-top:8px}
+.app-header .panel-close,.app-footer .panel-close{min-height:32px;padding:5px 10px;border:1px solid var(--line);border-radius:7px;background:var(--bg);color:var(--blue);font-size:.75rem;font-weight:750}
+.app-header .panel-close:hover,.app-footer .panel-close:hover{background:var(--card)}
+.app-header .panel-close:focus-visible,.app-footer .panel-close:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.creator-logo{display:inline-flex;align-items:center;min-width:0;max-width:100%;padding:4px 6px;border:1px solid var(--line);border-radius:7px;background:#fff;line-height:1}
+.creator-logo .ylogo-svg{display:block;width:122px;height:22px;max-width:100%}
+.disclaimer-logo{display:flex;justify-content:flex-start;margin-top:8px}
+.app-footer{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:4px;width:min(100%,980px);margin:10px auto 0;padding:6px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--muted);font-size:.75rem;line-height:1.5;text-align:left}
+.app-footer>.toolbar-button{display:inline-flex;align-items:center;justify-content:center;justify-self:start;min-width:0;max-width:100%;min-height:30px;padding:4px;border:1px solid var(--line);border-radius:7px;background:var(--bg);color:var(--ink);font-size:.7rem;line-height:1.25;font-weight:750;overflow-wrap:anywhere}
+.app-footer>.toolbar-button[aria-expanded="true"],.app-footer>.toolbar-button:hover{background:var(--card);border-color:var(--blue)}
+.app-footer>.toolbar-button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.app-footer>.title-panel{grid-column:1/-1}
+.app-footer>.admin-link{grid-column:1/-1;justify-self:end;display:inline-flex;align-items:center;min-height:36px;padding:4px 6px;color:var(--blue);font-size:.875rem;text-underline-offset:3px}
+.app-footer>.admin-link[hidden]{display:none}
+@media(max-width:599px){.home-help-body{grid-template-columns:minmax(0,1fr);gap:10px}}
+@media print{.app-header{background:none;color:#111;box-shadow:none;border:1px solid #888}.app-header h1{color:#111;text-shadow:none}.title-tools,.title-panel{display:none!important}}
+.distribution-warning{margin:0 0 10px;padding:12px;border:2px solid var(--danger);border-radius:12px;background:var(--card);font-size:.875rem;line-height:1.6;overflow-wrap:anywhere}
+.distribution-warning h2{margin:0 0 6px;font-size:1rem;color:var(--danger)}.distribution-warning p{margin:0 0 8px}.distribution-warning a{color:var(--blue);font-weight:800}.usage-terms a{color:var(--blue);overflow-wrap:anywhere}
+[hidden]{display:none!important}
+
+/* Official Instagram for the independent tool creator. */
+.official-tools-account{margin:12px 0 8px;font-size:.875rem;line-height:1.7;text-align:left;overflow-wrap:anywhere}
+.official-tools-account a{display:inline-flex;flex-direction:column;justify-content:center;min-height:44px;max-width:100%;color:inherit;text-decoration:underline;text-underline-offset:3px}
+</style>
+</head>
+<body>
+<main>
+<header class="app-header">
+<h1>ポコチャレ解答集</h1>
+<div class="title-tools" role="group" aria-label="タイトル欄の操作">
+<button class="toolbar-button" id="homeScreenToggle" type="button" aria-expanded="false" aria-controls="homeScreenHelp">ホーム画面へ追加</button>
+<button class="toolbar-button" id="disclaimerToggle" type="button" aria-expanded="false" aria-controls="footerDisclaimer">免責事項</button>
+<button class="toolbar-button" id="contactToggle" type="button" aria-expanded="false" aria-controls="footerContact">お問い合わせ</button>
+<button class="share-mini" id="sharePage" type="button" aria-label="このページを共有" title="共有">共有</button>
+<button class="refresh-mini" id="refreshPage" type="button" aria-label="最新表示に更新" title="更新">更新</button>
+</div>
+<section class="title-panel" id="homeScreenHelp" aria-labelledby="homeScreenToggle" hidden>
+<div class="home-help-body title-detail-body">
+<div class="home-browser-tools">
+<p>下のリンクで開けない場合は、URLをコピーして使いたいブラウザーに貼り付けてください。</p>
+<div class="browser-links"><button class="browser-launch" id="copyHomeUrl" type="button">ツールのURLをコピー</button><a class="browser-launch" href="https://pococha2026.github.io/pococha-answers/" target="_blank" rel="noopener noreferrer">このツールを開く</a></div>
+<textarea id="homeUrlFallback" class="home-url-fallback" readonly aria-label="ブラウザーに貼り付けるツールのURL" hidden>https://pococha2026.github.io/pococha-answers/</textarea>
+<p id="homeCopyStatus" role="status" aria-live="polite"></p>
+</div>
+<section aria-labelledby="iphoneHelpTitle">
+<h2 id="iphoneHelpTitle">iPhone（Safari）</h2>
+<div class="browser-links"><a class="browser-launch" href="https://apps.apple.com/jp/app/safari/id1146562112" target="_blank" rel="noopener noreferrer">Safari公式アプリ（App Store）</a></div>
+<ol>
+<li>「ツールのURLをコピー」をタップし、Safariを開いてアドレス欄に貼り付けます。Safariが見つからない場合は上の公式アプリリンクをご利用ください。</li>
+<li>ページメニューから「共有」を選びます。共有ボタンが表示されている場合は、そのボタンをタップします。</li>
+<li>共有メニューを下にスクロールし、「ホーム画面に追加」を選びます。見つからない場合は、最下部の「アクションを編集」から追加します。</li>
+<li>「ウェブアプリとして開く」が表示されたらオンにし、「追加」をタップします。</li>
+</ol>
+<a href="https://support.apple.com/ja-jp/guide/iphone/iphea86e5236/ios" target="_blank" rel="noopener noreferrer">Apple公式の説明</a>
+</section>
+<section aria-labelledby="iphoneChromeHelpTitle">
+<h2 id="iphoneChromeHelpTitle">iPhone（Chrome）</h2>
+<div class="browser-links"><a class="browser-launch" href="googlechromes://pococha2026.github.io/pococha-answers/">Chromeでこのツールを開く</a><a href="https://apps.apple.com/jp/app/google-chrome/id535886823" target="_blank" rel="noopener noreferrer">Chromeを入れる（App Store）</a></div>
+<ol>
+<li>上の「Chromeでこのツールを開く」をタップします。Chromeが入っていない場合は、公式アプリリンクから入れてください。</li>
+<li>アドレスバー右側の共有アイコンをタップします。</li>
+<li>共有メニューを下にスクロールし、「ホーム画面に追加」をタップします。</li>
+<li>表示される名前を確認し、「追加」をタップします。</li>
+</ol>
+<a href="https://support.google.com/chrome/answer/15085120?co=GENIE.Platform%3DiOS&amp;hl=ja" target="_blank" rel="noopener noreferrer">Google公式の説明</a>
+</section>
+<section aria-labelledby="androidHelpTitle">
+<h2 id="androidHelpTitle">Android（Chrome）</h2>
+<div class="browser-links"><a class="browser-launch" href="intent://pococha2026.github.io/pococha-answers/#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url=https%3A%2F%2Fpococha2026.github.io%2Fpococha-answers%2F;end">Chromeでこのツールを開く</a><a href="https://play.google.com/store/apps/details?id=com.android.chrome&amp;hl=ja" target="_blank" rel="noopener noreferrer">Chromeを入れる（Google Play）</a></div>
+<ol>
+<li>上の「Chromeでこのツールを開く」をタップします。切り替わらない場合は、URLをコピーしてChromeに貼り付けてください。</li>
+<li>アドレスバー右側の「⋮」をタップします。</li>
+<li>「インストールしてショートカットを作成」から「ショートカットを作成」を選びます。</li>
+<li>表示される名前を確認し、「追加」をタップします。</li>
+</ol>
+<a href="https://support.google.com/chrome/answer/15085120?co=GENIE.Platform%3DAndroid&amp;hl=ja" target="_blank" rel="noopener noreferrer">Google公式の説明</a>
+</section>
+<div class="panel-actions"><button class="panel-close" id="closeHomeScreenHelp" type="button" data-close-panel aria-label="ホーム画面へ追加の説明を閉じる">閉じる</button></div>
+</div>
+</section>
+<section class="title-panel" id="footerDisclaimer" aria-labelledby="disclaimerToggle" hidden>
+<div class="title-detail-body"><p>非公式の参考情報です。正確性は保証しません。ご利用に伴う損害等の責任は負いかねます。公式アプリの表示を優先してください。</p><p class="usage-terms">このツールの共有は<a href="https://pococha2026.github.io/pococha-answers/" target="_blank" rel="noopener noreferrer">GitHub版URL</a>のみ許可します。所有者の許可のない改変・改造（AI使用を含む）、ファイルの再配布、別サイトへの再公開は許可していません。解答のコピー機能は利用できます。GitHubの規約上認められる閲覧・forkや第三者の権利を制限するものではありません。</p><div class="panel-actions"><button class="panel-close" id="closeDisclaimer" type="button" data-close-panel aria-label="免責事項を閉じる">閉じる</button></div><p class="official-tools-account"><a id="officialToolsInstagram" href="https://www.instagram.com/pococha1012/" target="_blank" rel="noopener noreferrer" aria-label="Pococha1012 ツール公式Instagram @pococha1012 を新しいタブで開く">Pococha1012 ツール公式Instagram<br>@pococha1012</a></p>
+<div class="disclaimer-logo"><span class="creator-logo"><svg class="ylogo-svg" viewBox="0 0 267 48" role="img" aria-label="Pococha1012"><title>Pococha1012</title><defs><linearGradient id="ylgMeter" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#22d3ee"/><stop offset=".5" stop-color="#6366f1"/><stop offset="1" stop-color="#ec4899"/></linearGradient></defs><circle cx="24" cy="24" r="23" fill="#141827"/><circle cx="24" cy="24" r="20.5" fill="none" stroke="url(#ylgMeter)" stroke-width="4"/><g fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="6"><path d="M18 36V13h9a8 8 0 0 1 0 16h-9"/></g><text id="yoshiLogoName" x="57.694" y="37.5" textLength="109.554" lengthAdjust="spacingAndGlyphs" font-family="Arial, sans-serif" font-size="34" font-weight="800" style="fill:var(--ylt,#1b1f2e)">Pococha</text><path d="M179.98999999999995 37.5H195.96999999999997V32.604H191.41399999999996V12.169999999999998H186.95999999999998C185.19199999999998 13.291999999999998 183.42399999999998 13.971999999999998 180.70399999999998 14.482V18.221999999999998H185.36199999999997V32.604H179.98999999999995ZM209.61399999999998 37.976C214.95199999999997 37.976 218.55599999999998 33.42 218.55599999999998 24.716C218.55599999999998 16.046 214.95199999999997 11.727999999999998 209.61399999999998 11.727999999999998C204.27599999999998 11.727999999999998 200.63799999999998 16.011999999999997 200.63799999999998 24.716C200.63799999999998 33.42 204.27599999999998 37.976 209.61399999999998 37.976ZM209.61399999999998 33.284C207.81199999999998 33.284 206.34999999999997 31.652 206.34999999999997 24.716C206.34999999999997 17.814 207.81199999999998 16.351999999999997 209.61399999999998 16.351999999999997C211.41599999999997 16.351999999999997 212.84399999999997 17.814 212.84399999999997 24.716C212.84399999999997 31.652 211.41599999999997 33.284 209.61399999999998 33.284ZM223.80199999999996 37.5H239.78199999999998V32.604H235.22599999999997V12.169999999999998H230.772C229.004 13.291999999999998 227.236 13.971999999999998 224.516 14.482V18.221999999999998H229.17399999999998V32.604H223.80199999999996ZM244.48399999999998 37.5H262.02799999999996V32.4H257.404C256.248 32.4 254.51399999999998 32.57 253.25599999999997 32.74C257.132 28.83 260.87199999999996 24.036 260.87199999999996 19.683999999999997C260.87199999999996 14.855999999999998 257.472 11.727999999999998 252.576 11.727999999999998C248.97199999999998 11.727999999999998 246.66 12.985999999999997 244.178 15.637999999999998L247.47599999999997 18.901999999999997C248.7 17.61 250.02599999999998 16.453999999999997 251.76 16.453999999999997C253.79999999999998 16.453999999999997 255.058 17.712 255.058 20.023999999999997C255.058 23.695999999999998 250.808 28.286 244.48399999999998 34.032Z" style="fill:var(--yln,#4338ca)"/></svg></span></div></div>
+</section>
+<section class="title-panel" id="footerContact" aria-labelledby="contactToggle" hidden>
+<div class="title-detail-body"><p>このツール専用のスペースからメッセージを送信できます。</p><a class="contact-link" id="contactSpace" href="https://pococha-challenge.freefreelife2000.chatgpt.site/contact" target="_blank" rel="noopener noreferrer">専用お問い合わせを開く</a><div class="panel-actions"><button class="panel-close" id="closeContact" type="button" data-close-panel aria-label="お問い合わせを閉じる">閉じる</button></div></div>
+</section>
+</header>
+<section class="distribution-warning" id="distributionWarning" role="alert" hidden>
+<h2>正規公開先をご利用ください</h2>
+<p>このURLは正規公開先ではありません。所有者の許可のない改変・改造（AI使用を含む）や、ファイルの再配布・別サイトへの再公開は許可していません。</p>
+<a href="https://pococha2026.github.io/pococha-answers/" rel="noopener noreferrer">GitHub版を開く</a>
+</section>
+<section class="controls" aria-label="年月選択"><div class="month-row"><button class="nav" id="prev" type="button" aria-label="前月">‹</button><input class="month-input" id="month" type="month" min="2026-01" max="2026-10" value="2026-10" aria-label="表示する年月"><button class="nav" id="next" type="button" aria-label="翌月">›</button></div><div class="quick-row" id="quick"></div></section>
+<section class="notice" aria-label="操作とお問い合わせの案内">
+<ul><li>解答を直接クリックで個別コピー可</li><li>不具合等は上部のお問い合わせからご連絡下さい。<br>（スクショ添付可）</li></ul>
+</section>
+<section class="departments" id="departments" aria-live="polite"></section>
+</main>
+<footer class="app-footer" id="adminFooter" aria-label="管理ページ" hidden>
+
+
+
+
+<a id="adminPage" class="admin-link" href="https://pococha-challenge.freefreelife2000.chatgpt.site/admin" target="_blank" rel="noopener noreferrer" aria-label="管理ページを新しいタブで開く" title="新しいタブで開く" hidden>管理ページ</a>
+</footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script id="distribution-guard">
+// This client-side check is removable. It is a distribution notice, not DRM,
+// proof of AI use, or a report about the person opening the page.
+(() => {
+  const github = location.origin === 'https://pococha2026.github.io' && /^\/pococha-(?:answers|challenge)\/(?:index\.html)?$/.test(location.pathname);
+  const sites = location.origin === 'https://pococha-challenge.freefreelife2000.chatgpt.site' && /^\/(?:index\.html)?$/.test(location.pathname);
+  // Keep local development usable. A local preview is not an official release.
+  const preview = location.protocol === 'http:' && ['localhost', '127.0.0.1', '[::1]'].includes(location.hostname);
+  const permitted = github || sites || preview;
+  Object.defineProperty(globalThis, 'pocochaOfficialContext', { value: permitted, writable: false, configurable: false });
+  if (permitted) return;
+  document.getElementById('distributionWarning').hidden = false;
+  document.querySelector('.controls').hidden = true;
+  document.getElementById('departments').hidden = true;
+  for (const id of ['sharePage', 'refreshPage', 'homeScreenToggle']) document.getElementById(id).disabled = true;
+  // Do not send unauthenticated clone reports, URLs, or personal data.
+})();
+</script>
+<script id="title-panel-controls">
+(() => {
+  for (const [toggleId, panelId] of [['homeScreenToggle', 'homeScreenHelp'], ['disclaimerToggle', 'footerDisclaimer'], ['contactToggle', 'footerContact']]) {
+    const toggle = document.getElementById(toggleId);
+    const panel = document.getElementById(panelId);
+    const setOpen = open => {
+      panel.hidden = !open;
+      toggle.setAttribute('aria-expanded', String(open));
+    };
+    toggle.addEventListener('click', () => setOpen(panel.hidden));
+    panel.querySelector('[data-close-panel]')?.addEventListener('click', () => {
+      setOpen(false);
+      toggle.focus();
+    });
+  }
+  const homeUrl = 'https://pococha2026.github.io/pococha-answers/';
+  document.getElementById('copyHomeUrl').addEventListener('click', async () => {
+    const field = document.getElementById('homeUrlFallback');
+    const status = document.getElementById('homeCopyStatus');
+    try {
+      if (!navigator.clipboard) throw new Error('Clipboard unavailable');
+      await navigator.clipboard.writeText(homeUrl);
+      field.hidden = true;
+      status.textContent = 'URLをコピーしました。Safari・Chromeのアドレス欄に貼り付けてください。';
+    } catch {
+      field.hidden = false;
+      field.value = homeUrl;
+      field.focus();
+      field.select();
+      status.textContent = '表示されたURLを長押ししてコピーし、ブラウザーのアドレス欄に貼り付けてください。';
+    }
+  });
+})();
+</script>
+<script id="answers-app">
+(() => {
+'use strict';
+if (!globalThis.pocochaOfficialContext) return;
+document.getElementById('adminPage').hidden=location.origin!=='https://pococha-challenge.freefreelife2000.chatgpt.site';
+document.getElementById('adminFooter').hidden=document.getElementById('adminPage').hidden;
+if(location.origin==='https://pococha2026.github.io'){document.getElementById('contactSpace').href+='?from=github';}
+const FAQ='https://pococha-jp.pococha.com/hc/ja/articles/31868519743385-%E3%81%BD%E3%81%93%E3%83%81%E3%83%A3%E3%83%AC';
+const HAISHIN_MAP='https://haishin-lab.com/sitemap/';
+function missions(words,family=false){const out=[];out.push({need:family?'Ｆ5人':'15人',label:words[0],f:family});out.push({need:'10人',label:'コメント'});out.push({need:'10個',label:'BOX開封'});out.push({need:'1万',label:'いいね長押し'});out.push({need:family?'Ｆ5人':'15人',label:words[1],f:family});out.push({need:'2人',label:'初見コメント'});out.push({need:'2万',label:'いいね長押し'});out.push({need:'15人',label:'コメント'});out.push({need:'15個',label:'BOX開封'});out.push({need:'20人',label:'いいねワンぽち'});out.push({need:'3人',label:'初見コメント'});out.push({need:family?'Ｆ5人':'15人',label:words[2],f:family});out.push({need:'3万',label:'いいね長押し'});return out;}
+
+const DATA={
+'2026-04':{
+ title:'2026年4月',start:'未確認',end:'未確認',
+ verified:{open:true,family:false},
+ confidence:{open:'1サイト確認',family:'未確認'},
+ labels:{open:'🟠オープン',family:'🩷ファミリー'},
+ open:missions(['復活祭','エイプリルフール','入学式']),
+ family:null,
+ lockReason:{family:'ファミリー部門の全13問を確認できる公開サイトが見つかっていないため非表示。'},
+ evidence:[
+  'オープン部門はGTオレンジの記事で全13問を確認できたため、1サイト確認ルールで収録。',
+  '解答：［01］復活祭／［05］エイプリルフール／［12］入学式。',
+  '開始・終了日時は今回確認できる資料では確定できないため「未確認」と表示。',
+  'ファミリー部門は全13問一覧を確認できる公開サイトが未確認。'
+ ],
+ sources:[
+  ['全13問・オープン','GTオレンジ「4月ポコチャレ解答」','https://note.com/gt_orange/n/nb6b568e5d5c0','オープン13問と必要数を確認。'],
+  ['公式確認先','Pococha公式FAQ「ぽこチャレ」',FAQ,'公式の確認方法。過去4月の全問一覧ではありません。']
+ ]
+},
+'2026-05':{
+ title:'2026年5月',start:'未確認',end:'未確認',
+ verified:{open:true,family:false},
+ confidence:{open:'1サイト確認',family:'未確認'},
+ labels:{open:'🟠オープン',family:'🩷ファミリー'},
+ open:missions(['メーデー','憲法記念日','みどりの日']),
+ family:null,
+ lockReason:{family:'ファミリー部門の全13問を確認できる公開サイトが見つかっていないため非表示。'},
+ evidence:[
+  'オープン部門はGTオレンジの記事で全13問を確認できたため、1サイト確認ルールで収録。',
+  '解答：［01］メーデー／［05］憲法記念日／［12］みどりの日。',
+  'Pococha公開タグ・SNS公開ミラーでも「憲法記念日」を部分照合。',
+  '開始・終了日時は今回確認できる資料では確定できないため「未確認」と表示。'
+ ],
+ sources:[
+  ['全13問・オープン','GTオレンジ「5月ポコチャレ解答」','https://note.com/gt_orange/n/n87cbeba75728','オープン13問と必要数を確認。'],
+  ['部分照合・Pococha公開タグ','Pococha公開ライブタグ','https://www.pococha.com/en-us/app/users/b377ed81-03a4-4524-b2bf-6b4a931687f8/live-tags','MISSION5「憲法記念日」を部分照合。'],
+  ['公式確認先','Pococha公式FAQ「ぽこチャレ」',FAQ,'公式の確認方法。']
+ ]
+},
+'2026-06':{
+ title:'2026年6月',start:'6/11(木)15:00',end:'6/24(水)23:59',
+ verified:{open:true,family:false},
+ confidence:{open:'1サイト全問＋日程別確認',family:'対象なし'},
+ labels:{open:'⚾甲子園',family:'ファミリーなし'},
+ open:[
+  {need:'10人',label:'いいねワンぽち'},{need:'10人',label:'Pococha甲子園'},{need:'10回',label:'BOX開封'},
+  {need:'10人',label:'福岡'},{need:'3人',label:'初見コメント'},{need:'1000',label:'いいね長押し'},
+  {need:'10人',label:'始球式'},{need:'3人',label:'1K以上いいね'},{need:'10人',label:'フェリ'},
+  {need:'10人',label:'BOX開封'},{need:'5人',label:'1K以上コメント'},{need:'10人',label:'コメント'},
+  {need:'9999',label:'いいね長押し'}
+ ],
+ family:null,
+ lockReason:{family:'2026年6月は通常のオープン／withファミリーではなく「甲子園ぽこチャレ」として確認。'},
+ evidence:[
+  'GTオレンジの記事で甲子園ぽこチャレ全13問を確認できたため収録。',
+  '開催日時は同記事に6/11(木)15:00〜6/24(水)23:59と掲載。',
+  'HAISHIN Labでも甲子園ぽこチャレの開催期間6/11〜6/24を確認。',
+  '通常月と問題構成が異なるため、6月専用の13問をそのまま収録。'
+ ],
+ sources:[
+  ['全13問・甲子園','GTオレンジ「6月ポコチャレ甲子園の答え」','https://note.com/gt_orange/n/nddc6a992e59e','甲子園ぽこチャレ13問と開始・終了日時を確認。'],
+  ['開催期間','HAISHIN Lab「Pococha甲子園2026」','https://haishin-lab.com/news/2281/','甲子園ぽこチャレ6/11〜6/24を確認。'],
+  ['公式確認先','Pococha公式FAQ「ぽこチャレ」',FAQ,'通常ぽこチャレの確認方法。']
+ ]
+},
+'2026-08':{
+ title:'2026年8月',start:'8/7(金)（時刻未確認）',end:'未確認',
+ verified:{open:true,family:true},
+ open:missions(['山の日','お盆休み','かき氷']),
+ family:missions(['水の日','野球','野菜'],true),
+ lockReason:{},
+ evidence:[
+  'ファミリー部門は、GTオレンジと「つばさ」の別記事で13問すべてを照合し一致。',
+  'Ｆ対象は［01］水の日・［05］野球・［12］野菜。',
+  'オープン部門もGTオレンジの記事で全13問を確認できたため、1サイト確認ルールで収録。',
+  'オープン［01］山の日は、別記事・公開SNSでも実施例を確認済み。ただし［05］お盆休み・［12］かき氷まで全問照合できていません。',
+  '開催開始日は別記事で8/7を確認。開始時刻・終了日時は今回の確認では確定できないため推測していません。'
+ ],
+ sources:[
+  ['全問解答','GTオレンジ「8月ぽこチャレ解答」','https://note.com/gt_orange/n/n7539a4117976','オープン・ファミリー13問を掲載。'],
+  ['独立照合・ファミリー','つばさ「20時30分オープン予定」','https://note.com/large_drake8778/n/n83c298d890a0','ファミリー13問とＦ対象を独立照合。GTオレンジと一致。'],
+  ['部分照合・オープン','こはく「流れ星になる女」','https://note.com/kohaku_8888/n/nc4ab94fac533','8/7開始とオープン［01］山の日を確認。'],
+  ['部分照合・X公開投稿','Yahoo!リアルタイム検索「ポコチャ ありがとう」','https://search.yahoo.co.jp/realtime/search?ei=UTF-8&ifr=tl_unit&p=%E3%83%9D%E3%82%B3%E3%83%81%E3%83%A3+%E3%81%82%E3%82%8A%E3%81%8C%E3%81%A8%E3%81%86&rkf=1','アキラくん等、複数のX公開投稿で「山の日コメント」と進捗人数を確認。MISSION1の独立した部分照合。'],
+  ['イベント存在','HAISHIN Lab サイトマップ',HAISHIN_MAP,'「ぽこチャレ8月」「with ファミリー8月」の掲載を確認。'],
+  ['公式確認先','Pococha公式FAQ「ぽこチャレ」',FAQ,'ミッションの公式確認場所を案内。過去8月の本文そのものではありません。']
+ ]
+},
+'2026-09':{
+ title:'2026年9月',start:'9/7(月)15:00',end:'9/13(日)23:59',
+ verified:{open:true,family:true},
+ open:missions(['防災の日','カンパン','さつまいも']),
+ family:missions(['金木犀','敬老の日','シルバーウィーク'],true),
+ lockReason:{},
+ evidence:[
+  'オープン・ファミリーの解答と必要数を複数の公開資料で照合。',
+  'ファミリー限定表示：［01］［05］［12］の必要数左側に「Ｆ」を付与。',
+  '［10］は総いいね数ではなく、20人が各1回以上いいねする「いいねワンぽち」として区別。',
+  '同文・転載性が高い記事は独立資料として過大評価せず、補助情報として扱います。'
+ ],
+ sources:[
+  ['解答・必要数','GTオレンジ「9月ポコチャレ回答」','https://note.com/gt_orange/n/n6decf5e63197','オープン・ファミリーの解答と必要数を確認。'],
+  ['Ｆ条件・別資料','さいとう園長「9月ぽこチャレ」','https://note.com/sauron_drum/n/n0fdf20bc4710','ファミリー限定対象を別資料で照合。'],
+  ['補助照合','夜遊び紳士「9月ぽこチャレ」','https://note.com/gt_pink/n/ne56ae74b68d5','同文傾向があるため補助資料扱い。'],
+  ['部分照合・X公開投稿','Yahoo!リアルタイム検索 Pocochaテーマ','https://search.yahoo.co.jp/realtime/search/theme/0759cedd2473359c8123?btid=MjA0NDAyNjYyMDI4NjI2MzUwMg%3D%3D','X公開投稿に「ぽこチャレ中！さつまいもよろしく」を確認。MISSION12の独立部分照合。'],
+  ['開催日時','HAISHIN Lab・オープン部門','https://haishin-lab.com/pocochaevent/1001223080/','開始・終了日時を確認。'],
+  ['開催日時','HAISHIN Lab・ファミリー部門','https://haishin-lab.com/pocochaevent/1001223090/','開始・終了日時を確認。'],
+  ['公式確認先','Pococha公式FAQ「ぽこチャレ」',FAQ,'公式の確認方法。']
+ ]
+},
+'2026-10':{
+ title:'2026年10月',start:'10/7(水)15:00',end:'10/13(火)23:59',
+ verified:{open:true,family:true},
+ open:missions(['衣替え','スポーツ','ハロウィン']),
+ family:missions(['神無月','寒露','鉄道'],true),
+ lockReason:{},
+ evidence:[
+  '姫桜愛華の記事の問題文とGTオレンジの解答一覧を照合。',
+  '衣替え：末尾の「え」まで入力。スポーツ：「の日」は付けない。ハロウィン：「ィ」は小文字。',
+  '神無月：末尾の「月」まで入力。寒露：漢字2文字。鉄道：「の日」は付けない。',
+  'ファミリー限定表示：［01］［05］［12］の必要数左側に「Ｆ」を付与。',
+  '［10］は「20人 いいねワンぽち」を採用。記事内画像の「20人回」は本文・問題文との表記差として扱います。'
+ ],
+ sources:[
+  ['問題文・解答・Ｆ条件','姫桜愛華「ぽこチャレ／2026年10月情報」','https://note.com/himezakuraaika/n/nf9ea1209ef68','問題文、入力文字、必要数、Ｆ対象を照合。'],
+  ['解答・必要数','GTオレンジ・オープン部門','https://note.com/gt_orange/n/neaea6fcbd8a7','オープン13問を別資料で照合。'],
+  ['解答・必要数','GTオレンジ・ファミリー部門','https://note.com/gt_orange/n/n48b86af7bd77','ファミリー部門の補助資料。'],
+  ['開催日時','HAISHIN Lab 2026年10月イベント一覧','https://haishin-lab.com/pocochaevent/2026/10/','両部門が10/7〜10/13開催と掲載。'],
+  ['公式確認先','Pococha公式FAQ「ぽこチャレ」',FAQ,'公式の確認方法。']
+ ]
+}
+};
+
+const RESEARCH={
+'2026-01':{title:'2026年1月',note:'全13問を確認できる信頼できる公開資料を複数確認できていません。解答は表示しません。',sources:[['公式確認先','Pococha公式FAQ「ぽこチャレ」',FAQ,'過去1月の解答一覧ではありません。']]},
+'2026-02':{title:'2026年2月',note:'ぽこチャレ実施の記録は確認できましたが、2026年2月の全13問を複数資料で照合できません。',sources:[['参加記録','connita の公開note','https://note.com/connita/n/nb7bdbd01723c','2月のwithファミリー参加記録。全問解答ではありません。'],['公式確認先','Pococha公式FAQ「ぽこチャレ」',FAQ,'過去2月の解答一覧ではありません。']]},
+'2026-03':{title:'2026年3月',note:'実施・参加記録は確認できましたが、全13問の解答を複数資料で照合できません。',sources:[['参加記録','yama の公開note','https://note.com/yama_pococha/n/nac9054b6f3f3','3月のぽこチャレ参加記録。全問解答ではありません。'],['公式確認先','Pococha公式FAQ「ぽこチャレ」',FAQ,'過去3月の解答一覧ではありません。']]},
+'2026-07':{title:'2026年7月',note:'通常ぽこチャレ／withファミリーのイベント存在は確認できましたが、全13問の解答資料を複数確認できていません。',sources:[['イベント存在','HAISHIN Lab サイトマップ',HAISHIN_MAP,'「ぽこチャレ7月」「with ファミリー7月」の掲載を確認。'],['追加検索結果','note・Ameblo・一般ブログ・X公開投稿を横断','https://search.yahoo.co.jp/realtime','「ぽこチャレ7月／withファミリー7月／解答／答え」で追加検索しましたが、2026年7月の全13問一覧は確認できませんでした。'],['公式確認先','Pococha公式FAQ「ぽこチャレ」',FAQ,'過去7月の解答一覧ではありません。']]}
+};
+
+const keys=Array.from({length:10},(_,i)=>'2026-'+String(i+1).padStart(2,'0'));
+const $=id=>document.getElementById(id);let current='2026-10';
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function line(m,i){const n=String(i+1).padStart(2,'0');return `［${n}］${m.need} ${m.label}`;}
+function copyText(kind,index=null){const d=DATA[current];if(!d||!d.verified?.[kind]||!Array.isArray(d[kind]))return null;if(index!==null)return Number.isInteger(index)&&index>=0&&index<d[kind].length?d[kind][index].label:null;const name=d.labels?.[kind]||(kind==='open'?'🟠オープン部門':'🩷ファミリー部門'),rows=d[kind].map(line).join('\n');return `【${d.title} ぽこチャレ】\n${name}\n\n開始：${d.start}\n終了：${d.end}\n\n${rows}`;}
+function lockedCard(kind,d){const isOpen=kind==='open',title=d?.labels?.[kind]||(isOpen?'🟠オープン':'🩷ファミリー'),status=d?.confidence?.[kind]==='対象なし'?'対象なし':'未収録';return `<article class="department ${kind} locked"><div class="department-head"><h2>${title}</h2></div><div class="locked-note">${status}</div></article>`;}
+function card(kind,d){if(!d.verified?.[kind]||!Array.isArray(d[kind]))return lockedCard(kind,d,d.lockReason?.[kind]);const isOpen=kind==='open',title=d?.labels?.[kind]||(isOpen?'🟠オープン':'🩷ファミリー'),lis=d[kind].map((m,i)=>{const num=`［${String(i+1).padStart(2,'0')}］`,need=m.f?`<span class="f">Ｆ</span>${esc(m.need.replace(/^Ｆ/,''))}`:esc(m.need);return `<li class="mission"><span class="num">${num}</span><span class="need">${need}</span><button class="answer answer-copy" type="button" data-copy="${kind}" data-copy-index="${i}" aria-label="${esc(m.label)}だけをコピー" title="単語だけをコピー">${esc(m.label)}</button></li>`;}).join('');return `<article class="department ${kind}"><div class="department-head"><h2>${title}</h2><div class="period"><span>開始 <b>${esc(d.start)}</b></span><span>終了 <b>${esc(d.end)}</b></span></div></div><button class="copy-btn" type="button" data-copy="${kind}" aria-label="${isOpen?'オープン':'ファミリー'}一括コピー"><span>${isOpen?'オープン':'ファミリー'}</span><span>一括コピー</span></button><ol class="missions">${lis}</ol></article>`;}
+function researchView(){return lockedCard('open')+lockedCard('family');}
+function setMonth(key,push=true){if(!keys.includes(key))key='2026-10';current=key;$('month').value=key;document.querySelector('.manual-copy')?.remove();[...$('quick').children].forEach(b=>b.setAttribute('aria-current',b.dataset.month===key?'true':'false'));const d=DATA[key];$('departments').innerHTML=d?card('open',d)+card('family',d):researchView();$('prev').disabled=keys.indexOf(key)<=0;$('next').disabled=keys.indexOf(key)>=keys.length-1;if(push){const u=new URL(location.href);u.searchParams.set('month',key);history.replaceState(null,'',u);}}
+function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('show'),1900);}
+async function copy(kind,index=null){const text=copyText(kind,index),requestMonth=current;if(!text){toast('未収録');return;}try{if(!navigator.clipboard)throw new Error('fallback');await navigator.clipboard.writeText(text);if(requestMonth===current)toast(index===null?'一括コピーしました':'「'+text+'」をコピーしました');}catch(e){if(requestMonth!==current)return;let box=document.querySelector('.manual-copy');if(!box){box=document.createElement('textarea');box.className='manual-copy';box.readOnly=true;box.setAttribute('aria-label','コピー用テキスト');document.querySelector('main').appendChild(box);}box.value=text;box.focus();box.select();toast('選択しました');}}
+$('departments').addEventListener('click',e=>{const b=e.target.closest('[data-copy]');if(b)copy(b.dataset.copy,b.dataset.copyIndex===undefined?null:Number(b.dataset.copyIndex));});$('sharePage').addEventListener('click',async()=>{const shared=new URL('https://pococha2026.github.io/pococha-answers/');shared.searchParams.set('month',current);const url=shared.href;try{if(navigator.share){await navigator.share({title:'ポコチャレ解答集',text:'ポコチャレ解答集',url});}else if(navigator.clipboard){await navigator.clipboard.writeText(url);toast('URLをコピーしました');}else{throw new Error('fallback');}}catch(e){if(e?.name==='AbortError')return;try{await navigator.clipboard.writeText(url);toast('URLをコピーしました');}catch(_){toast('共有できませんでした');}}});$('refreshPage').addEventListener('click',()=>{toast('更新中');setTimeout(()=>location.reload(),80);});$('month').addEventListener('change',e=>setMonth(e.target.value));$('prev').addEventListener('click',()=>{const i=keys.indexOf(current);if(i>0)setMonth(keys[i-1]);});$('next').addEventListener('click',()=>{const i=keys.indexOf(current);if(i<keys.length-1)setMonth(keys[i+1]);});$('month').min=keys[0];$('month').max=keys[keys.length-1];$('quick').innerHTML=keys.map(k=>{const d=DATA[k],r=RESEARCH[k],label=d?.title||r?.title||k;return `<button type="button" class="quick" data-month="${k}">${label.replace('2026年','')}</button>`;}).join('');$('quick').addEventListener('click',e=>{const b=e.target.closest('[data-month]');if(b)setMonth(b.dataset.month);});const requested=new URL(location.href).searchParams.get('month');const now=new Date();const currentMonth=`${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;const fallback=keys.filter(k=>k<=currentMonth).pop()||keys[keys.length-1];const initial=keys.includes(requested)?requested:(keys.includes(currentMonth)?currentMonth:fallback);setMonth(initial,false);
+})();
+</script>
+<script id="daily-visit-tracker">
+(() => {
+  const endpoint = 'https://pococha-challenge.freefreelife2000.chatgpt.site/api/visits';
+  const github = location.origin === 'https://pococha2026.github.io' && /^\/pococha-(?:answers|challenge)\/(?:index\.html)?$/.test(location.pathname);
+  const sites = location.origin === 'https://pococha-challenge.freefreelife2000.chatgpt.site' && /^\/(?:index\.html)?$/.test(location.pathname);
+  if (!github && !sites) return;
+  try { globalThis.localStorage?.removeItem('pococha_answers_statistics_choice_v1'); } catch { /* Device storage may be unavailable. */ }
+  try {
+    if (document.cookie.split(';').some(part => part.trim().startsWith('pococha_answers_daily_vid='))) {
+      for (const path of ['/', '/pococha-answers/', '/pococha-challenge/']) document.cookie = 'pococha_answers_daily_vid=; Path=' + path + '; Max-Age=0; SameSite=Lax; Secure';
+    }
+  } catch { /* The restored collector supports blocked Cookie access. */ }
+  if (window.self !== window.top || navigator.webdriver || navigator.doNotTrack === '1' || navigator.globalPrivacyControl === true || !globalThis.crypto?.randomUUID) return;
+  const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+  let started = false;
+  function metadata() {
+    const ua = navigator.userAgent || '';
+    const tablet = /iPad|Tablet/i.test(ua) || (/Macintosh/i.test(ua) && navigator.maxTouchPoints > 1) || (/Android/i.test(ua) && !/Mobile/i.test(ua));
+    const device = tablet ? 'tablet' : /Mobile|iPhone|iPod|Android/i.test(ua) ? 'mobile' : /Windows|Macintosh|Linux|CrOS/i.test(ua) ? 'desktop' : 'unknown';
+    const os = /iPhone|iPad|iPod/i.test(ua) || (/Macintosh/i.test(ua) && tablet) ? 'ios' : /Android/i.test(ua) ? 'android' : /Windows/i.test(ua) ? 'windows' : /CrOS/i.test(ua) ? 'chromeos' : /Macintosh/i.test(ua) ? 'macos' : /Linux/i.test(ua) ? 'linux' : 'unknown';
+    const browser = /Edg(?:e|A|iOS)?\//i.test(ua) ? 'edge' : /SamsungBrowser\//i.test(ua) ? 'samsung' : /OPR\/|Opera|OPiOS\//i.test(ua) ? 'opera' : /Firefox\/|FxiOS\//i.test(ua) ? 'firefox' : /Chrome\/|CriOS\//i.test(ua) ? 'chrome' : /Safari\//i.test(ua) ? 'safari' : 'other';
+    let referrer = 'none';
+    try {
+      if (document.referrer) {
+        const host = new URL(document.referrer).hostname.toLowerCase();
+        const is = (domain) => host === domain || host.endsWith('.' + domain);
+        referrer = host === location.hostname ? 'internal' : is('google.com') || is('google.co.jp') || is('bing.com') || is('yahoo.co.jp') || is('duckduckgo.com') ? 'search' : is('instagram.com') ? 'instagram' : is('x.com') || is('twitter.com') || is('t.co') ? 'x' : is('tiktok.com') ? 'tiktok' : is('line.me') || is('lin.ee') ? 'line' : is('facebook.com') || is('fb.com') ? 'facebook' : is('youtube.com') || is('youtu.be') ? 'youtube' : is('chatgpt.com') || is('chatgpt.site') ? 'chatgpt' : 'other';
+      }
+    } catch { referrer = 'unknown'; }
+    let model = /iPhone/i.test(ua) ? 'iphone' : os === 'ios' && tablet ? 'ipad' : /iPod/i.test(ua) ? 'ipod' : os === 'android' ? 'android' : device === 'desktop' ? 'pc' : 'unknown';
+    if (os === 'android' && ua.includes('Build/')) {
+      const legacy = ua.split('Build/')[0].match(/;\s*([^;()]+?)\s*$/)?.[1]?.trim();
+      if (legacy && legacy !== 'K' && legacy.length <= 80 && /^[A-Za-z0-9][A-Za-z0-9 ._()+/-]*$/.test(legacy)) model = 'reported:' + legacy;
+    }
+    const browserPattern = { edge: /Edg(?:e|A|iOS)?\/(\d+)/i, samsung: /SamsungBrowser\/(\d+)/i, opera: /(?:OPR|OPiOS|Opera)\/(\d+)/i, firefox: /(?:Firefox|FxiOS)\/(\d+)/i, chrome: /(?:Chrome|CriOS)\/(\d+)/i, safari: /Version\/(\d+)/i }[browser];
+    const browserMajor = ua.match(browserPattern || /$^/)?.[1] || '';
+    const osMajor = os === 'ios' ? ua.match(/(?:CPU (?:iPhone )?OS|iPhone OS) (\d+)/i)?.[1] || '' : os === 'android' ? ua.match(/Android\s+(\d+)/i)?.[1] || '' : os === 'windows' ? 'NT' + (ua.match(/Windows NT\s+(\d+)/i)?.[1] || '') : os === 'macos' ? ua.match(/Mac OS X (\d+)/i)?.[1] || '' : '';
+    return { version: 3, device, os, browser, referrer, model, browserMajor, osMajor };
+  }
+  function visitorId() {
+    try {
+      const read = () => document.cookie.split(';').map((part) => part.trim()).find((part) => part.startsWith('pococha_challenge_vid='))?.slice('pococha_challenge_vid='.length);
+      const existing = read();
+      if (existing && uuid.test(existing)) return existing.toLowerCase();
+      const id = crypto.randomUUID();
+      const cookiePath = github ? (location.pathname.startsWith('/pococha-answers/') ? '/pococha-answers/' : '/pococha-challenge/') : '/';
+      document.cookie = `pococha_challenge_vid=${id}; Path=${cookiePath}; Max-Age=31536000; SameSite=Lax; Secure`;
+      return read() === id ? id : null;
+    } catch { return null; }
+  }
+  function track() {
+    if (started || document.visibilityState !== 'visible') return;
+    started = true;
+    document.removeEventListener('visibilitychange', track);
+    const meta = metadata();
+    const payload = { eventId: crypto.randomUUID(), visitorId: visitorId(), page: location.origin + location.pathname, meta };
+    function submit() {
+      const body = JSON.stringify(payload);
+      let attempt = 0;
+      async function send() {
+        attempt += 1;
+        try {
+          const result = await fetch(endpoint, { method: 'POST', credentials: 'omit', mode: 'cors', headers: { 'Content-Type': 'application/json' }, body, keepalive: true });
+          if (result.status >= 500 && attempt < 2) setTimeout(send, 1500);
+        } catch { if (attempt < 2) setTimeout(send, 1500); }
+      }
+      void send();
+    }
+    if (meta.os === 'android' && typeof navigator.userAgentData?.getHighEntropyValues === 'function') {
+      // Do not delay counting indefinitely when model hints are unavailable or blocked.
+      let timeout;
+      const fallback = new Promise(resolve => { timeout = setTimeout(() => resolve(null), 500); });
+      Promise.race([Promise.resolve().then(() => navigator.userAgentData.getHighEntropyValues(['model', 'platformVersion'])).catch(() => null), fallback]).then(hints => {
+        if (typeof globalThis.clearTimeout === 'function') clearTimeout(timeout);
+        const model = hints?.model;
+        if (typeof model === 'string' && model.length <= 80 && /^[A-Za-z0-9][A-Za-z0-9 ._()+/-]*$/.test(model) && !/^(?:k|unknown|generic|android|iphone|ipad|ipod|pc)$/i.test(model.trim())) meta.model = 'reported:' + model.trim();
+        if (typeof hints?.platformVersion === 'string' && /^\d{1,3}(?:\.\d+)*$/.test(hints.platformVersion)) meta.osMajor = hints.platformVersion.split('.')[0];
+        submit();
+      });
+    } else submit();
+  }
+  document.addEventListener('visibilitychange', track);
+  track();
+})();
+</script>
+</body>
+</html>
