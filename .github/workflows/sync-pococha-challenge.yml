@@ -16,6 +16,8 @@ concurrency:
 
 jobs:
   sync:
+    # 更新候補は所有者専用一覧へ保存。公開版は同期ボタンからのみ反映。
+    if: ${{ false }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
