@@ -1,0 +1,9 @@
+{
+  "schema": 1,
+  "projectId": "appgprj_6ac5d38d4a1c819198d391565430e75d",
+  "versionId": "appgprj_6ac5d38d4a1c819198d391565430e75d~appgver_14d8313af9bc81919bdfdd0d47d7129b",
+  "deploymentId": "appgdep_6ac8e749354c8191ba7cfe03526f024c",
+  "deploymentStatus": "succeeded",
+  "sourceCommit": "a60ac7d23337f454a52df7f22093b77ce8a4e7a8",
+  "sha256": "e40b63a07c4512ab31f0d4cc9a22c7d130ec16cdf2017ad88cee2c164dfb3d61"
+}
