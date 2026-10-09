@@ -1,0 +1,45 @@
+name: Sitesからポコチャレ解答集を同期
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/state/pococha-challenge-release.json'
+
+permissions:
+  contents: write
+  pages: write
+
+concurrency:
+  group: pococha-challenge-sites-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: 最新の公開用ソースを取得
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+      - name: Sitesの公開済みバージョンを検証・同期
+        id: sync
+        run: python3 .github/scripts/sync-pococha-challenge.py
+      - name: 変更がある場合だけ保存
+        if: steps.sync.outputs.changed == 'true'
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- pococha-answers/index.html pococha-challenge/index.html .github/state/pococha-challenge-sync.json
+          git commit -m 'Sync published Pococha Challenge from Sites'
+          git push origin HEAD:main
+      - name: GitHub Pagesへの反映を開始
+        if: steps.sync.outputs.rebuild == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api --method POST "repos/$GITHUB_REPOSITORY/pages/builds" --jq '.status'
+      - name: 公開内容が一致することを確認
+        if: steps.sync.outputs.rebuild == 'true'
+        run: python3 .github/scripts/sync-pococha-challenge.py --verify-public
