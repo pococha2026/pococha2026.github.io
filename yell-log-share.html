@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Pococha 時間稼ぎ・エール記録帳｜オフライン版</title>
+<meta name="description" content="Pocochaの時間稼ぎ・エールを記録するオフライン版。ログイン不要。記録は開いた端末のブラウザに保存します。">
+<meta name="theme-color" content="#d6336c">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Pococha 記録帳">
+<meta property="og:title" content="Pococha 時間稼ぎ・エール記録帳｜オフライン版">
+<meta property="og:description" content="ログイン不要のオフライン版。記録は開いた端末のブラウザに保存し、端末間では同期しません。">
+<meta property="og:url" content="https://pococha2026.github.io/yell-log-share.html">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23d6336c'/%3E%3Ccircle cx='32' cy='34' r='16' fill='none' stroke='white' stroke-width='5'/%3E%3Cpath d='M32 26v9l6 4M26 12h12' stroke='white' stroke-width='5' stroke-linecap='round' fill='none'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;800&display=swap">
+<style>
+:root{--bg:#f4f5fa;--card:#fff;--line:#dcdfeb;--ink:#1b1f2e;--muted:#636a82;--pink:#d6336c;--pink-soft:#fde4ee;--blue:#3b5bdb;--blue-soft:#e3e9ff;--line-green:#06c755;--x:#111}
+@media (prefers-color-scheme:dark){:root{--bg:#12141c;--card:#1b1e29;--line:#323749;--ink:#eceef6;--muted:#9ba2ba;--pink:#f0628f;--pink-soft:#3d1f2c;--blue:#8aa2ff;--blue-soft:#222b4d;--x:#000}}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;min-height:100vh;background:var(--bg);color:var(--ink);font-family:"M PLUS Rounded 1c","Hiragino Maru Gothic ProN",system-ui,sans-serif;display:flex;justify-content:center;padding:max(24px,env(safe-area-inset-top)) 16px max(24px,env(safe-area-inset-bottom))}
+main{width:100%;max-width:440px;display:flex;flex-direction:column;gap:12px}
+h1{margin:4px 0 2px;font-size:1.35rem;font-weight:800;text-align:center}
+h2{margin:0 0 10px;font-size:1rem;font-weight:800}
+.sub{margin:0 0 4px;text-align:center;color:var(--muted);font-size:.85rem}
+button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.tool{background:var(--card);border:2px solid var(--line);border-radius:20px;overflow:hidden}
+.tool.off{border-color:var(--blue)}
+.open{display:block;text-decoration:none;color:inherit;padding:16px 18px 12px}
+.open:active{background:var(--bg)}
+.top{display:flex;align-items:center;gap:12px}
+.ic{flex:none;width:48px;height:48px;border-radius:14px;display:grid;place-items:center;font-size:1.5rem}
+.off .ic{background:var(--blue-soft)}
+.name{font-size:1.2rem;font-weight:800}
+.off .name{color:var(--blue)}
+.go{margin-left:auto;font-weight:800;font-size:.85rem;color:#fff;border-radius:999px;padding:6px 14px}
+.off .go{background:#3b5bdb}
+ul{margin:10px 0 0;padding-left:1.2em;font-size:.86rem;line-height:1.7}
+ul li::marker{color:var(--muted)}
+.copy{display:block;width:100%;border:0;border-top:1px solid var(--line);background:transparent;color:var(--muted);min-height:44px;font-size:.82rem;font-weight:800}
+.copy:active{background:var(--bg)}
+.share{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px}
+.share p{margin:-4px 0 12px;font-size:.8rem;color:var(--muted)}
+.btns{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.sb{display:flex;align-items:center;justify-content:center;gap:6px;white-space:nowrap;padding:0 8px;min-height:48px;border-radius:14px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font-weight:800;font-size:.88rem;text-decoration:none}
+.sb svg{width:20px;height:20px;flex:none}
+.sb.main{grid-column:1/-1;background:#d6336c;border-color:#d6336c;color:#fff;font-size:1rem;min-height:52px}
+.sb.line{background:var(--line-green);border-color:var(--line-green);color:#fff}
+.sb.x{background:var(--x);border-color:var(--x);color:#fff}
+.sb:active{transform:scale(.97)}
+.qr{display:none;flex-direction:column;align-items:center;gap:8px;margin-top:12px;padding-top:12px;border-top:1px dashed var(--line)}
+.qr.show{display:flex}
+.qr svg{width:200px;height:200px;background:#fff;border-radius:12px;padding:10px}
+.qr small{font-size:.78rem;color:var(--muted);text-align:center}
+.tip{background:var(--card);border:1px dashed var(--line);border-radius:14px;padding:12px 14px;font-size:.8rem;line-height:1.7;color:var(--muted)}
+.tip b{color:var(--ink)}
+footer{text-align:center;font-size:.75rem;color:var(--muted)}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom));transform:translate(-50%,20px);opacity:0;pointer-events:none;background:var(--ink);color:var(--bg);font-weight:800;font-size:.88rem;padding:10px 18px;border-radius:999px;transition:.2s;width:max-content;max-width:calc(100vw - 32px);text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.sb svg{width:18px;height:18px}
+@media (max-width:350px){.sb{font-size:.8rem;gap:4px}}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+</style>
+</head>
+<body>
+<main>
+  <h1>Pococha 時間稼ぎ・エール記録帳</h1>
+  <p class="sub">オフライン版専用リンク</p>
+
+  <div class="tool off">
+    <a class="open" href="https://pococha2026.github.io/yell-log.html">
+      <div class="top"><div class="ic" aria-hidden="true">📱</div><div class="name">オフライン版</div><div class="go">開く</div></div>
+      <ul>
+        <li>ログイン不要。誰でもすぐ使える</li>
+        <li>記録は開いた端末のブラウザだけに保存</li>
+        <li>バックアップで保存・別の端末へ移行できます</li>
+      </ul>
+    </a>
+    <button class="copy" data-copy="https://pococha2026.github.io/yell-log.html" data-msg="オフライン版のリンクをコピーしました">オフライン版のリンクをコピー</button>
+  </div>
+
+  <section class="share" aria-labelledby="shareH">
+    <h2 id="shareH">オフライン版を友だちに教える</h2>
+    <p>送ったリンク・QRコードからオフライン版を開けます</p>
+    <div class="btns">
+      <button class="sb main" id="nativeShare" hidden>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 8l5-5 5 5M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>共有する
+      </button>
+      <a class="sb line" id="lineShare" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3C6.5 3 2 6.6 2 11c0 3.9 3.5 7.2 8.3 7.9.3.1.8.2.9.5.1.3.1.7 0 1l-.1.9c0 .3-.2 1 .9.6 1.1-.5 6-3.5 8.2-6 1.5-1.6 2.3-3.3 2.3-4.9C22 6.6 17.5 3 12 3z"/></svg>LINEで送る
+      </a>
+      <a class="sb x" id="xShare" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.8 3h3.1l-6.8 7.7L22 21h-6.2l-4.9-6.4L5.3 21H2.2l7.2-8.3L1.8 3h6.4l4.4 5.8L17.8 3zm-1.1 16.2h1.7L7.3 4.7H5.5l11.2 14.5z"/></svg>Xでポスト
+      </a>
+      <button class="sb" data-copy="https://pococha2026.github.io/yell-log-share.html" data-msg="このページのリンクをコピーしました">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>リンクをコピー
+      </button>
+      <button class="sb" id="qrBtn" aria-expanded="false" aria-controls="qrBox">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3v3h-3zM20 20h1M17 20h1M20 17h1"/></svg>QRコード
+      </button>
+    </div>
+    <div class="qr" id="qrBox">
+      <svg id="qrSvg" viewBox="-4 -4 49 49" role="img" aria-label="このページのQRコード" shape-rendering="crispEdges"></svg>
+      <small>スマホのカメラで読み取ると、このページが開きます</small>
+      <button class="sb" id="qrSave" style="width:100%">QRコードを画像で保存</button>
+    </div>
+  </section>
+
+  <div class="tip"><b>ホーム画面に追加しておくと便利</b><br>iPhone：Safariで開き、共有ボタン →「ホーム画面に追加」<br>Android：Chromeで開き、︙メニュー →「ホーム画面に追加」</div>
+  <footer>© Pococha1012</footer>
+</main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+(function(){
+  var PAGE='https://pococha2026.github.io/yell-log-share.html';
+  var TEXT='Pococha 時間稼ぎ・エール記録帳｜オフライン版。ログイン不要・端末内保存';
+  var toastEl=document.getElementById('toast'), tmr;
+  function toast(m){toastEl.textContent=m;toastEl.classList.add('show');clearTimeout(tmr);tmr=setTimeout(function(){toastEl.classList.remove('show')},2000)}
+
+  // コピー（古いiPhoneでも動くよう予備の方法つき）
+  function fallbackCopy(t){
+    var ta=document.createElement('textarea');ta.value=t;ta.setAttribute('readonly','');
+    ta.style.cssText='position:fixed;top:0;left:0;opacity:0;font-size:16px';
+    document.body.appendChild(ta);ta.select();ta.setSelectionRange(0,t.length);
+    var ok=false;try{ok=document.execCommand('copy')}catch(e){}
+    document.body.removeChild(ta);return ok;
+  }
+  function copy(t,msg){
+    if(navigator.clipboard&&window.isSecureContext){
+      navigator.clipboard.writeText(t).then(function(){toast(msg)},function(){toast(fallbackCopy(t)?msg:'コピーできませんでした：'+t)});
+    }else{toast(fallbackCopy(t)?msg:'コピーできませんでした：'+t)}
+  }
+  document.querySelectorAll('[data-copy]').forEach(function(b){
+    b.addEventListener('click',function(){copy(b.dataset.copy,b.dataset.msg||'コピーしました')});
+  });
+
+  // 端末の共有メニュー（iPhone・Androidなど）
+  var ns=document.getElementById('nativeShare');
+  if(navigator.share){
+    ns.hidden=false;
+    ns.addEventListener('click',function(){
+      navigator.share({title:'Pococha 時間稼ぎ・エール記録帳｜オフライン版',text:TEXT,url:PAGE}).catch(function(e){
+        if(e&&e.name!=='AbortError') copy(PAGE,'リンクをコピーしました');
+      });
+    });
+  }
+
+  // LINE・X
+  document.getElementById('lineShare').href='https://social-plugins.line.me/lineit/share?url='+encodeURIComponent(PAGE);
+  document.getElementById('xShare').href='https://x.com/intent/post?text='+encodeURIComponent(TEXT)+'&url='+encodeURIComponent(PAGE);
+
+  // QRコード（https://pococha2026.github.io/yell-log-share.html を事前に符号化したもの）
+  var ROWS='rum00tj3,e98c1t8h,kgpd9nq5,khq1c9r1,kex8t84d,e9s9hef5,rwyepa4f,1jmuu4g,2ynd5pu4,3jaarggg,rjm41o50,9v3azlu0,6k894p9c,lnmg0tb,lfagjmj1,do2chwhi,oj9vssqx,e3ipiw0m,59et2ywn,f4gaawd2,acf9i5hr,l4b4mzow,fl2e46l0,7k5yk4az,abge27oj,4hwcw3g5,q4vef28r,355it7ov,f7p0x360,oqeazp80,lt30sl9r,qxddfn1b,ojlgkxro,3oxoows,rxdvr3vg,ealdaoex,kghq9bei,khredb1j,kf5appyz,e9jp113x,rvgovej4'.split(',');
+  var N=41, grid=ROWS.map(function(s){
+    var n=0;for(var i=0;i<s.length;i++){n=n*36+parseInt(s[i],36)}
+    var b=n.toString(2);while(b.length<N)b='0'+b;return b;
+  });
+  var d='';
+  grid.forEach(function(row,r){for(var c=0;c<N;c++){if(row[c]==='1'){var s=c;while(c+1<N&&row[c+1]==='1')c++;d+='M'+s+' '+r+'h'+(c-s+1)+'v1h-'+(c-s+1)+'z'}}});
+  document.getElementById('qrSvg').innerHTML='<rect x="-4" y="-4" width="49" height="49" fill="#fff"/><path d="'+d+'" fill="#000"/>';
+
+  var qrBtn=document.getElementById('qrBtn'), qrBox=document.getElementById('qrBox');
+  qrBtn.addEventListener('click',function(){
+    var open=qrBox.classList.toggle('show');qrBtn.setAttribute('aria-expanded',open);
+    if(open) qrBox.scrollIntoView({behavior:'smooth',block:'nearest'});
+  });
+  document.getElementById('qrSave').addEventListener('click',function(){
+    var S=12, M=4, W=(N+M*2)*S, cv=document.createElement('canvas');cv.width=cv.height=W;
+    var g=cv.getContext('2d');g.fillStyle='#fff';g.fillRect(0,0,W,W);g.fillStyle='#000';
+    grid.forEach(function(row,r){for(var c=0;c<N;c++){if(row[c]==='1')g.fillRect((c+M)*S,(r+M)*S,S,S)}});
+    cv.toBlob(function(blob){
+      if(!blob){toast('QRコードの画像を作成できませんでした');return}
+      var file=new File([blob],'pococha-kirokucho-qr.png',{type:'image/png'});
+      function downloadQr(){
+        var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=file.name;
+        document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(a.href)},1000);
+        toast('QRコードを保存しました');
+      }
+      if(navigator.share&&navigator.canShare&&navigator.canShare({files:[file]})){
+        navigator.share({files:[file],title:'QRコード'}).catch(function(e){
+          if(!e||e.name!=='AbortError') downloadQr();
+        });
+      }else{downloadQr()}
+    },'image/png');
+  });
+})();
+</script>
+</body>
+</html>
