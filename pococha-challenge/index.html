@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ポコチャレ解答集</title>
+<link rel="canonical" href="https://pococha2026.github.io/pococha-answers/">
+<script>
+(() => {
+  try {
+    const id = document.cookie.split(';').map((part) => part.trim()).find((part) => part.startsWith('pococha_challenge_vid='))?.slice('pococha_challenge_vid='.length);
+    if (id && /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(id)) {
+      document.cookie = 'pococha_challenge_vid=' + id.toLowerCase() + '; Path=/pococha-answers/; Max-Age=31536000; SameSite=Lax; Secure';
+    }
+  } catch {}
+  location.replace('https://pococha2026.github.io/pococha-answers/' + location.search + location.hash);
+})();
+</script>
+<meta http-equiv="refresh" content="0;url=https://pococha2026.github.io/pococha-answers/">
+</head>
+<body><a href="https://pococha2026.github.io/pococha-answers/">ポコチャレ解答集へ移動</a></body>
+</html>
