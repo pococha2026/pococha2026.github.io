@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-uNaRaIumIn5v9WjqQEXs1MZ5RqTzBS0B49cDGxzj2Hs=' 'sha256-W+f55c6DGD5HoO2ye29wu5b+LF4YpxfFsrsL0B0u71Q=' 'sha256-lcQuMiehU7grFSqlw1DOsCGmMMmCQVbHPNr9L6U/Z2E=' 'sha256-iHKlYec+f7BlCVfmaeLnrBLYahbzu6OjOKjiTb9vmIE='; style-src 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://pococha-challenge.freefreelife2000.chatgpt.site; base-uri 'none'; object-src 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-P76ZEZ5Ew9+nPfi6VrZT9k4gtt03PiZCTBXGdRU2HiU=' 'sha256-uNaRaIumIn5v9WjqQEXs1MZ5RqTzBS0B49cDGxzj2Hs=' 'sha256-uE7VyjG2ywos0qkQxgF7/mlFoGu7c4W6UFCB/F/xid4=' 'sha256-lcQuMiehU7grFSqlw1DOsCGmMMmCQVbHPNr9L6U/Z2E=' 'sha256-iHKlYec+f7BlCVfmaeLnrBLYahbzu6OjOKjiTb9vmIE='; style-src 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://pococha-challenge.freefreelife2000.chatgpt.site; base-uri 'none'; object-src 'none'; form-action 'none'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="referrer" content="no-referrer">
 <meta name="theme-color" content="#111827">
@@ -87,13 +87,98 @@ GitHub Terms and third-party rights are unaffected. Client checks are removable.
 /* Official Instagram for the independent tool creator. */
 .official-tools-account{margin:12px 0 8px;font-size:.875rem;line-height:1.7;text-align:left;overflow-wrap:anywhere}
 .official-tools-account a{display:inline-flex;flex-direction:column;justify-content:center;min-height:44px;max-width:100%;color:inherit;text-decoration:underline;text-underline-offset:3px}
+/* Local display preferences; standard preserves the existing system appearance. */
+:root{--font-gothic:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic UI","Yu Gothic",Meiryo,sans-serif;--font-mincho:"Hiragino Mincho ProN","Yu Mincho","Noto Serif CJK JP",serif;--font-mono:"SFMono-Regular",Menlo,Consolas,"Noto Sans Mono CJK JP",monospace;--app-font:var(--font-gothic)}
+:root[data-display-font="mincho"]{--app-font:var(--font-mincho)}
+:root[data-display-font="mono"]{--app-font:var(--font-mono)}
+body{font-family:var(--app-font)}
+:root[data-display-theme="blue"]{color-scheme:light;--bg:#edf5ff;--card:#fff;--ink:#152641;--muted:#53657e;--line:#ccddef;--orange:#2563eb;--orange-soft:#dbeafe;--pink:#4f46e5;--pink-soft:#e0e7ff;--blue:#1d4ed8;--green:#0f766e;--danger:#b42318;--shadow:0 8px 24px rgba(29,78,216,.08);--theme-from:#1d4ed8;--theme-to:#4338ca;--theme-hover:#dbeafe;--theme-need:#1e40af;--theme-family-need:#3730a3;--theme-notice:#dbeafe;--theme-copy:#fff}
+:root[data-display-theme="pink"]{color-scheme:light;--bg:#fff1f7;--card:#fff;--ink:#4e1731;--muted:#7b5266;--line:#f1cadb;--orange:#be185d;--orange-soft:#fce7f3;--pink:#9d174d;--pink-soft:#fde8ee;--blue:#9d174d;--green:#166534;--danger:#b42318;--shadow:0 8px 24px rgba(190,24,93,.08);--theme-from:#be185d;--theme-to:#9333ea;--theme-hover:#fce7f3;--theme-need:#9d174d;--theme-family-need:#831843;--theme-notice:#fce7f3;--theme-copy:#fff}
+:root[data-display-theme="green"]{color-scheme:light;--bg:#edf9f3;--card:#fff;--ink:#173f30;--muted:#4e6e60;--line:#c9e6d7;--orange:#047857;--orange-soft:#d1fae5;--pink:#0e7490;--pink-soft:#cffafe;--blue:#047857;--green:#166534;--danger:#b42318;--shadow:0 8px 24px rgba(4,120,87,.08);--theme-from:#047857;--theme-to:#0e7490;--theme-hover:#d1fae5;--theme-need:#065f46;--theme-family-need:#155e75;--theme-notice:#d1fae5;--theme-copy:#fff}
+:root[data-display-theme="dark"]{color-scheme:dark;--bg:#10141f;--card:#1b2230;--ink:#f3f5fb;--muted:#b4bfd2;--line:#3b4960;--orange:#fb923c;--orange-soft:#402719;--pink:#f9a8d4;--pink-soft:#402132;--blue:#9fbaff;--green:#79e0b0;--danger:#ff9b9b;--shadow:none;--theme-from:#283c66;--theme-to:#644571;--theme-hover:#303b50;--theme-need:#ffb27e;--theme-family-need:#ffb6d6;--theme-notice:#23385e;--theme-copy:#111827}
+html[data-display-theme]:not([data-display-theme="standard"]) .app-header{background:linear-gradient(115deg,var(--theme-from),var(--theme-to))}
+html[data-display-theme]:not([data-display-theme="standard"]) .app-header .toolbar-button,html[data-display-theme]:not([data-display-theme="standard"]) .app-header .refresh-mini,html[data-display-theme]:not([data-display-theme="standard"]) .app-header .share-mini{background:var(--card);color:var(--ink);border-color:var(--line)}
+html[data-display-theme]:not([data-display-theme="standard"]) .app-header .toolbar-button[aria-expanded="true"],html[data-display-theme]:not([data-display-theme="standard"]) .app-header button:hover{background:var(--theme-hover)}
+html[data-display-theme]:not([data-display-theme="standard"]) .notice{background:var(--theme-notice)}
+html[data-display-theme]:not([data-display-theme="standard"]) .mission .num{color:var(--blue)}
+html[data-display-theme]:not([data-display-theme="standard"]) .open .mission .need{background:var(--orange-soft);color:var(--theme-need)}
+html[data-display-theme]:not([data-display-theme="standard"]) .family .mission .need{background:var(--pink-soft);color:var(--theme-family-need)}
+html[data-display-theme]:not([data-display-theme="standard"]) .copy-btn{color:var(--theme-copy)}
+.display-settings-body{display:grid;gap:12px}
+.display-settings-body fieldset{min-width:0;margin:0;padding:0;border:0}
+.display-settings-body legend{margin-bottom:6px;font-weight:850;font-size:.85rem}
+.display-choice-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.display-theme-grid{grid-template-columns:repeat(5,minmax(0,1fr))}
+.display-choice{display:block;position:relative;min-width:0;cursor:pointer}
+.display-choice input{position:absolute;width:1px;height:1px;opacity:0}
+.display-choice span{display:flex;align-items:center;justify-content:center;gap:5px;min-height:44px;padding:7px 4px;border:2px solid var(--line);border-radius:9px;background:var(--card);color:var(--ink);font-size:.8rem;font-weight:750;text-align:center;overflow-wrap:anywhere}
+.display-choice input:checked+span{border-color:var(--blue);background:var(--bg);box-shadow:inset 0 0 0 1px var(--blue)}
+.display-choice input:focus-visible+span{outline:2px solid var(--blue);outline-offset:2px}
+.display-choice .theme-swatch{flex:none;width:13px;height:13px;border-radius:50%;border:1px solid rgba(0,0,0,.25)}
+.font-gothic{font-family:var(--font-gothic)}.font-mincho{font-family:var(--font-mincho)}.font-mono{font-family:var(--font-mono)}
+.display-settings-note,.display-settings-status{margin:0!important;color:var(--muted);font-size:.72rem;line-height:1.6}
+.display-settings-status:empty{display:none}
+.display-settings-actions{gap:6px;flex-wrap:wrap}
+@media(max-width:499px){.display-theme-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 </style>
+<script id="display-settings-controls">
+(() => {
+  'use strict';
+  const key = 'pococha_answers_display_settings_v1';
+  const fonts = ['gothic', 'mincho', 'mono'];
+  const themes = ['standard', 'blue', 'pink', 'green', 'dark'];
+  const root = document.documentElement;
+  const normalize = value => ({
+    font: fonts.includes(value?.font) ? value.font : 'gothic',
+    theme: themes.includes(value?.theme) ? value.theme : 'standard'
+  });
+  let settings = normalize(null);
+  try { settings = normalize(JSON.parse(localStorage.getItem(key))); } catch { /* Use defaults when device storage is unavailable or invalid. */ }
+  const apply = () => {
+    root.dataset.displayFont = settings.font;
+    root.dataset.displayTheme = settings.theme;
+  };
+  apply();
+  document.addEventListener('DOMContentLoaded', () => {
+    const panel = document.getElementById('displaySettings');
+    const status = document.getElementById('displaySettingsStatus');
+    if (!panel || !status) return;
+    const controls = [...panel.querySelectorAll('input[data-display-setting]')];
+    const sync = () => controls.forEach(input => { input.checked = input.value === settings[input.dataset.displaySetting]; });
+    const save = () => {
+      try {
+        localStorage.setItem(key, JSON.stringify(settings));
+        status.textContent = 'この端末に設定を保存しました。';
+      } catch {
+        status.textContent = '設定を反映しました。この画面では保存できないため、再表示すると元に戻ります。';
+      }
+    };
+    sync();
+    controls.forEach(input => input.addEventListener('change', () => {
+      if (!input.checked) return;
+      const field = input.dataset.displaySetting;
+      if (field !== 'font' && field !== 'theme') return;
+      settings = normalize({ ...settings, [field]: input.value });
+      apply();
+      sync();
+      save();
+    }));
+    document.getElementById('resetDisplaySettings')?.addEventListener('click', () => {
+      settings = normalize(null);
+      apply();
+      sync();
+      save();
+    });
+  }, { once: true });
+})();
+</script>
 </head>
 <body>
 <main>
 <header class="app-header">
 <h1>ポコチャレ解答集</h1>
 <div class="title-tools" role="group" aria-label="タイトル欄の操作">
+<button class="toolbar-button" id="displaySettingsToggle" type="button" aria-expanded="false" aria-controls="displaySettings">画面設定</button>
 <button class="toolbar-button" id="homeScreenToggle" type="button" aria-expanded="false" aria-controls="homeScreenHelp">ホーム画面へ追加</button>
 <button class="toolbar-button" id="disclaimerToggle" type="button" aria-expanded="false" aria-controls="footerDisclaimer">免責事項</button>
 <button class="toolbar-button" id="contactToggle" type="button" aria-expanded="false" aria-controls="footerContact">お問い合わせ</button>
@@ -107,6 +192,24 @@ GitHub Terms and third-party rights are unaffected. Client checks are removable.
 </div>
 </div>
 </div>
+<section class="title-panel" id="displaySettings" aria-labelledby="displaySettingsToggle" hidden>
+<div class="title-detail-body display-settings-body">
+<fieldset><legend>文字フォント</legend><div class="display-choice-grid">
+<label class="display-choice"><input type="radio" name="displayFont" value="gothic" data-display-setting="font" checked><span class="font-gothic">ゴシック</span></label>
+<label class="display-choice"><input type="radio" name="displayFont" value="mincho" data-display-setting="font"><span class="font-mincho">明朝</span></label>
+<label class="display-choice"><input type="radio" name="displayFont" value="mono" data-display-setting="font"><span class="font-mono">等幅</span></label>
+</div></fieldset>
+<fieldset><legend>カラーテーマ</legend><div class="display-choice-grid display-theme-grid">
+<label class="display-choice"><input type="radio" name="displayTheme" value="standard" data-display-setting="theme" checked><span><i class="theme-swatch" style="background:linear-gradient(120deg,#b94b05,#bd2266)" aria-hidden="true"></i>標準</span></label>
+<label class="display-choice"><input type="radio" name="displayTheme" value="blue" data-display-setting="theme"><span><i class="theme-swatch" style="background:#2563eb" aria-hidden="true"></i>ブルー</span></label>
+<label class="display-choice"><input type="radio" name="displayTheme" value="pink" data-display-setting="theme"><span><i class="theme-swatch" style="background:#be185d" aria-hidden="true"></i>ピンク</span></label>
+<label class="display-choice"><input type="radio" name="displayTheme" value="green" data-display-setting="theme"><span><i class="theme-swatch" style="background:#047857" aria-hidden="true"></i>グリーン</span></label>
+<label class="display-choice"><input type="radio" name="displayTheme" value="dark" data-display-setting="theme"><span><i class="theme-swatch" style="background:#10141f" aria-hidden="true"></i>ダーク</span></label>
+</div></fieldset>
+<p class="display-settings-note">選択するとすぐに反映されます。設定はこの端末・ブラウザーに保存されます。標準テーマは端末の明るい／暗い表示に合わせます。フォントの見え方は端末によって異なります。</p>
+<p class="display-settings-status" id="displaySettingsStatus" role="status" aria-live="polite"></p>
+<div class="panel-actions display-settings-actions"><button class="panel-close" id="resetDisplaySettings" type="button">初期設定に戻す</button><button class="panel-close" id="closeDisplaySettings" type="button" data-close-panel aria-label="画面設定を閉じる">閉じる</button></div>
+</div></section>
 <section class="title-panel" id="homeScreenHelp" aria-labelledby="homeScreenToggle" hidden>
 <div class="home-help-body title-detail-body">
 <div class="home-browser-tools">
@@ -192,7 +295,7 @@ GitHub Terms and third-party rights are unaffected. Client checks are removable.
 </script>
 <script id="title-panel-controls">
 (() => {
-  for (const [toggleId, panelId] of [['homeScreenToggle', 'homeScreenHelp'], ['disclaimerToggle', 'footerDisclaimer'], ['contactToggle', 'footerContact']]) {
+  for (const [toggleId, panelId] of [['displaySettingsToggle', 'displaySettings'], ['homeScreenToggle', 'homeScreenHelp'], ['disclaimerToggle', 'footerDisclaimer'], ['contactToggle', 'footerContact']]) {
     const toggle = document.getElementById(toggleId);
     const panel = document.getElementById(panelId);
     const setOpen = open => {
