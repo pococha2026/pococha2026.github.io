@@ -131,6 +131,8 @@ html[data-display-theme]:not([data-display-theme="standard"]) .copy-btn{color:va
 @media print{.copy-memo-row{display:none!important}}
 
 .app-footer{grid-template-columns:minmax(0,1fr)}.footer-actions{display:flex;flex-wrap:wrap;justify-content:flex-start;gap:6px}.footer-actions button{display:inline-flex;align-items:center;justify-content:center;min-height:34px;height:auto;min-width:0;width:auto;padding:6px 9px;border:1px solid var(--line);border-radius:7px;background:var(--bg);color:var(--ink);font:inherit;font-size:.75rem;font-weight:750}.footer-actions button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}.footer-actions button[aria-expanded="true"]{border-color:var(--blue)}
+
+.app-header{padding:5px 6px;gap:3px}.header-top{display:flex;align-items:center;justify-content:space-between;gap:8px}.header-top h1{min-width:0}.title-tools{padding:0;margin:0;gap:4px;align-items:center}.title-left-tools,.title-right-tools{flex-direction:row;align-items:center}.app-header .toolbar-button,.app-header .refresh-mini{min-height:26px;padding:3px 5px}.footer-actions .admin-link-row{margin-left:auto;display:flex;align-items:center;justify-content:flex-end;min-height:34px}.footer-actions .admin-link{display:inline-flex;align-items:center;min-height:34px;padding:4px 0 4px 8px;color:var(--blue);font-size:.75rem;white-space:nowrap;text-underline-offset:3px}.footer-actions .admin-link:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
 </style>
 <script id="display-settings-controls">
 (() => {
@@ -187,17 +189,15 @@ html[data-display-theme]:not([data-display-theme="standard"]) .copy-btn{color:va
 <body>
 <main>
 <header class="app-header">
-<h1>ポコチャレ解答集</h1>
+<div class="header-top"><h1>ポコチャレ解答集</h1><button class="refresh-mini" id="refreshPage" type="button" aria-label="最新表示に更新" title="更新">更新</button></div>
 <div class="title-tools" role="group" aria-label="タイトル欄の操作">
 <div class="title-left-tools">
 <button class="toolbar-button" id="homeScreenToggle" type="button" aria-expanded="false" aria-controls="homeScreenHelp">ホーム画面へ追加</button>
 
 </div>
 <div class="title-right-tools">
-<button class="refresh-mini" id="refreshPage" type="button" aria-label="最新表示に更新" title="更新">更新</button>
-<div id="adminFooter" class="admin-link-row" hidden>
-<a id="adminPage" class="admin-link" href="https://pococha-challenge.freefreelife2000.chatgpt.site/admin" target="_blank" rel="noopener noreferrer" aria-label="管理ページを新しいタブで開く" title="新しいタブで開く" hidden>管理ページ</a>
-</div>
+
+
 <button class="toolbar-button" id="displaySettingsToggle" type="button" aria-expanded="false" aria-controls="displaySettings">画面設定</button>
 
 </div>
@@ -287,6 +287,9 @@ html[data-display-theme]:not([data-display-theme="standard"]) .copy-btn{color:va
 <button class="toolbar-button" id="disclaimerToggle" type="button" aria-expanded="false" aria-controls="footerDisclaimer">免責事項</button>
 <button class="toolbar-button" id="contactToggle" type="button" aria-expanded="false" aria-controls="footerContact">お問い合わせ</button>
 <button class="share-mini" id="sharePage" type="button" aria-label="このページを共有" title="共有">共有</button>
+<div id="adminFooter" class="admin-link-row" hidden>
+<a id="adminPage" class="admin-link" href="https://pococha-challenge.freefreelife2000.chatgpt.site/admin" target="_blank" rel="noopener noreferrer" aria-label="管理ページを新しいタブで開く" title="新しいタブで開く" hidden>管理ページ</a>
+</div>
 </div>
 <section class="title-panel" id="footerDisclaimer" aria-labelledby="disclaimerToggle" hidden>
 <div class="title-detail-body"><p>非公式の参考情報です。正確性は保証しません。ご利用に伴う損害等の責任は負いかねます。公式アプリの表示を優先してください。</p><div class="panel-actions"><button class="panel-close" id="closeDisclaimer" type="button" data-close-panel aria-label="免責事項を閉じる">閉じる</button></div>
