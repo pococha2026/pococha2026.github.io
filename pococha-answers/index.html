@@ -129,6 +129,8 @@ html[data-display-theme]:not([data-display-theme="standard"]) .copy-btn{color:va
 .free-memo textarea{display:block;box-sizing:border-box;width:100%;min-width:0;min-height:64px;padding:6px;border:1px solid var(--line);border-radius:9px;background:var(--card);color:var(--ink);font-family:inherit;font-size:16px;line-height:1.35;resize:vertical}
 .free-memo textarea:focus-visible{outline:2px solid var(--blue);outline-offset:1px}
 @media print{.copy-memo-row{display:none!important}}
+
+.app-footer{grid-template-columns:minmax(0,1fr)}.footer-actions{display:flex;flex-wrap:wrap;justify-content:flex-start;gap:6px}.footer-actions button{display:inline-flex;align-items:center;justify-content:center;min-height:34px;height:auto;min-width:0;width:auto;padding:6px 9px;border:1px solid var(--line);border-radius:7px;background:var(--bg);color:var(--ink);font:inherit;font-size:.75rem;font-weight:750}.footer-actions button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}.footer-actions button[aria-expanded="true"]{border-color:var(--blue)}
 </style>
 <script id="display-settings-controls">
 (() => {
@@ -189,20 +191,15 @@ html[data-display-theme]:not([data-display-theme="standard"]) .copy-btn{color:va
 <div class="title-tools" role="group" aria-label="タイトル欄の操作">
 <div class="title-left-tools">
 <button class="toolbar-button" id="homeScreenToggle" type="button" aria-expanded="false" aria-controls="homeScreenHelp">ホーム画面へ追加</button>
-<div class="title-disclosure-tools">
-<button class="toolbar-button" id="disclaimerToggle" type="button" aria-expanded="false" aria-controls="footerDisclaimer">免責事項</button>
-<button class="toolbar-button" id="contactToggle" type="button" aria-expanded="false" aria-controls="footerContact">お問い合わせ</button>
-</div>
+
 </div>
 <div class="title-right-tools">
+<button class="refresh-mini" id="refreshPage" type="button" aria-label="最新表示に更新" title="更新">更新</button>
 <div id="adminFooter" class="admin-link-row" hidden>
 <a id="adminPage" class="admin-link" href="https://pococha-challenge.freefreelife2000.chatgpt.site/admin" target="_blank" rel="noopener noreferrer" aria-label="管理ページを新しいタブで開く" title="新しいタブで開く" hidden>管理ページ</a>
 </div>
 <button class="toolbar-button" id="displaySettingsToggle" type="button" aria-expanded="false" aria-controls="displaySettings">画面設定</button>
-<div class="share-update-tools">
-<button class="share-mini" id="sharePage" type="button" aria-label="このページを共有" title="共有">共有</button>
-<button class="refresh-mini" id="refreshPage" type="button" aria-label="最新表示に更新" title="更新">更新</button>
-</div>
+
 </div>
 </div>
 <section class="title-panel" id="displaySettings" aria-labelledby="displaySettingsToggle" hidden>
@@ -274,13 +271,6 @@ html[data-display-theme]:not([data-display-theme="standard"]) .copy-btn{color:va
 <div class="panel-actions"><button class="panel-close" id="closeHomeScreenHelp" type="button" data-close-panel aria-label="ホーム画面へ追加の説明を閉じる">閉じる</button></div>
 </div>
 </section>
-<section class="title-panel" id="footerDisclaimer" aria-labelledby="disclaimerToggle" hidden>
-<div class="title-detail-body"><p>非公式の参考情報です。正確性は保証しません。ご利用に伴う損害等の責任は負いかねます。公式アプリの表示を優先してください。</p><div class="panel-actions"><button class="panel-close" id="closeDisclaimer" type="button" data-close-panel aria-label="免責事項を閉じる">閉じる</button></div>
-<div class="disclaimer-logo"><span class="creator-logo"><svg class="ylogo-svg" viewBox="0 0 267 48" role="img" aria-label="Pococha1012"><title>Pococha1012</title><defs><linearGradient id="ylgMeter" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#22d3ee"/><stop offset=".5" stop-color="#6366f1"/><stop offset="1" stop-color="#ec4899"/></linearGradient></defs><circle cx="24" cy="24" r="23" fill="#141827"/><circle cx="24" cy="24" r="20.5" fill="none" stroke="url(#ylgMeter)" stroke-width="4"/><g fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="6"><path d="M18 36V13h9a8 8 0 0 1 0 16h-9"/></g><text id="yoshiLogoName" x="57.694" y="37.5" textLength="109.554" lengthAdjust="spacingAndGlyphs" font-family="Arial, sans-serif" font-size="34" font-weight="800" style="fill:var(--ylt,#1b1f2e)">Pococha</text><path d="M179.98999999999995 37.5H195.96999999999997V32.604H191.41399999999996V12.169999999999998H186.95999999999998C185.19199999999998 13.291999999999998 183.42399999999998 13.971999999999998 180.70399999999998 14.482V18.221999999999998H185.36199999999997V32.604H179.98999999999995ZM209.61399999999998 37.976C214.95199999999997 37.976 218.55599999999998 33.42 218.55599999999998 24.716C218.55599999999998 16.046 214.95199999999997 11.727999999999998 209.61399999999998 11.727999999999998C204.27599999999998 11.727999999999998 200.63799999999998 16.011999999999997 200.63799999999998 24.716C200.63799999999998 33.42 204.27599999999998 37.976 209.61399999999998 37.976ZM209.61399999999998 33.284C207.81199999999998 33.284 206.34999999999997 31.652 206.34999999999997 24.716C206.34999999999997 17.814 207.81199999999998 16.351999999999997 209.61399999999998 16.351999999999997C211.41599999999997 16.351999999999997 212.84399999999997 17.814 212.84399999999997 24.716C212.84399999999997 31.652 211.41599999999997 33.284 209.61399999999998 33.284ZM223.80199999999996 37.5H239.78199999999998V32.604H235.22599999999997V12.169999999999998H230.772C229.004 13.291999999999998 227.236 13.971999999999998 224.516 14.482V18.221999999999998H229.17399999999998V32.604H223.80199999999996ZM244.48399999999998 37.5H262.02799999999996V32.4H257.404C256.248 32.4 254.51399999999998 32.57 253.25599999999997 32.74C257.132 28.83 260.87199999999996 24.036 260.87199999999996 19.683999999999997C260.87199999999996 14.855999999999998 257.472 11.727999999999998 252.576 11.727999999999998C248.97199999999998 11.727999999999998 246.66 12.985999999999997 244.178 15.637999999999998L247.47599999999997 18.901999999999997C248.7 17.61 250.02599999999998 16.453999999999997 251.76 16.453999999999997C253.79999999999998 16.453999999999997 255.058 17.712 255.058 20.023999999999997C255.058 23.695999999999998 250.808 28.286 244.48399999999998 34.032Z" style="fill:var(--yln,#4338ca)"/></svg></span></div></div>
-</section>
-<section class="title-panel" id="footerContact" aria-labelledby="contactToggle" hidden>
-<div class="title-detail-body"><p>このツール専用のスペースからメッセージを送信できます。</p><a class="contact-link" id="contactSpace" href="https://pococha-challenge.freefreelife2000.chatgpt.site/contact" target="_blank" rel="noopener noreferrer">専用お問い合わせを開く</a><div class="panel-actions"><button class="panel-close" id="closeContact" type="button" data-close-panel aria-label="お問い合わせを閉じる">閉じる</button></div></div>
-</section>
 </header>
 <section class="distribution-warning" id="distributionWarning" role="alert" hidden>
 <h2>正規公開先をご利用ください</h2>
@@ -289,9 +279,23 @@ html[data-display-theme]:not([data-display-theme="standard"]) .copy-btn{color:va
 </section>
 <section class="controls" aria-label="年月選択"><div class="month-row"><button class="nav" id="prev" type="button" aria-label="前月">‹</button><input class="month-input" id="month" type="month" min="2026-01" max="2026-10" value="2026-10" aria-label="表示する年月"><button class="nav" id="next" type="button" aria-label="翌月">›</button></div><div class="quick-row" id="quick"></div></section>
 <section class="notice" aria-label="操作とお問い合わせの案内">
-<ul><li>解答を直接クリックで個別コピー可</li><li>不具合等は上部のお問い合わせからご連絡下さい。<br>（スクショ添付可）</li></ul>
+<ul><li>解答を直接クリックで個別コピー可</li><li>不具合等は最下段のお問い合わせからご連絡下さい。<br>（スクショ添付可）</li></ul>
 </section>
 <section class="departments" id="departments" aria-live="polite"></section>
+<footer class="app-footer" aria-label="免責事項・お問い合わせ・共有">
+<div class="footer-actions">
+<button class="toolbar-button" id="disclaimerToggle" type="button" aria-expanded="false" aria-controls="footerDisclaimer">免責事項</button>
+<button class="toolbar-button" id="contactToggle" type="button" aria-expanded="false" aria-controls="footerContact">お問い合わせ</button>
+<button class="share-mini" id="sharePage" type="button" aria-label="このページを共有" title="共有">共有</button>
+</div>
+<section class="title-panel" id="footerDisclaimer" aria-labelledby="disclaimerToggle" hidden>
+<div class="title-detail-body"><p>非公式の参考情報です。正確性は保証しません。ご利用に伴う損害等の責任は負いかねます。公式アプリの表示を優先してください。</p><div class="panel-actions"><button class="panel-close" id="closeDisclaimer" type="button" data-close-panel aria-label="免責事項を閉じる">閉じる</button></div>
+<div class="disclaimer-logo"><span class="creator-logo"><svg class="ylogo-svg" viewBox="0 0 267 48" role="img" aria-label="Pococha1012"><title>Pococha1012</title><defs><linearGradient id="ylgMeter" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#22d3ee"/><stop offset=".5" stop-color="#6366f1"/><stop offset="1" stop-color="#ec4899"/></linearGradient></defs><circle cx="24" cy="24" r="23" fill="#141827"/><circle cx="24" cy="24" r="20.5" fill="none" stroke="url(#ylgMeter)" stroke-width="4"/><g fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="6"><path d="M18 36V13h9a8 8 0 0 1 0 16h-9"/></g><text id="yoshiLogoName" x="57.694" y="37.5" textLength="109.554" lengthAdjust="spacingAndGlyphs" font-family="Arial, sans-serif" font-size="34" font-weight="800" style="fill:var(--ylt,#1b1f2e)">Pococha</text><path d="M179.98999999999995 37.5H195.96999999999997V32.604H191.41399999999996V12.169999999999998H186.95999999999998C185.19199999999998 13.291999999999998 183.42399999999998 13.971999999999998 180.70399999999998 14.482V18.221999999999998H185.36199999999997V32.604H179.98999999999995ZM209.61399999999998 37.976C214.95199999999997 37.976 218.55599999999998 33.42 218.55599999999998 24.716C218.55599999999998 16.046 214.95199999999997 11.727999999999998 209.61399999999998 11.727999999999998C204.27599999999998 11.727999999999998 200.63799999999998 16.011999999999997 200.63799999999998 24.716C200.63799999999998 33.42 204.27599999999998 37.976 209.61399999999998 37.976ZM209.61399999999998 33.284C207.81199999999998 33.284 206.34999999999997 31.652 206.34999999999997 24.716C206.34999999999997 17.814 207.81199999999998 16.351999999999997 209.61399999999998 16.351999999999997C211.41599999999997 16.351999999999997 212.84399999999997 17.814 212.84399999999997 24.716C212.84399999999997 31.652 211.41599999999997 33.284 209.61399999999998 33.284ZM223.80199999999996 37.5H239.78199999999998V32.604H235.22599999999997V12.169999999999998H230.772C229.004 13.291999999999998 227.236 13.971999999999998 224.516 14.482V18.221999999999998H229.17399999999998V32.604H223.80199999999996ZM244.48399999999998 37.5H262.02799999999996V32.4H257.404C256.248 32.4 254.51399999999998 32.57 253.25599999999997 32.74C257.132 28.83 260.87199999999996 24.036 260.87199999999996 19.683999999999997C260.87199999999996 14.855999999999998 257.472 11.727999999999998 252.576 11.727999999999998C248.97199999999998 11.727999999999998 246.66 12.985999999999997 244.178 15.637999999999998L247.47599999999997 18.901999999999997C248.7 17.61 250.02599999999998 16.453999999999997 251.76 16.453999999999997C253.79999999999998 16.453999999999997 255.058 17.712 255.058 20.023999999999997C255.058 23.695999999999998 250.808 28.286 244.48399999999998 34.032Z" style="fill:var(--yln,#4338ca)"/></svg></span></div></div>
+</section>
+<section class="title-panel" id="footerContact" aria-labelledby="contactToggle" hidden>
+<div class="title-detail-body"><p>このツール専用のスペースからメッセージを送信できます。</p><a class="contact-link" id="contactSpace" href="https://pococha-challenge.freefreelife2000.chatgpt.site/contact" target="_blank" rel="noopener noreferrer">専用お問い合わせを開く</a><div class="panel-actions"><button class="panel-close" id="closeContact" type="button" data-close-panel aria-label="お問い合わせを閉じる">閉じる</button></div></div>
+</section>
+</footer>
 </main>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
