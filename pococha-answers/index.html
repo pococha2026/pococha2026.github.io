@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-P76ZEZ5Ew9+nPfi6VrZT9k4gtt03PiZCTBXGdRU2HiU=' 'sha256-uNaRaIumIn5v9WjqQEXs1MZ5RqTzBS0B49cDGxzj2Hs=' 'sha256-uE7VyjG2ywos0qkQxgF7/mlFoGu7c4W6UFCB/F/xid4=' 'sha256-V33ZnLXKBDE01RsCy5bDRAL8vmtYU2cESYvdnAAA71Y=' 'sha256-iHKlYec+f7BlCVfmaeLnrBLYahbzu6OjOKjiTb9vmIE='; style-src 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://pococha-challenge.freefreelife2000.chatgpt.site; base-uri 'none'; object-src 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-P76ZEZ5Ew9+nPfi6VrZT9k4gtt03PiZCTBXGdRU2HiU=' 'sha256-uNaRaIumIn5v9WjqQEXs1MZ5RqTzBS0B49cDGxzj2Hs=' 'sha256-uE7VyjG2ywos0qkQxgF7/mlFoGu7c4W6UFCB/F/xid4=' 'sha256-q/m2/wWnx9JYsagX6SpA3aKdD7zcYXtbieSCgoWoP7E=' 'sha256-iHKlYec+f7BlCVfmaeLnrBLYahbzu6OjOKjiTb9vmIE='; style-src 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://pococha-challenge.freefreelife2000.chatgpt.site; base-uri 'none'; object-src 'none'; form-action 'none'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="referrer" content="no-referrer">
 <meta name="theme-color" content="#111827">
@@ -536,7 +536,18 @@ function openFreeMemo(kind){
   const sync=()=>{freeMemos[kind]=field.value;const inline=document.querySelector('[data-memo="'+kind+'"]');if(inline)inline.value=field.value;};
   const close=()=>{sync();if(popup)popup.close();else root.remove();delete memoEditors[kind];origin?.focus();};
   const button=()=>{const b=doc.createElement('button');b.type='button';b.textContent='閉じる';b.style.cssText='align-self:flex-end;min-height:44px;padding:8px 24px;border:1px solid #64748b;border-radius:8px;background:#fff;color:#111827;font:16px system-ui,sans-serif;cursor:pointer;';b.addEventListener('click',close);return b;};
-  root.append(button(),heading,field,button());doc.body.append(root);
+  const actions=doc.createElement('div');actions.style.cssText='display:flex;flex-wrap:wrap;gap:8px;';
+  const status=doc.createElement('span');status.setAttribute('role','status');status.setAttribute('aria-live','polite');status.style.cssText='font-size:14px;align-self:center;';
+  const copyAll=button();copyAll.textContent='全コピー';copyAll.removeEventListener('click',close);
+  copyAll.addEventListener('click',async()=>{
+    const text=field.value;
+    try{const clipboard=doc.defaultView?.navigator?.clipboard;if(!clipboard)throw new Error('clipboard unavailable');await clipboard.writeText(text);status.textContent='全コピーしました';}
+    catch{field.focus();field.select();field.setSelectionRange(0,field.value.length);let copied=false;try{copied=doc.execCommand('copy');}catch{}status.textContent=copied?'全コピーしました':'全選択しました。コピー操作をしてください';}
+  });
+  const clearAll=button();clearAll.textContent='全削除';clearAll.removeEventListener('click',close);
+  clearAll.addEventListener('click',()=>{field.value='';sync();status.textContent='全削除しました';field.focus();});
+  actions.append(copyAll,clearAll,status);
+  root.append(button(),heading,actions,field,button());doc.body.append(root);
   field.addEventListener('input',sync);root.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();close();}});
   if(popup)popup.addEventListener('pagehide',sync,{once:true});
   memoEditors[kind]={closed:()=>popup?popup.closed:!root.isConnected,focus:()=>{popup?.focus();field.focus();}};field.focus();
