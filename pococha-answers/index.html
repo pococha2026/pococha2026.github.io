@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-P76ZEZ5Ew9+nPfi6VrZT9k4gtt03PiZCTBXGdRU2HiU=' 'sha256-uNaRaIumIn5v9WjqQEXs1MZ5RqTzBS0B49cDGxzj2Hs=' 'sha256-uE7VyjG2ywos0qkQxgF7/mlFoGu7c4W6UFCB/F/xid4=' 'sha256-q/m2/wWnx9JYsagX6SpA3aKdD7zcYXtbieSCgoWoP7E=' 'sha256-iHKlYec+f7BlCVfmaeLnrBLYahbzu6OjOKjiTb9vmIE='; style-src 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://pococha-challenge.freefreelife2000.chatgpt.site; base-uri 'none'; object-src 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-P76ZEZ5Ew9+nPfi6VrZT9k4gtt03PiZCTBXGdRU2HiU=' 'sha256-uNaRaIumIn5v9WjqQEXs1MZ5RqTzBS0B49cDGxzj2Hs=' 'sha256-uE7VyjG2ywos0qkQxgF7/mlFoGu7c4W6UFCB/F/xid4=' 'sha256-q/m2/wWnx9JYsagX6SpA3aKdD7zcYXtbieSCgoWoP7E=' 'sha256-bKHxTIWRK6MCziKkcf9xuR3bvguSdShUbOmAJpxapYE='; style-src 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://pococha-challenge.freefreelife2000.chatgpt.site; base-uri 'none'; object-src 'none'; form-action 'none'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="referrer" content="no-referrer">
 <meta name="theme-color" content="#111827">
@@ -216,6 +216,11 @@ html[data-display-theme]:not([data-display-theme="standard"]) .copy-btn{color:va
 <label class="display-choice"><input type="radio" name="displayTheme" value="green" data-display-setting="theme"><span><i class="theme-swatch" style="background:#047857" aria-hidden="true"></i>グリーン</span></label>
 <label class="display-choice"><input type="radio" name="displayTheme" value="dark" data-display-setting="theme"><span><i class="theme-swatch" style="background:#10141f" aria-hidden="true"></i>ダーク</span></label>
 </div></fieldset>
+<fieldset><legend>アクセス集計</legend>
+<label class="display-choice"><input type="checkbox" id="excludeSelfVisits"><span>このブラウザーのアクセスを集計しない</span></label>
+<p class="display-settings-note">自分のスマホ・PCでそれぞれ設定してください。Safari・Chrome、Sites版・GitHub版は別設定です。履歴やサイトデータを削除すると再設定が必要です。過去の集計は変更しません。</p>
+<p class="display-settings-status" id="excludeSelfVisitsStatus" role="status" aria-live="polite"></p>
+</fieldset>
 <p class="display-settings-note">選択するとすぐに反映されます。設定はこの端末・ブラウザーに保存されます。標準テーマは端末の明るい／暗い表示に合わせます。フォントの見え方は端末によって異なります。</p>
 <p class="display-settings-status" id="displaySettingsStatus" role="status" aria-live="polite"></p>
 <div class="panel-actions display-settings-actions"><button class="panel-close" id="resetDisplaySettings" type="button">初期設定に戻す</button><button class="panel-close" id="closeDisplaySettings" type="button" data-close-panel aria-label="画面設定を閉じる">閉じる</button></div>
@@ -563,6 +568,32 @@ $('sharePage').addEventListener('click',async()=>{const shared=new URL('https://
   const github = location.origin === 'https://pococha2026.github.io' && /^\/pococha-(?:answers|challenge)\/(?:index\.html)?$/.test(location.pathname);
   const sites = location.origin === 'https://pococha-challenge.freefreelife2000.chatgpt.site' && /^\/(?:index\.html)?$/.test(location.pathname);
   if (!github && !sites) return;
+  const excludeKey = 'pococha_answers_exclude_self_v1';
+  let excluded = false, saveFailed = false;
+  try { excluded = localStorage.getItem(excludeKey) === '1'; } catch {}
+  const saveExclusion = value => {
+    excluded = value;
+    try { localStorage.setItem(excludeKey, value ? '1' : '0'); saveFailed = localStorage.getItem(excludeKey) !== (value ? '1' : '0'); } catch { saveFailed = true; }
+  };
+  if (new URL(location.href).searchParams.get('excludeSelf') === '1') {
+    saveExclusion(true);
+    try { const clean = new URL(location.href); clean.searchParams.delete('excludeSelf'); history.replaceState(history.state, '', clean.href); } catch {}
+  }
+  const isExcluded = () => {
+    try { if (localStorage.getItem(excludeKey) === '1') return true; } catch {}
+    return excluded;
+  };
+  document.addEventListener('DOMContentLoaded', () => {
+    const control = document.getElementById('excludeSelfVisits');
+    const status = document.getElementById('excludeSelfVisitsStatus');
+    if (!control || !status) return;
+    const update = () => {
+      control.checked = isExcluded();
+      status.textContent = saveFailed ? (control.checked ? 'この画面では除外しますが、保存できません。次回も除外設定が必要です。' : 'この画面では除外を解除しましたが、保存できません。次回の状態を確認してください。') : control.checked ? 'このブラウザーを今後の集計から除外します。' : '除外していません。変更後の集計再開は次の再読み込みからです。';
+    };
+    update();
+    control.addEventListener('change', () => { saveExclusion(control.checked); update(); });
+  }, { once: true });
   try { globalThis.localStorage?.removeItem('pococha_answers_statistics_choice_v1'); } catch { /* Device storage may be unavailable. */ }
   try {
     if (document.cookie.split(';').some(part => part.trim().startsWith('pococha_answers_daily_vid='))) {
@@ -608,15 +639,17 @@ $('sharePage').addEventListener('click',async()=>{const shared=new URL('https://
     } catch { return null; }
   }
   function track() {
-    if (started || document.visibilityState !== 'visible') return;
+    if (started || isExcluded() || document.visibilityState !== 'visible') return;
     started = true;
     document.removeEventListener('visibilitychange', track);
     const meta = metadata();
     const payload = { eventId: crypto.randomUUID(), visitorId: visitorId(), page: location.origin + location.pathname, meta };
     function submit() {
+      if (isExcluded()) return;
       const body = JSON.stringify(payload);
       let attempt = 0;
       async function send() {
+        if (isExcluded()) return;
         attempt += 1;
         try {
           const result = await fetch(endpoint, { method: 'POST', credentials: 'omit', mode: 'cors', headers: { 'Content-Type': 'application/json' }, body, keepalive: true });
