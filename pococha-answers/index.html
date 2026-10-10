@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-P76ZEZ5Ew9+nPfi6VrZT9k4gtt03PiZCTBXGdRU2HiU=' 'sha256-uNaRaIumIn5v9WjqQEXs1MZ5RqTzBS0B49cDGxzj2Hs=' 'sha256-uE7VyjG2ywos0qkQxgF7/mlFoGu7c4W6UFCB/F/xid4=' 'sha256-J3SzF+Fxod4puTaU+u4VW+/P7Ek7bGBMWGfJYdCBt6U=' 'sha256-iHKlYec+f7BlCVfmaeLnrBLYahbzu6OjOKjiTb9vmIE='; style-src 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://pococha-challenge.freefreelife2000.chatgpt.site; base-uri 'none'; object-src 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-P76ZEZ5Ew9+nPfi6VrZT9k4gtt03PiZCTBXGdRU2HiU=' 'sha256-uNaRaIumIn5v9WjqQEXs1MZ5RqTzBS0B49cDGxzj2Hs=' 'sha256-uE7VyjG2ywos0qkQxgF7/mlFoGu7c4W6UFCB/F/xid4=' 'sha256-V33ZnLXKBDE01RsCy5bDRAL8vmtYU2cESYvdnAAA71Y=' 'sha256-iHKlYec+f7BlCVfmaeLnrBLYahbzu6OjOKjiTb9vmIE='; style-src 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://pococha-challenge.freefreelife2000.chatgpt.site; base-uri 'none'; object-src 'none'; form-action 'none'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="referrer" content="no-referrer">
 <meta name="theme-color" content="#111827">
@@ -44,7 +44,7 @@ GitHub Terms and third-party rights are unaffected. Client checks are removable.
 .share-update-tools{display:flex;align-items:center;gap:4px}
 .app-header .admin-link{display:inline-flex;align-items:center;justify-content:flex-end;min-height:22px;padding:1px 3px;color:#fff;font-size:.7rem;line-height:1.25;white-space:nowrap;text-underline-offset:3px}
 .app-header .admin-link:focus-visible{outline:2px solid #fff;outline-offset:2px}
-@media(min-width:700px) and (hover:hover) and (pointer:fine){.admin-link-row.github-mobile-admin{display:none!important}}
+.app-header .admin-link-row{display:flex;align-items:center;justify-content:flex-end}
 .app-header button:focus-visible{outline:2px solid #fff;outline-offset:2px}
 .title-panel{min-width:0;max-width:100%}
 .title-panel[hidden]{display:none}
@@ -355,7 +355,7 @@ const adminOnSites=location.origin==='https://pococha-challenge.freefreelife2000
 const adminOnGithub=location.origin==='https://pococha2026.github.io'&&/^\/pococha-(?:answers|challenge)\/(?:index\.html)?$/.test(location.pathname);
 document.getElementById('adminPage').hidden=!(adminOnSites||adminOnGithub);
 document.getElementById('adminFooter').hidden=document.getElementById('adminPage').hidden;
-if(adminOnGithub)document.getElementById('adminFooter').classList.add('github-mobile-admin');
+
 if(location.origin==='https://pococha2026.github.io'){document.getElementById('contactSpace').href+='?from=github';}
 const FAQ='https://pococha-jp.pococha.com/hc/ja/articles/31868519743385-%E3%81%BD%E3%81%93%E3%83%81%E3%83%A3%E3%83%AC';
 const HAISHIN_MAP='https://haishin-lab.com/sitemap/';
