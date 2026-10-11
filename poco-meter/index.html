@@ -1595,17 +1595,20 @@ header.card>.header-main>#toolUpdatedDate>time{font-size:.75rem;white-space:norm
 @media(max-width:700px){:root header.card>.header-main details>summary{display:flex;flex-wrap:wrap;gap:2px 4px;white-space:normal!important;max-width:100%}:root header.card>.header-main details>summary::after{margin-left:0}}
 @media print{:root details>summary::after,:root .secondary-menus .sectionToggle::after{display:none}}
 /* Usage/method help sit below the title; support menus live in the footer. */
-header.card>.header-main:first-child{display:grid;grid-template-columns:minmax(0,max-content) minmax(0,max-content) minmax(0,1fr) minmax(0,max-content);grid-template-areas:"title title update update" "usage methods . display";align-items:center;gap:8px}
+header.card>.header-main:first-child{display:grid;grid-template-columns:minmax(0,max-content) minmax(0,max-content) minmax(0,1fr) minmax(0,max-content) minmax(0,max-content);grid-template-areas:"title title update update update" "usage methods . display refresh";align-items:center;gap:8px}
 header.card>.header-main>h1{grid-area:title;min-width:0}
 header.card>.header-main>#toolUsage{grid-area:usage;justify-self:start;width:auto;min-width:0}
 header.card>.header-main>#calculationMethodsLink{grid-area:methods;justify-self:start;display:flex;align-items:center;justify-content:center;min-width:0;max-width:100%;min-height:32px;padding:4px 8px;border:1px solid var(--control-border);border-radius:7px;background:var(--paper);color:var(--ink);font-size:.75rem;line-height:1.5;text-decoration:none;text-align:center;white-space:normal;overflow-wrap:anywhere;box-shadow:inset 0 -2px 0 var(--teal)}
 header.card>.header-main>#calculationMethodsLink:hover{background:var(--teal-soft)}
 header.card>.header-main>#calculationMethodsLink:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 header.card>.header-main>#displaySettings{grid-area:display;justify-self:end;width:auto;min-width:0}
+header.card>.header-main>#refreshPage{grid-area:refresh;min-height:44px;min-width:0;padding:4px 8px;border:1px solid var(--control-border);border-radius:7px;background:var(--paper);color:var(--ink);font-size:.8125rem!important;line-height:1.5;white-space:normal;overflow-wrap:anywhere;box-shadow:inset 0 -2px 0 var(--teal)}
+header.card>.header-main>#refreshPage:hover{background:var(--teal-soft)}
+header.card>.header-main>#refreshPage:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 header.card>.header-main>#toolUpdatedDate{grid-area:update;width:100%;min-width:0;align-items:flex-end;text-align:right}
 @media(max-width:700px){
-  header.card>.header-main:first-child{grid-template-columns:repeat(6,minmax(0,1fr));grid-template-areas:"title title title title title title" "usage usage usage methods methods methods" "update update update update update update" "display display . . . .";gap:8px 6px}
-  header.card>.header-main>:is(#toolUsage,#calculationMethodsLink,#displaySettings){width:100%;max-width:100%;min-width:0;align-self:stretch}
+  header.card>.header-main:first-child{grid-template-columns:repeat(6,minmax(0,1fr));grid-template-areas:"title title title title title title" "usage usage usage methods methods methods" "update update update update update update" "display display refresh refresh . .";gap:8px 6px}
+  header.card>.header-main>:is(#toolUsage,#calculationMethodsLink,#displaySettings,#refreshPage){width:100%;max-width:100%;min-width:0;align-self:stretch}
   header.card>.header-main>#calculationMethodsLink{min-height:44px;font-size:.8125rem}
   header.card>.header-main>#displaySettings>summary{padding:2px 3px;font-size:.8125rem!important;gap:2px 4px;white-space:normal!important;overflow-wrap:anywhere;text-align:center}
   header.card>.header-main>#toolUpdatedDate{align-items:baseline;text-align:left}
@@ -1693,6 +1696,7 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
         </div>
       </details>
       <!-- display-settings-menu:end -->
+      <button type="button" id="refreshPage" aria-label="ページ全体を再読み込みする" title="ページ全体を再読み込み">更新</button>
       <span class="ylogo-update" id="toolUpdatedDate" title="ツール本体の最終更新日時（ボーダーデータの更新日時とは別）"><span>更新時間</span><time class="num" datetime="2026-10-12T04:56:00+09:00">2026/10/12 04:56</time></span>
     </div>
   </header>
@@ -3304,6 +3308,7 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
   });
   save();
   $('displaySettings').addEventListener('toggle',refreshMenuControls);
+  $('refreshPage').onclick=function(){window.location.reload();};
   var headerMenus=[$('displaySettings'),$('toolDisclaimer'),$('toolContact'),$('toolUsage')];
   document.addEventListener('keydown',function(event){if(event.key!=='Escape'||!$('selectWindow').hidden)return;headerMenus.forEach(function(menu){if(menu.open){menu.open=false;menu.querySelector('summary').focus({preventScroll:true});}});});
   headerMenus.forEach(function(menu){menu.addEventListener('toggle',function(){if(!this.open)return;headerMenus.forEach(function(other){if(other!==menu){other.open=false;other.removeAttribute('open');}});refreshMenuControls();});});
