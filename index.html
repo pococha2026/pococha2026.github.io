@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#11152b">
-<meta name="description" content="Pococha1012の4つのツールをすぐ開く。お気に入り、前回のツール、ホーム画面への追加、共有QRに対応。">
+<meta name="description" content="Pococha1012の5つのツールをすぐ開く。お気に入り、前回のツール、ホーム画面への追加、共有QRに対応。">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Pocochaツール">
 <link rel="canonical" href="https://pococha2026.github.io/">
@@ -38,6 +38,7 @@ footer{text-align:center;padding:12px 20px calc(100px + env(safe-area-inset-bott
 <div class="quick-item"><a class="quick-link" href="./same-coin/" data-tool="coin"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 11h1m6 0h1M8 15h1m6 0h1M8 18h1m6 0h1"/></svg></span>同額コイン計算</a><span class="pin-label" aria-hidden="true" hidden>お気に入り</span><button class="pin" data-pin="coin" type="button" aria-label="同額コイン計算をお気に入りに追加" aria-pressed="false" hidden>☆</button></div>
 <div class="quick-item"><a class="quick-link" href="./pococha-answers/" data-tool="answers"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 4h11a1 1 0 0 1 1 1v15H7a3 3 0 0 1-3-3V5a1 1 0 0 1 1-1h3ZM8 4v16M11 8h6m-6 4h6m-6 4h4"/></svg></span>ポコチャレ解答</a><span class="pin-label" aria-hidden="true" hidden>お気に入り</span><button class="pin" data-pin="answers" type="button" aria-label="ポコチャレ解答をお気に入りに追加" aria-pressed="false" hidden>☆</button></div>
 <div class="quick-item"><a class="quick-link" href="./yell-log.html" data-tool="record"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6m-3 0v3"/></svg></span>時間・エール記録</a><span class="pin-label" aria-hidden="true" hidden>お気に入り</span><button class="pin" data-pin="record" type="button" aria-label="時間・エール記録をお気に入りに追加" aria-pressed="false" hidden>☆</button></div>
+<div class="quick-item"><a class="quick-link" href="./comments/" data-tool="comments"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5H4l-1 2V11.5a8.5 8.5 0 1 1 17 0Z"/><path d="m7 11 2 2 5-5"/></svg></span>キラコメ・定期コメント</a><span class="pin-label" aria-hidden="true" hidden>お気に入り</span><button class="pin" data-pin="comments" type="button" aria-label="キラコメ・定期コメントをお気に入りに追加" aria-pressed="false" hidden>☆</button></div>
 </div>
 <p class="hint" id="favorite-hint" hidden>☆を押すと、お気に入りを上に表示。設定はこのブラウザに保存します。</p>
 <a class="install-cta" href="#install">ホーム画面に追加する方法を見る ↓</a>
@@ -49,6 +50,7 @@ footer{text-align:center;padding:12px 20px calc(100px + env(safe-area-inset-bott
 <article class="tool"><h3>Pococha 同額コイン計算機</h3><p>総コイン数と人数から、同額で分けられる組み合わせを確認。</p><a class="open" href="./same-coin/" data-tool="coin">コイン計算機を開く</a></article>
 <article class="tool"><h3>ポコチャレ解答集</h3><p>月別のオープン部門・ファミリー部門の解答を確認してコピー。</p><a class="open" href="./pococha-answers/" data-tool="answers">解答集を開く</a></article>
 <article class="tool"><h3>時間稼ぎ・エール記録帳</h3><p>時間稼ぎ・エールを記録。記録は使用中の端末のブラウザに保存。</p><a class="open" href="./yell-log.html" data-tool="record">記録帳を開く</a><div class="tool-links"><a href="./yell-log-share.html">記録帳の共有・QR</a><a href="./pococha-yell-log-offline.zip" download>オフラインZIP</a></div></article>
+<article class="tool"><h3>キラコメ・定期コメント集</h3><p>コメント例を種類別に探してコピー。ネットから再収集できます。現在は作成者本人専用です。</p><a class="open" href="./comments/" data-tool="comments">本人専用ツールの案内を開く</a></article>
 </div>
 </section>
 <section class="panel" id="install" aria-labelledby="install-title">
@@ -70,14 +72,14 @@ footer{text-align:center;padding:12px 20px calc(100px + env(safe-area-inset-bott
 </section>
 <noscript><p class="note">上のボタンから各ツールを開けます。お気に入り・URLコピーはJavaScriptを有効にすると使えます。</p></noscript>
 </main>
-<footer><p>Pococha公式サービスではありません。</p><p>© Pococha1012 · 更新日 2026/10/09</p></footer>
+<footer><p>Pococha公式サービスではありません。</p><p>© Pococha1012 · 更新日 2026/10/11</p></footer>
 <nav class="dock" aria-label="一覧ページのメニュー"><div class="wrap"><a href="#quick"><span aria-hidden="true">▦</span>ツール</a><a href="#install"><span aria-hidden="true">＋</span>追加方法</a><a href="#sharing"><span aria-hidden="true">↗</span>共有・QR</a></div></nav>
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 <script>
 (function(){
 'use strict';
 var pageUrl='https://pococha2026.github.io/';
-var tools={meter:{label:'メーター計算',href:'./poco-meter/'},coin:{label:'同額コイン計算',href:'./same-coin/'},answers:{label:'ポコチャレ解答',href:'./pococha-answers/'},record:{label:'時間・エール記録',href:'./yell-log.html'}};
+var tools={meter:{label:'メーター計算',href:'./poco-meter/'},coin:{label:'同額コイン計算',href:'./same-coin/'},answers:{label:'ポコチャレ解答',href:'./pococha-answers/'},record:{label:'時間・エール記録',href:'./yell-log.html'},comments:{label:'キラコメ・定期コメント',href:'./comments/'}};
 var storageKey='pococha2026:launcher:v1',state={favorites:[],recent:null};
 var toast=document.getElementById('toast'),timer,installPrompt=null;
 function show(message){toast.textContent=message;toast.hidden=false;clearTimeout(timer);timer=setTimeout(function(){toast.hidden=true;},3500);}
@@ -106,3 +108,4 @@ var agent=navigator.userAgent;if(/iPhone|iPad|iPod/.test(agent)){document.getEle
 </script>
 </body>
 </html>
+
