@@ -281,7 +281,7 @@ section.collapsed>*:not(h2){display:none!important}
 .items-window-head{display:contents}
 #itemsWindowTitle{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
 #closeItemsWindow{grid-column:2;grid-row:1;min-height:30px;width:26px;padding:0;font-size:14px!important}
-#itemsWindowRow{grid-column:1/-1;grid-row:2;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;min-width:0;padding:0}
+#itemsWindowRow{grid-column:1/-1;grid-row:2;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;min-width:0;padding:0}
 #itemsWindowRow .coin-card{min-width:0;display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 6px;margin:0;background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:4px}
 #itemsWindowRow .coin-card span{font-size:11px!important;line-height:1.4;white-space:normal;overflow-wrap:anywhere;max-width:100%;text-align:center;letter-spacing:0}
 #itemsWindowRow .coin-card b{font-size:13px!important;line-height:1.4;margin:0;color:var(--number-ink,var(--teal));white-space:normal;overflow-wrap:anywhere;max-width:100%;text-align:center;letter-spacing:0}
@@ -2317,8 +2317,18 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
   function toMins(t){if(typeof t!=='string'||!/^\d{2}:\d{2}$/.test(t))return null;var p=t.split(':').map(Number);return p[0]<24&&p[1]<60?p[0]*60+p[1]:null;}
   function meterWindow(ms){var now=jstNow(ms),dl=toMins(state.deadline);if(dl===null)dl=22*60;var end=Date.UTC(now.y,now.m-1,now.d)+dl*60000-9*3600e3;if(end<=ms)end+=864e5;return {end:end,start:end-864e5,left:(end-ms)/60000};}
   function hm(mins){if(mins>0&&mins<1)return Math.ceil(mins*60)+'秒';mins=Math.max(0,Math.floor(mins));var h=Math.floor(mins/60),m=mins%60;return h>0?h+'時間'+m+'分':m+'分';}
-  function countdownTime(ms){var seconds=Number.isFinite(ms)?Math.max(0,Math.ceil(ms/1000)):0;return String(Math.floor(seconds/3600)).padStart(2,'0')+':'+String(Math.floor(seconds/60)%60).padStart(2,'0')+':'+String(seconds%60).padStart(2,'0');}
-  function countdownDescription(ms){var parts=countdownTime(ms).split(':');return '残り'+Number(parts[0])+'時間'+Number(parts[1])+'分'+Number(parts[2])+'秒。'+clockBasis().description;}
+  function countdownTime(ms,fractional){var scale=fractional?10:1,ticks=Number.isFinite(ms)?Math.max(0,Math.ceil(ms/(1000/scale))):0,seconds=Math.floor(ticks/scale);return String(Math.floor(seconds/3600)).padStart(2,'0')+':'+String(Math.floor(seconds/60)%60).padStart(2,'0')+':'+String(seconds%60).padStart(2,'0')+(fractional?'.'+ticks%10:'');}
+  function countdownDescription(ms,fractional){var parts=countdownTime(ms,fractional).split(':');return '残り'+Number(parts[0])+'時間'+Number(parts[1])+'分'+Number(parts[2])+'秒。'+clockBasis().description;}
+  function renderDeadlineCountdown(nowMs,period){
+    if(nowMs===undefined)nowMs=currentTimeMs();if(!period)period=meterWindow(nowMs);
+    var remainingMs=period.end-nowMs,text=countdownTime(remainingMs,true),description=countdownDescription(remainingMs,true);
+    var st=new Date(period.start+9*3600e3),en=new Date(period.end+9*3600e3);
+    var md=function(d){return (d.getUTCMonth()+1)+'/'+d.getUTCDate();},hhmm=function(d){return String(d.getUTCHours()).padStart(2,'0')+':'+String(d.getUTCMinutes()).padStart(2,'0');};
+    var endLbl=hhmm(en)==='00:00'?md(new Date(period.end+9*3600e3-60000))+' 24:00':md(en)+' '+hhmm(en);
+    var title=description+' メーター期間：'+md(st)+' '+hhmm(st)+'〜'+endLbl;
+    ['left','miniT'].forEach(function(id){var el=$(id);if(el.textContent!==text)el.textContent=text;el.setAttribute('aria-label',description);el.title=title;});
+    $('deadlineCountdown').classList.toggle('urgent',remainingMs<=3600000);$('leftLabel').textContent='締めまで';$('leftLabel').title=endLbl+'締切まで';
+  }
   function ceilPace(amount,unitMs,remainingMs){
     if(amount<=0||remainingMs<=0)return 0n;
     var numerator=BigInt(amount)*BigInt(unitMs),denominator=BigInt(remainingMs);
@@ -2999,15 +3009,8 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
     // 締め時刻の「次の到来」までを計算（13時締め＝当日13時〜翌日13時が1日のメーター）
     var left=period.left;
     var over=false;
-    var endMs=period.end,st=new Date(period.start+9*3600e3),en=new Date(endMs+9*3600e3);
-    var md=function(d){return (d.getUTCMonth()+1)+'/'+d.getUTCDate();};
-    var hhmm=function(d){return String(d.getUTCHours()).padStart(2,'0')+':'+String(d.getUTCMinutes()).padStart(2,'0');};
-    var endLbl=(hhmm(en)==='00:00')?(md(new Date(endMs+9*3600e3-60000))+' 24:00'):(md(en)+' '+hhmm(en));
-    $('left').textContent=countdownTime(endMs-nowMs);
-    $('left').setAttribute('aria-label',countdownDescription(endMs-nowMs));
-    $('deadlineCountdown').classList.toggle('urgent',endMs-nowMs<=3600000);
-    $('leftLabel').textContent='締めまで';$('leftLabel').title=endLbl+'締切まで';
-    $('left').title=countdownDescription(endMs-nowMs)+' メーター期間：'+md(st)+' '+hhmm(st)+'〜'+endLbl;
+    var endMs=period.end;
+    renderDeadlineCountdown(nowMs,period);
 
     var end=toMins(state.endTime);
     var base=left,baseMs=endMs-nowMs,baseName='締切まで';
@@ -3523,6 +3526,7 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
   save();
   if(loadWarning&&!storageFailed){$('storageStatus').hidden=false;$('storageStatus').textContent='保存データの形式が一部正しくなかったため、有効な記録だけ読み込みました。内容をご確認ください。';}
   setInterval(function(){if(!document.hidden)update(true);},1000);
+  setInterval(function(){if(!document.hidden)renderDeadlineCountdown();},100);
   document.addEventListener('visibilitychange',function(){if(!document.hidden){update(true);syncLiveBorders();}});
   window.addEventListener('pageshow',function(){update(true);syncLiveBorders();});
   window.addEventListener('focus',function(){update(true);syncLiveBorders();});
