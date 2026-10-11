@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-P76ZEZ5Ew9+nPfi6VrZT9k4gtt03PiZCTBXGdRU2HiU=' 'sha256-uNaRaIumIn5v9WjqQEXs1MZ5RqTzBS0B49cDGxzj2Hs=' 'sha256-uE7VyjG2ywos0qkQxgF7/mlFoGu7c4W6UFCB/F/xid4=' 'sha256-q/m2/wWnx9JYsagX6SpA3aKdD7zcYXtbieSCgoWoP7E=' 'sha256-k9xuqUG8jwAWLjuV93yP/LLbS7x2hJ5hQWBKJ8Aq3wk='; style-src 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://pococha-challenge.freefreelife2000.chatgpt.site; base-uri 'none'; object-src 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-P76ZEZ5Ew9+nPfi6VrZT9k4gtt03PiZCTBXGdRU2HiU=' 'sha256-uNaRaIumIn5v9WjqQEXs1MZ5RqTzBS0B49cDGxzj2Hs=' 'sha256-ri5sc4FFGCKdOP/KtGm25GxcsOszBb2kyVqU2oM0T6g=' 'sha256-EN5/yn3HACfcP0f1U2o+tJ7azrFcY2PPxHX6+/qtQ/Q=' 'sha256-k9xuqUG8jwAWLjuV93yP/LLbS7x2hJ5hQWBKJ8Aq3wk='; style-src 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://pococha-challenge.freefreelife2000.chatgpt.site; base-uri 'none'; object-src 'none'; form-action 'none'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="referrer" content="no-referrer">
 <meta name="theme-color" content="#111827">
@@ -135,6 +135,42 @@ html[data-display-theme]:not([data-display-theme="standard"]) .copy-btn{color:va
 .app-footer{grid-template-columns:minmax(0,1fr)}.footer-actions{display:flex;flex-wrap:wrap;justify-content:flex-start;gap:6px}.footer-actions button{display:inline-flex;align-items:center;justify-content:center;min-height:34px;height:auto;min-width:0;width:auto;padding:6px 9px;border:1px solid var(--line);border-radius:7px;background:var(--bg);color:var(--ink);font:inherit;font-size:.75rem;font-weight:750}.footer-actions button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}.footer-actions button[aria-expanded="true"]{border-color:var(--blue)}
 
 .app-header{padding:5px 6px;gap:3px}.header-top{display:flex;align-items:center;justify-content:space-between;gap:8px}.header-top h1{min-width:0}.title-tools{padding:0;margin:0;gap:4px;align-items:center}.title-left-tools,.title-right-tools{flex-direction:row;align-items:center}.app-header .toolbar-button,.app-header .refresh-mini{min-height:26px;padding:3px 5px}.footer-actions .admin-link-row{margin-left:auto;display:flex;align-items:center;justify-content:flex-end;min-height:34px}.footer-actions .admin-link{display:inline-flex;align-items:center;min-height:34px;padding:4px 0 4px 8px;color:var(--blue);font-size:.75rem;white-space:nowrap;text-underline-offset:3px}.footer-actions .admin-link:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+
+/* Mobile usability: preserve the two department columns, enlarge actionable rows. */
+button,a,input,summary,textarea{touch-action:manipulation}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+html:not([data-display-theme]) .open .copy-btn,html[data-display-theme="standard"] .open .copy-btn{background:#c2410c}
+html:not([data-display-theme]) .family .copy-btn,html[data-display-theme="standard"] .family .copy-btn{background:#be185d}
+@media(max-width:699px){
+ .app-header .toolbar-button,.app-header .refresh-mini,.app-header .share-mini,.app-header .panel-close,.app-footer .panel-close,.footer-actions .share-mini,.footer-actions button,.contact-link,.home-help-body .browser-launch{min-height:44px;height:auto;font-size:.8125rem;padding:8px 10px}
+ .app-header .refresh-mini{min-width:44px}
+ .footer-actions .admin-link,.footer-actions .admin-link-row{min-height:44px;font-size:.8125rem}
+ .month-row{grid-template-columns:44px minmax(0,1fr) 44px}
+ .nav,.month-input,.quick{min-height:44px}
+ .month-input,.manual-copy,.home-url-fallback{font-size:16px}
+ .quick-row{scrollbar-width:thin;scroll-snap-type:x proximity;padding-bottom:5px}
+ .quick-row::-webkit-scrollbar{display:block;height:4px}
+ .quick-row::-webkit-scrollbar-thumb{background:var(--muted);border-radius:4px}
+ .quick{scroll-snap-align:start;font-size:.8125rem}
+ .departments{gap:6px}
+ .department h2{white-space:normal;overflow-wrap:anywhere;line-height:1.4;font-size:.9375rem}
+ .period{font-size:.75rem;line-height:1.5}
+ .copy-memo-row{grid-template-columns:minmax(0,1fr);gap:7px;margin:6px}
+ .copy-memo-row .copy-btn{min-height:48px;font-size:.8125rem;padding:7px 4px}
+ .copy-btn>span{white-space:normal;overflow-wrap:anywhere}
+ .free-memo>span,.free-memo label{font-size:.75rem}
+ .free-memo textarea{min-height:64px;cursor:text}
+ .missions{gap:4px}
+ .mission{min-height:48px;padding:2px 3px;font-size:.8125rem;letter-spacing:0;line-height:1.45;align-items:center}
+ .mission .need{font-size:.6875rem;margin-right:4px;padding:2px 3px}
+ .mission .answer-copy{min-height:44px;font-size:inherit;line-height:1.45;padding:6px 1px;overflow-wrap:anywhere}
+ .locked-note,.status,.header-note{font-size:.75rem;line-height:1.6}
+ .title-tools{overflow-x:visible;gap:7px}
+ .detail-body,.home-help-body{font-size:.875rem;line-height:1.7;overflow-wrap:anywhere}
+ .toast{border-radius:12px;font-size:.875rem;line-height:1.5}
+ summary{min-height:44px}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}.refresh-mini:active,.share-mini:active,.copy-btn:active{transform:none}}
 </style>
 <script id="display-settings-controls">
 (() => {
@@ -333,6 +369,7 @@ html[data-display-theme]:not([data-display-theme="standard"]) .copy-btn{color:va
       toggle.setAttribute('aria-expanded', String(open));
     };
     toggle.addEventListener('click', () => setOpen(panel.hidden));
+    panel.addEventListener('keydown', event => { if (event.key === 'Escape' && !panel.hidden) { event.preventDefault(); setOpen(false); toggle.focus(); } });
     panel.querySelector('[data-close-panel]')?.addEventListener('click', () => {
       setOpen(false);
       toggle.focus();
@@ -532,7 +569,7 @@ function openFreeMemo(kind){
   if(popup){doc.title=(kind==='open'?'オープン':'ファミリー')+' フリーメモ';doc.documentElement.lang='ja';const meta=doc.createElement('meta');meta.name='viewport';meta.content='width=device-width,initial-scale=1';doc.head.append(meta);}
   const root=doc.createElement('div');
   root.setAttribute('role','dialog');root.setAttribute('aria-label','フリーメモ');root.setAttribute('aria-modal','true');
-  root.style.cssText='position:fixed;inset:0;z-index:10000;display:flex;flex-direction:column;gap:12px;box-sizing:border-box;padding:max(16px,env(safe-area-inset-top)) 16px max(16px,env(safe-area-inset-bottom));background:#f8fafc;color:#111827;font-family:system-ui,sans-serif;';
+  root.style.cssText='position:fixed;inset:0;height:100dvh;max-height:100%;overflow:auto;overscroll-behavior:contain;z-index:10000;display:flex;flex-direction:column;gap:12px;box-sizing:border-box;padding:max(16px,env(safe-area-inset-top)) 16px max(16px,env(safe-area-inset-bottom));background:#f8fafc;color:#111827;font-family:system-ui,sans-serif;';
   const heading=doc.createElement('strong');heading.textContent=(kind==='open'?'オープン':'ファミリー')+' フリーメモ';
   const field=doc.createElement('textarea');field.value=freeMemos[kind];field.setAttribute('aria-label',heading.textContent);field.spellcheck=false;field.style.cssText='flex:1;min-height:0;width:100%;box-sizing:border-box;resize:none;border:1px solid #94a3b8;border-radius:10px;padding:14px;font:16px/1.6 system-ui,sans-serif;background:#fff;color:#111827;';
   const origin=document.querySelector('[data-memo="'+kind+'"]');
