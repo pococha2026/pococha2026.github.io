@@ -1644,6 +1644,14 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
 <p id="appLaunchHelp">デフォルトはPocochaライブアプリです。iPhoneでは初回だけ「ショートカット」で「アプリを開く」→「Pococha」を選び、名前を「Pocochaを開く」にして保存してください。</p>
 <p>起動先はこの端末に保存します。「他アプリで表示」→「小窓を開く」の後、下の起動リンクを押します。元のタブは開いたままにしてください。小窓の中からは起動操作できません。</p>
 <div class="app-launch-actions"><a id="appLaunchLink" role="link" target="_blank" rel="noopener noreferrer" aria-disabled="true" tabindex="-1">Pocochaライブアプリを開く</a><button type="button" id="restorePocochaLaunch">Pocochaに戻す</button><button type="button" id="closeAppLaunch">設定を閉じる</button></div><p id="appLaunchStatus" role="status" aria-live="polite"></p>
+<details id="mobileHudHelp"><summary>スマホで小窓・アプリが開かない場合</summary>
+<p id="mobileHudCompatibility">iPhoneはSafariでこのページを開いてください。ホーム画面版では小窓が使えない場合があります。iPhoneの「設定」→「一般」→「ピクチャ・イン・ピクチャ」で設定も確認してください。</p>
+<p>通常方式が失敗したら「互換小窓を準備」を押し、準備後に「小窓を開く」を押します。互換方式は準備時の静止メーターです。時計・締めまでの時間は更新しません。数値を変更したら作り直してください。</p>
+<div class="app-launch-actions"><button type="button" id="preparePipSnapshot">互換小窓を準備</button><button type="button" id="resumePipPlayback">動画を再生</button><button type="button" id="showPipVideo">動画の手動操作を開く</button><a id="appLaunchCheck" target="_blank" rel="noopener noreferrer">小窓なしで起動先を確認</a><a href="shortcuts://" target="_blank" rel="noopener noreferrer">ショートカットを開く</a></div>
+<p>「Pocochaを開く」というショートカットを初回だけ作成し、上の確認リンクでPocochaが開くことを確認してください。Androidでは「アプリの起動用URL」を選び、公式の対応リンクを入力します。</p>
+<label for="mobileHudToolUrl">Safariで開くページURL</label><input id="mobileHudToolUrl" type="text" readonly aria-label="Safariで開くページURL"><button type="button" id="copyMobileHudUrl">ページURLをコピー</button>
+<p>小窓が出ない場合は、表示設定の動画の再生ボタン・小窓ボタンも試せます。ブラウザや元のタブを終了すると小窓も終了します。他アプリが小窓表示を使うと、この小窓が止まる場合があります。</p>
+</details>
 </div></div><div class="mini-remaining"><span id="miniL">目標まであと</span><br><b id="miniR" class="num">-</b></div><div class="mini-countdown" style="text-align:right"><span id="miniDeadlineLabel">締切まで</span><br><span class="mt" id="miniT">-</span></div><button id="miniAdd" aria-label="現在値に1,000 ptを足す">+1K</button>
 <!-- phone-current:start -->
 <time id="miniNow" class="num" hidden title="現在の端末時計・日本時間"><span>現在日時</span><span id="miniNowDate"></span><b id="miniNowTime"></b></time>
@@ -1693,12 +1701,12 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
           <p class="hint">全体と常時表示の背景色は別々に選べます。選ぶとすぐ反映し、この端末に保存します。</p>
           <p id="backgroundHelp" class="hint" hidden>全体を黒背景にすると、主画面の文字や入力欄も暗い表示になります。</p>
           <div class="display-settings-actions"><button type="button" id="restoreDisplaySettings">標準の表示に戻す</button></div>
-          <details id="pipTestPanel"><summary>他アプリで常時表示（対応端末のみ）</summary><p class="hint">「準備」→「小窓を開く」の順に押し、小窓が出たら他アプリへ切り替えられます。上の常時表示にある「他アプリで表示」からも準備できます。「他アプリを起動」で起動先を設定すると、小窓表示中に起動リンクを押せます。閉じるには小窓の「×」、またはこのツールの「閉じる」を押してください。小窓内の数値入力・起動ボタン操作はできません。</p><p class="hint">元のタブを開いたまま使ってください。タブを閉じたりブラウザを終了したりすると小窓も終了します。端末が背景処理を止めると時刻の更新が止まる場合があります。更新時刻が動いているか確認し、止まったらツールへ戻ってください。iPhoneではSafariでお試しください。</p><div class="row"><button type="button" id="preparePipTest">準備</button><button type="button" id="openPipTest" disabled>小窓を開く</button><button type="button" id="stopPipTest" disabled>閉じる</button></div><video id="pipTestVideo" muted playsinline controls hidden style="width:100%;aspect-ratio:16/9;background:#000" aria-label="残り目標・現在値・締めまでの時間の常時表示小窓"></video><p id="pipTestStatus" class="hint" role="status" aria-live="polite">端末・ブラウザによって利用できない場合があります。実機での継続表示は未確認です。</p></details>
+          <details id="pipTestPanel"><summary>他アプリで常時表示（対応端末のみ）</summary><p class="hint">「準備」→「小窓を開く」の順に押し、小窓が出たら他アプリへ切り替えられます。上の常時表示にある「他アプリで表示」からも準備できます。「他アプリを起動」で起動先を設定すると、小窓表示中に起動リンクを押せます。閉じるには小窓の「×」、またはこのツールの「閉じる」を押してください。小窓内の数値入力・起動ボタン操作はできません。</p><p class="hint">元のタブを開いたまま使ってください。タブを閉じたりブラウザを終了したりすると小窓も終了します。端末が背景処理を止めると時刻の更新が止まる場合があります。更新時刻が動いているか確認し、止まったらツールへ戻ってください。iPhoneではSafariでお試しください。</p><label for="pipVideoMode">小窓の動画方式</label><select id="pipVideoMode"><option value="live">通常（更新するメーター）</option><option value="snapshot">互換（静止メーター・時計更新なし）</option></select><div class="row"><button type="button" id="preparePipTest">準備</button><button type="button" id="openPipTest" disabled>小窓を開く</button><button type="button" id="stopPipTest" disabled>閉じる</button></div><video id="pipTestVideo" muted playsinline controls hidden style="width:100%;aspect-ratio:16/9;background:#000" aria-label="残り目標・現在値・締めまでの時間の常時表示小窓"></video><p id="pipTestStatus" class="hint" role="status" aria-live="polite">端末・ブラウザによって利用できない場合があります。実機での継続表示は未確認です。</p></details>
           <p class="toast" id="displaySettingsStatus" role="status" aria-live="polite" aria-atomic="true"></p>
         </div>
       </details>
       <!-- display-settings-menu:end -->
-      <span class="ylogo-update" id="toolUpdatedDate" title="ツール本体の最終更新日時（ボーダーデータの更新日時とは別）"><span>更新時間</span><time class="num" datetime="2026-10-11T12:03:33+09:00">2026/10/11 12:03</time></span>
+      <span class="ylogo-update" id="toolUpdatedDate" title="ツール本体の最終更新日時（ボーダーデータの更新日時とは別）"><span>更新時間</span><time class="num" datetime="2026-10-11T12:28:00+09:00">2026/10/11 12:28</time></span>
     </div>
   </header>
   <p class="hint" id="borderSyncStatus" role="status" style="font-size:.68rem;margin:5px 2px 8px;line-height:1.5">ボーダー確認中…</p>
@@ -3318,7 +3326,7 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
   syncPhoneLayout();
   function isEditingField(el){return !!el&&['INPUT','SELECT','TEXTAREA'].indexOf(el.tagName)>=0;}
   function syncMiniVisibility(){var editing=isEditingField(document.activeElement),phone=phoneLayoutQuery&&phoneLayoutQuery.matches,show=hudEnabled;document.body.classList.toggle('hud-off',!show);var viewport=window.visualViewport,offset=phone&&viewport?Math.max(0,window.innerHeight-viewport.height-viewport.offsetTop):0,top=phone&&viewport?Math.max(0,viewport.offsetTop||0):0;document.documentElement.style.setProperty('--meter-keyboard-offset',offset+'px');document.documentElement.style.setProperty('--meter-viewport-top',top+'px');document.body.classList.toggle('editing-field',editing);$('mini').classList.add('show');$('mini').classList.toggle('hud-collapsed',!show);$('mini').setAttribute('aria-hidden','false');$('hudToggle').textContent=show?'常時表示OFF':'常時表示ON';$('hudToggle').setAttribute('aria-checked',String(show));$('hudToggle').setAttribute('aria-label',show?'常時表示をOFFにする':'常時表示をONにする');$('miniAdd').tabIndex=-1;['targetMini','currentMini','restoreTargetMini','openMiniTargetDetails','resetCurrentMini','miniPeriod','miniRank','miniBorder','miniMethod','miniBuffer','miniClose','itemsHudToggle'].forEach(function(id){$(id).tabIndex=show?0:-1;});document.documentElement.style.setProperty('--meter-hud-height',$('mini').getBoundingClientRect().height+'px');document.documentElement.style.setProperty('--hud-bottom',$('mini').getBoundingClientRect().bottom+'px');}
-  function keepMiniInputVisible(){var el=document.activeElement;if(!isEditingField(el)||(el.id==='currentMini'||el.id==='targetMini'))return;if(el.id==='appLaunchValue'||el.id==='appLaunchMode'){el.scrollIntoView({behavior:'auto',block:'nearest'});return;}if(!(phoneLayoutQuery&&phoneLayoutQuery.matches)){scrollToControl(el,'nearest');return;}el.scrollIntoView({behavior:'auto',block:'nearest'});var rect=el.getBoundingClientRect(),top=$('mini').getBoundingClientRect().bottom+8,viewport=window.visualViewport,bottom=(viewport?viewport.height+viewport.offsetTop:window.innerHeight)-8;if(rect.top<top)window.scrollBy({top:rect.top-top,behavior:'auto'});else if(rect.bottom>bottom)window.scrollBy({top:rect.bottom-bottom,behavior:'auto'});}
+  function keepMiniInputVisible(){var el=document.activeElement;if(!isEditingField(el)||(el.id==='currentMini'||el.id==='targetMini'))return;if(el.id==='appLaunchValue'||el.id==='appLaunchMode'||el.id==='mobileHudToolUrl'){el.scrollIntoView({behavior:'auto',block:'nearest'});return;}if(!(phoneLayoutQuery&&phoneLayoutQuery.matches)){scrollToControl(el,'nearest');return;}el.scrollIntoView({behavior:'auto',block:'nearest'});var rect=el.getBoundingClientRect(),top=$('mini').getBoundingClientRect().bottom+8,viewport=window.visualViewport,bottom=(viewport?viewport.height+viewport.offsetTop:window.innerHeight)-8;if(rect.top<top)window.scrollBy({top:rect.top-top,behavior:'auto'});else if(rect.bottom>bottom)window.scrollBy({top:rect.bottom-bottom,behavior:'auto'});}
   function settleMiniInput(){clearTimeout(mobileScrollTimer);mobileScrollTimer=setTimeout(function(){syncMiniVisibility();keepMiniInputVisible();},80);}
   document.addEventListener('focusin',function(){phoneHudFocusId=['targetMini','currentMini'].indexOf(document.activeElement.id)>=0?document.activeElement.id:'';syncMiniVisibility();if(window.matchMedia&&window.matchMedia('(max-width:700px)').matches)settleMiniInput();});document.addEventListener('focusout',function(e){if((e.target===$('currentMini')||e.target===$('targetMini'))&&phoneLayoutQuery&&phoneLayoutQuery.matches)phoneHudFocusId='';setTimeout(syncMiniVisibility,0);});
   if(window.visualViewport){window.visualViewport.addEventListener('resize',settleMiniInput);window.visualViewport.addEventListener('scroll',syncMiniVisibility);}
@@ -3501,7 +3509,8 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
   // Local, silent video PiP; no camera, microphone, screen capture or upload.
   (function(){
     var video=$('pipTestVideo'),status=$('pipTestStatus'),stream=null,timer=0,canvas=document.createElement('canvas');
-    var busy=false,prepared=false,active=false,closing=false,generation=0,opening=null;
+    var busy=false,prepared=false,active=false,closing=false,generation=0,opening=null,nextApi='',blockedNative=false;
+    var waiters=[],nativeReady=null,blobUrl='',recordStream=null,recorder=null,recordTimer=0,recordFrames=0,recordReject=null,snapshot=false,snapshotAt=0,snapshotData=null;
     var defaultLaunchShortcut='Pocochaを開く';
     var launchKey='pococha-meter-app-launch-v1',launchMode='shortcut',launchValues={shortcut:defaultLaunchShortcut,url:''},launchStorageFailed=false;
     try{var savedLaunch=JSON.parse(localStorage.getItem(launchKey));if(savedLaunch&&typeof savedLaunch==='object'){launchMode=savedLaunch.mode==='url'?'url':'shortcut';['shortcut','url'].forEach(function(mode){if(typeof savedLaunch[mode]==='string')launchValues[mode]=savedLaunch[mode].slice(0,mode==='shortcut'?120:2048);});}}catch(e){}
@@ -3519,6 +3528,7 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
       $('appLaunchHelp').textContent=launchMode==='shortcut'?(launchValues.shortcut.trim()===defaultLaunchShortcut?'デフォルトはPocochaライブアプリです。iPhoneでは初回だけ「ショートカット」で「アプリを開く」→「Pococha」を選び、名前を「Pocochaを開く」にして保存してください。':'iPhoneの「ショートカット」で「アプリを開く」アクションを追加し、起動したいアプリを選んで保存します。そのショートカット名をここに入力してください。'):'アプリ公式の起動用リンクを入力してください。対応アプリが未インストールの場合やリンクに未対応の場合は、Webページが開くことがあります。';
       if(ready)link.setAttribute('href',destination);else link.removeAttribute('href');
       link.setAttribute('aria-disabled',String(!ready));link.setAttribute('tabindex',ready?'0':'-1');
+      var check=$('appLaunchCheck');if(destination)check.setAttribute('href',destination);else check.removeAttribute('href');check.setAttribute('aria-disabled',String(!destination));check.setAttribute('tabindex',destination?'0':'-1');
       $('appLaunchStatus').textContent=(launchStorageFailed?'この端末に設定を保存できません。今回の画面では使えます。 ':'')+(!destination?(launchMode==='shortcut'?'保存済みのショートカット名を入力してください。':'アプリ公式のhttps://から始まる起動用URLを入力してください。'):ready?'小窓表示中です。起動リンクを押せます。起動の許可が出たら確認してください。':'先に「他アプリで表示」→「小窓を開く」を押してください。');
     }
     function launchFields(){
@@ -3532,10 +3542,14 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
     function launchViewport(){var height=window.visualViewport&&window.visualViewport.height||window.innerHeight;if(Number.isFinite(height)&&height>0)$('mini').style.setProperty('--app-launch-viewport-height',height+'px');}
     function closeLaunch(){ $('appLaunchPanel').hidden=true;$('mini').classList.remove('app-launch-open');$('launchOtherApp').setAttribute('aria-expanded','false');syncMiniVisibility(); }
     function controls(){
-      $('preparePipTest').disabled=busy||closing||active;
-      $('openPipTest').disabled=!prepared||busy||closing||active;
-      $('stopPipTest').disabled=closing||(!stream&&!busy&&!active);
-      $('floatHudToggle').disabled=busy||closing;
+      $('preparePipTest').disabled=busy||closing||active||!!opening||blockedNative;
+      $('preparePipSnapshot').disabled=$('preparePipTest').disabled;
+      $('resumePipPlayback').disabled=!hasSource()||busy||closing||active||!!opening||blockedNative;
+      $('pipVideoMode').disabled=busy||closing||active;
+      $('openPipTest').disabled=!prepared||busy||closing||active||!!opening||blockedNative;
+      $('openPipTest').textContent=nextApi==='webkit'?'別方式で小窓を開く':'小窓を開く';
+      $('stopPipTest').disabled=closing||(!hasSource()&&!busy&&!active);
+      $('floatHudToggle').disabled=busy||closing||!!opening||blockedNative;
       $('floatHudToggle').textContent=closing?'閉じています…':busy?'準備中…':active?'小窓を閉じる':prepared?'小窓を開く':'他アプリで表示';
       $('floatHudToggle').setAttribute('aria-label',$('floatHudToggle').textContent);
       launchControls();
@@ -3543,68 +3557,101 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
     function token(name,fallback){var style=$('mini').style;return (style.getPropertyValue?style.getPropertyValue('--'+name):style['--'+name])||fallback;}
     function draw(){
       var ctx=canvas.getContext('2d');if(!ctx)throw new Error('描画に対応していません');
-      var nowMs=Date.now(),clock=new Date(nowMs+9*3600e3),now=jstNow(nowMs),period=meterWindow(nowMs);
-      var target=parseNum(state.target),current=parseNum(state.current),remaining=Math.max(0,target-current);
+      var nowMs=snapshot?snapshotAt:Date.now(),clock=new Date(nowMs+9*3600e3),now=jstNow(nowMs),period=meterWindow(nowMs);
+      var data=snapshot?snapshotData:state,target=parseNum(data.target),current=parseNum(data.current),remaining=Math.max(0,target-current);
       var time=String(clock.getUTCHours()).padStart(2,'0')+':'+String(clock.getUTCMinutes()).padStart(2,'0')+':'+String(clock.getUTCSeconds()).padStart(2,'0');
       ctx.fillStyle=token('paper','#000000');ctx.fillRect(0,0,640,360);
       ctx.fillStyle=token('ink','#edf4fd');ctx.font='bold 24px sans-serif';ctx.fillText(!target?'目標を入力':remaining?'目標まであと':'目標達成',24,40);
       ctx.font='bold 60px sans-serif';ctx.fillStyle=token('amber','#ffe1a3');ctx.fillText(!target?'—':remaining?fmtRemainingK(remaining):'達成！',24,112,592);
-      ctx.font='24px sans-serif';ctx.fillStyle=token('ink','#edf4fd');ctx.fillText('締めまで',24,157);ctx.font='bold 40px sans-serif';ctx.fillStyle=token('number-ink','#75d4ff');ctx.fillText(countdownTime(period.end-nowMs),190,163,426);
+      ctx.font='24px sans-serif';ctx.fillStyle=token('ink','#edf4fd');ctx.fillText(snapshot?'静止メーター ／ 時計更新なし':'締めまで',24,157);if(!snapshot){ctx.font='bold 40px sans-serif';ctx.fillStyle=token('number-ink','#75d4ff');ctx.fillText(countdownTime(period.end-nowMs),190,163,426);}
       ctx.font='22px sans-serif';ctx.fillText('目標 '+fmtK(target)+' ／ 現在 '+fmtK(current),24,205,592);
-      ctx.fillStyle=token('sub','#c5d1df');ctx.font='22px sans-serif';ctx.fillText('更新 '+now.y+'/'+now.m+'/'+now.d+' '+time+'（日本時間）',24,250,592);
-      ctx.font='20px sans-serif';ctx.fillText('締め '+(state.deadline==='00:00'?'24:00':state.deadline)+' ／ 現コア数 '+state.coreCount+'人',24,288,592);
-      ctx.font='18px sans-serif';ctx.fillText('閉じる：小窓の× ／ 時刻が止まったらツールへ戻る',24,334,592);
+      ctx.fillStyle=token('sub','#c5d1df');ctx.font='22px sans-serif';ctx.fillText((snapshot?'作成 ':'更新 ')+now.y+'/'+now.m+'/'+now.d+' '+time+'（日本時間）',24,250,592);
+      ctx.font='20px sans-serif';ctx.fillText('締め '+(data.deadline==='00:00'?'24:00':data.deadline)+' ／ 現コア数 '+data.coreCount+'人',24,288,592);
+      ctx.font='18px sans-serif';ctx.fillText(snapshot?'数値変更後は再作成 ／ 閉じる：小窓の×':'閉じる：小窓の× ／ 時刻が止まったらツールへ戻る',24,334,592);
     }
+    function hasSource(){return !!(stream||blobUrl||recordStream);}
+    function abortError(){var e=new Error('表示を停止しました');e.name='AbortError';return e;}
+    function bounded(promise,op,label){return new Promise(function(resolve,reject){
+      var settled=false,id=setTimeout(function(){finish(reject,Object.assign(new Error(label+'が8秒以内に完了しませんでした'),{name:'TimeoutError'}));},8000);
+      function cancel(){finish(reject,abortError());}
+      function finish(callback,value){if(settled)return;settled=true;clearTimeout(id);waiters=waiters.filter(function(fn){return fn!==cancel;});callback(value);}
+      waiters.push(cancel);Promise.resolve(promise).then(function(value){finish(op===generation?resolve:reject,op===generation?value:abortError());},function(error){finish(reject,error);});
+    });}
+    function waitMetadata(op){if(video.readyState>0)return Promise.resolve();return bounded(new Promise(function(resolve){nativeMetadata=resolve;}),op,'動画の読み込み').finally(function(){nativeMetadata=null;});}
+    var nativeMetadata=null;
+    function recovery(message){$('mobileHudHelp').open=true;$('appLaunchPanel').hidden=false;$('mini').classList.add('app-launch-open');$('launchOtherApp').setAttribute('aria-expanded','true');launchViewport();announce(message);}
+    function cleanupRecording(){clearTimeout(recordTimer);recordTimer=0;clearInterval(recordFrames);recordFrames=0;if(recordReject){var reject=recordReject;recordReject=null;reject(abortError());}if(recorder&&recorder.state!=='inactive')try{recorder.stop();}catch(e){}recorder=null;if(recordStream)recordStream.getTracks().forEach(function(track){track.stop();});recordStream=null;}
     function release(){
-      clearInterval(timer);timer=0;prepared=false;active=false;
+      clearInterval(timer);timer=0;prepared=false;active=false;var cancel=waiters.slice();waiters=[];cancel.forEach(function(fn){fn();});nativeReady=null;nativeMetadata=null;cleanupRecording();
       if(typeof video.pause==='function')video.pause();video.srcObject=null;
-      if(stream)stream.getTracks().forEach(function(track){track.stop();});stream=null;video.hidden=true;
+      if(stream)stream.getTracks().forEach(function(track){track.stop();});stream=null;
+      if(blobUrl){video.removeAttribute('src');if(typeof video.load==='function')video.load();window.URL.revokeObjectURL(blobUrl);blobUrl='';}video.loop=false;video.hidden=true;
     }
     async function exitNative(){
       if(document.pictureInPictureElement===video&&typeof document.exitPictureInPicture==='function')await document.exitPictureInPicture();
       if(video.webkitPresentationMode==='picture-in-picture'&&video.webkitSetPresentationMode)video.webkitSetPresentationMode('inline');
     }
     async function stop(){
-      if(closing)return;generation++;closing=true;busy=false;var pending=opening;closeLaunch();release();controls();
-      try{if(pending)try{await pending;}catch(e){}await exitNative();announce('小窓を閉じました。');}
+      if(closing)return;if(busy&&nativeReady&&!opening)blockedNative=true;generation++;closing=true;busy=false;nextApi='';closeLaunch();release();controls();
+      try{await bounded(exitNative(),generation,'小窓の終了');if(blockedNative||opening)recovery('表示を停止しました。端末への起動要求が残っているためSafariでページを開き直してください。遅れて出る小窓は閉じます。');else announce('小窓を閉じました。');}
       catch(e){announce('表示を停止しました。小窓が残る場合は小窓の×で閉じてください。');}
       finally{closing=false;controls();}
     }
-    function entered(){if(!stream||closing)return;active=true;busy=false;controls();announce('小窓表示中。閉じるには小窓の×。');}
-    function left(){if(!active)return;generation++;busy=false;release();controls();announce('小窓を閉じました。');}
+    function entered(){if(!hasSource()||closing||blockedNative){Promise.resolve(exitNative()).then(function(){blockedNative=false;controls();},function(){});return;}if(document.pictureInPictureElement!==video&&video.webkitPresentationMode!=='picture-in-picture')return;active=true;if(nativeReady)nativeReady();busy=false;controls();announce(snapshot?'互換小窓表示中。準備時の静止メーターです。数値変更後は再作成してください。':'小窓表示中。閉じるには小窓の×。');}
+    function left(){if(!active)return;generation++;busy=false;nextApi='';release();controls();announce('小窓を閉じました。');}
     async function prepare(){
-      if(busy||closing||active||opening)return;
+      if(busy||closing||active||opening||blockedNative)return;
       var standard=typeof video.requestPictureInPicture==='function'&&document.pictureInPictureEnabled!==false;
+      if(window.isSecureContext===false){recovery('https://のページで開いてください。');return;}
       if(typeof canvas.captureStream!=='function'||(!standard&&typeof video.webkitSetPresentationMode!=='function')){announce('このブラウザでは小窓を使えません。iPhoneはSafariでお試しください。');return;}
-      release();var op=++generation;busy=true;controls();setHudEnabled(true);
+      release();var op=++generation;busy=true;nextApi='';snapshot=$('pipVideoMode').value==='snapshot';snapshotAt=Date.now();snapshotData={target:state.target,current:state.current,deadline:state.deadline,coreCount:state.coreCount};controls();setHudEnabled(true);
       try{
-        draw();stream=canvas.captureStream(2);video.muted=true;video.srcObject=stream;video.hidden=false;
-        timer=setInterval(function(){try{draw();}catch(e){stop();}},500);
-        await video.play();if(op!==generation)return;
-        prepared=video.readyState>0;announce(prepared?'準備できました。「小窓を開く」を押してください。':'動画の準備中です。少しお待ちください。');
-      }catch(e){if(op===generation){release();announce('準備できませんでした（'+e.name+'）。この端末では利用できない場合があります。');}}
+        draw();video.muted=true;video.hidden=false;
+        if(snapshot){
+          var Recorder=window.MediaRecorder,types=['video/mp4;codecs=avc1.42E01E','video/mp4'],type=Recorder&&typeof Recorder.isTypeSupported==='function'&&types.find(function(value){return Recorder.isTypeSupported(value);});
+          if(!type||!window.URL||typeof window.URL.createObjectURL!=='function')throw Object.assign(new Error('このブラウザは互換動画（MP4）の作成に対応していません'),{name:'NotSupportedError'});
+          recordStream=canvas.captureStream(10);if(!recordStream.getTracks().length)throw new Error('動画の映像を作成できません');
+          var localRecorder=new Recorder(recordStream,{mimeType:type}),chunks=[];recorder=localRecorder;
+          var recording=new Promise(function(resolve,reject){recordReject=reject;localRecorder.addEventListener('dataavailable',function(event){if(event.data&&event.data.size)chunks.push(event.data);});localRecorder.addEventListener('error',function(event){recordReject=null;reject(event.error||new Error('互換動画を作成できません'));});localRecorder.addEventListener('stop',function(){recordReject=null;var blob=new Blob(chunks,{type:type});if(blob.size)resolve(blob);else reject(new Error('互換動画が空でした'));});localRecorder.start();draw();recordFrames=setInterval(function(){try{draw();recordStream.getTracks().forEach(function(track){if(track.requestFrame)track.requestFrame();});}catch(e){reject(e);}},100);recordTimer=setTimeout(function(){recordTimer=0;clearInterval(recordFrames);recordFrames=0;try{localRecorder.stop();}catch(e){reject(e);}},1200);});
+          var blob=await bounded(recording,op,'互換動画の作成');if(op!==generation)return;cleanupRecording();blobUrl=window.URL.createObjectURL(blob);video.srcObject=null;video.src=blobUrl;video.loop=true;if(typeof video.load==='function')video.load();
+        }else{stream=canvas.captureStream(2);if(!stream.getTracks().length)throw new Error('動画の映像を作成できません');stream.getTracks().forEach(function(track){if(track.addEventListener)track.addEventListener('ended',function(){if(stream&&op===generation){generation++;busy=false;release();Promise.resolve(exitNative()).catch(function(){});controls();recovery('映像が停止しました。「準備」からやり直してください。');}});});video.srcObject=stream;timer=setInterval(function(){try{draw();}catch(e){stop();}},500);}
+        await bounded(video.play(),op,'動画の再生');if(op!==generation)return;await waitMetadata(op);if(op!==generation)return;
+        prepared=true;announce(snapshot?'互換動画の準備ができました。「小窓を開く」を押してください。時計は更新しません。':'準備できました。「小窓を開く」を押してください。');
+      }catch(e){if(op===generation){busy=false;if(snapshot&&blobUrl&&e.name==='NotAllowedError'){prepared=false;controls();recovery('互換動画は作成できました。自動再生が許可されないため「動画を再生」を押し、その後「小窓を開く」を押してください。');}else{generation++;release();controls();recovery('準備できませんでした（'+e.name+'）。'+(e.message||'')+' Safariで開くか、別の方式で準備してください。');}}}
       finally{if(op===generation){busy=false;controls();}}
     }
     async function open(){
-      if(!prepared||busy||closing||active||opening)return;
+      if(!prepared||busy||closing||active||opening||blockedNative)return;
       var op=generation;busy=true;controls();
       try{
         // Request directly from this fresh click, without awaiting video.play().
-        if(typeof video.requestPictureInPicture==='function'&&document.pictureInPictureEnabled!==false){
-          opening=video.requestPictureInPicture();await opening;if(op!==generation)return;entered();
+        var nativePromise=new Promise(function(resolve){nativeReady=resolve;});
+        if(nextApi!=='webkit'&&typeof video.requestPictureInPicture==='function'&&document.pictureInPictureEnabled!==false){
+          var raw=Promise.resolve(video.requestPictureInPicture());opening=raw;raw.then(function(){if(op!==generation)return exitNative();},function(){}).catch(function(){}).finally(function(){if(opening===raw){opening=null;controls();}});
+          await bounded(raw,op,'小窓の起動');if(op!==generation)return;entered();
         }else{
           if(!video.webkitSetPresentationMode||(video.webkitSupportsPresentationMode&&!video.webkitSupportsPresentationMode('picture-in-picture')))throw new Error('この動画方式は小窓非対応');
           video.webkitSetPresentationMode('picture-in-picture');
-          if(video.webkitPresentationMode==='picture-in-picture')entered();else announce('小窓表示を要求しました。小窓が出たことを確認してから他アプリへ切り替えてください。');
+          if(video.webkitPresentationMode==='picture-in-picture')entered();
         }
-      }catch(e){if(op===generation){release();announce('小窓を開けません（'+e.name+'）。端末・ブラウザの対応や設定を確認してください。');}}
-      finally{opening=null;if(op===generation){busy=false;controls();}}
+        if(!active)await bounded(nativePromise,op,'小窓の表示');if(op!==generation)return;if(!active)throw new Error('小窓の表示を確認できません');nextApi='';
+      }catch(e){if(op===generation){
+        if(e.name==='TimeoutError'){if(!opening)blockedNative=true;generation++;release();busy=false;controls();recovery('端末から小窓の応答がありません。遅れて開く小窓は閉じます。Safariでページを開き直してください。');}
+        else{if(nextApi!=='webkit'&&typeof video.webkitSetPresentationMode==='function'&&(!video.webkitSupportsPresentationMode||video.webkitSupportsPresentationMode('picture-in-picture')))nextApi='webkit';recovery('小窓を開けません（'+e.name+'）。'+(nextApi==='webkit'?'次に「別方式で小窓を開く」を押してください。':'動画の小窓ボタン、または「互換小窓を準備」を試してください。')+' ホーム画面版はSafariで開いてください。');}
+      }}
+      finally{nativeReady=null;if(op===generation){busy=false;controls();}}
     }
-    video.addEventListener('loadedmetadata',function(){if(stream&&!closing&&!active&&video.readyState>0){prepared=true;controls();}});
+    video.addEventListener('loadedmetadata',function(){if(nativeMetadata&&video.readyState>0)nativeMetadata();});
+    video.addEventListener('playing',function(){if(hasSource()&&!busy&&!closing&&video.readyState>0){prepared=true;controls();}});
+    video.addEventListener('error',function(){if(hasSource()){generation++;busy=false;release();Promise.resolve(exitNative()).catch(function(){});controls();recovery('動画を読み込めません。「準備」からやり直してください。');}});
     video.addEventListener('enterpictureinpicture',entered);
     video.addEventListener('leavepictureinpicture',left);
     video.addEventListener('webkitpresentationmodechanged',function(){if(video.webkitPresentationMode==='picture-in-picture')entered();else left();});
     $('preparePipTest').onclick=prepare;$('openPipTest').onclick=open;$('stopPipTest').onclick=stop;
+    $('preparePipSnapshot').onclick=function(){$('pipVideoMode').value='snapshot';return prepare();};
+    $('resumePipPlayback').onclick=async function(){if(!hasSource()||busy||closing||active||opening||blockedNative)return;var op=generation;busy=true;controls();try{await bounded(video.play(),op,'動画の再生');await waitMetadata(op);if(op!==generation)return;prepared=true;announce('動画を再生できました。次に「小窓を開く」を押してください。');}catch(e){if(op===generation){if(e.name==='TimeoutError'){generation++;release();}recovery('動画を再生できません（'+e.name+'）。動画の手動操作を開くか、Safariで開き直してください。');}}finally{busy=false;controls();}};
+    $('showPipVideo').onclick=function(){closeLaunch();$('displaySettings').open=true;$('pipTestPanel').open=true;video.focus({preventScroll:true});};
+    $('pipVideoMode').onchange=function(){if(!busy&&!active){generation++;nextApi='';release();controls();}};
     $('floatHudToggle').onclick=function(){return active?stop():prepared?open():prepare();};
     $('launchOtherApp').onclick=function(){var panel=$('appLaunchPanel');panel.hidden=!panel.hidden;$('mini').classList.toggle('app-launch-open',!panel.hidden);$('launchOtherApp').setAttribute('aria-expanded',String(!panel.hidden));if(!panel.hidden){launchViewport();launchFields();$('appLaunchValue').focus({preventScroll:true});}syncMiniVisibility();};
     $('closeAppLaunch').onclick=function(){closeLaunch();$('launchOtherApp').focus({preventScroll:true});};
@@ -3613,11 +3660,15 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
     $('appLaunchMode').onchange=function(){launchMode=this.value==='url'?'url':'shortcut';launchFields();saveLaunch();syncMiniVisibility();};
     $('appLaunchValue').oninput=function(){launchValues[launchMode]=this.value.slice(0,launchMode==='shortcut'?120:2048);saveLaunch();syncMiniVisibility();};
     $('appLaunchLink').onclick=function(event){if(!active||busy||closing||!launchDestination()){event.preventDefault();launchControls();return;} $('appLaunchStatus').textContent='起動リンクを開きます。小窓が消えた場合はツールへ戻って再度開いてください。';};
+    $('appLaunchCheck').onclick=function(event){if(!launchDestination()){event.preventDefault();return;}$('appLaunchStatus').textContent='起動先だけを確認します。確認後にこのページへ戻り、小窓を準備してください。';};
+    $('mobileHudToolUrl').value=window.location&&window.location.href||'https://poco-meter.freefreelife2000.chatgpt.site/';
+    if(navigator.standalone===true||(window.matchMedia&&window.matchMedia('(display-mode: standalone)').matches))$('mobileHudCompatibility').textContent='ホーム画面版で開いています。iPhoneではOS側の制約で小窓が開かない場合があります。下のURLをコピーし、Safariのアドレス欄で開いてから準備してください。';
+    $('copyMobileHudUrl').onclick=async function(){try{if(!navigator.clipboard||!navigator.clipboard.writeText)throw new Error('手動コピー');await navigator.clipboard.writeText($('mobileHudToolUrl').value);$('appLaunchStatus').textContent='URLをコピーしました。Safariのアドレス欄へ貼り付けてください。';}catch(e){$('mobileHudToolUrl').focus();if($('mobileHudToolUrl').select)$('mobileHudToolUrl').select();$('appLaunchStatus').textContent='URL欄を長押ししてコピーし、Safariで開いてください。';}};
     $('closeHud').onclick=function(){setItemsWindow(false);setHudEnabled(false);$('hudToggle').focus({preventScroll:true});};
     floatingHudController={stop:stop};launchFields();controls();
     window.addEventListener('resize',launchViewport);if(window.visualViewport)window.visualViewport.addEventListener('resize',launchViewport);
-    document.addEventListener('visibilitychange',function(){if(stream)try{draw();}catch(e){stop();}});
-    window.addEventListener('pagehide',function(e){if(!e.persisted){generation++;busy=false;release();controls();}});
+    document.addEventListener('visibilitychange',function(){if(stream&&!snapshot)try{draw();}catch(e){stop();}});
+    window.addEventListener('pagehide',function(e){if(!e.persisted){generation++;busy=false;release();Promise.resolve(exitNative()).catch(function(){});controls();}});
   })();
   // Expose the same local calculator actions when the browser supports WebMCP.
   syncLiveBorders();
