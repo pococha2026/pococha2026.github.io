@@ -786,10 +786,12 @@ header h1{font-size:1.2rem}.date{font-size:.76rem;margin:0}
   #liveMeter .remaining-summary-meta{gap:2px 8px;margin-bottom:7px}
   #liveMeter .remaining-summary-meta .remain-exact,#liveMeter .remaining-summary-meta .ratio{font-size:.69rem}
 }
-/* Seconds remain readable; the visible clock basis distinguishes device time from Pococha servers. */
+/* Seconds remain readable; the clock basis shows the verified time source. */
 #clockBox .countdown-value #left{font-variant-numeric:tabular-nums;white-space:normal;overflow-wrap:anywhere;font-size:1.2rem}
 #clockBox #clockTimeBasis{display:grid;gap:1px;min-width:0;margin-top:3px;color:#53627b}
 #clockBox #clockTimeBasis>span{font-size:.6rem;font-weight:500;line-height:1.4;white-space:normal;overflow-wrap:anywhere}
+#clockTimeBasis #clockSyncNow{font:inherit;font-size:var(--font-meta,.6rem);font-weight:500;line-height:1.4;color:inherit;background:none;border:0;border-radius:3px;box-shadow:none;padding:0;min-height:0;text-align:left;text-decoration:underline;white-space:normal;overflow-wrap:anywhere}
+#clockTimeBasis #clockSyncNow:focus-visible{outline:2px solid var(--c5);outline-offset:3px}
 @media(max-width:560px){#clockBox .countdown-value #left{font-size:1.05rem}}
 @media(max-width:440px){#clockBox .countdown-value #left{font-size:1.15rem}}
 /* Focused overview. */
@@ -1638,7 +1640,7 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
 <body>
 <div class="mini" id="mini" aria-hidden="true"><div class="hud-actions"><button type="button" id="closeHud" aria-label="常時表示を閉じる">閉じる</button><button type="button" id="hudToggle" role="switch" aria-checked="true" aria-label="常時表示">常時表示OFF</button></div><div class="mini-remaining"><span id="miniL">目標まであと</span><br><b id="miniR" class="num">-</b></div><div class="mini-countdown" style="text-align:right"><span id="miniDeadlineLabel">締切まで</span><br><span class="mt" id="miniT">-</span></div><button id="miniAdd" aria-label="現在値に1,000 ptを足す">+1K</button>
 <!-- phone-current:start -->
-<time id="miniNow" class="num" hidden title="現在の端末時計・日本時間"><span>現在日時</span><span id="miniNowDate"></span><b id="miniNowTime"></b></time>
+<time id="miniNow" class="num" hidden title="現在日時・日本時間（時刻同期を確認中）"><span>現在日時</span><span id="miniNowDate"></span><b id="miniNowTime"></b></time>
 <div class="mini-input mini-target" id="miniTargetField" hidden><label for="targetMini">目標値</label><input class="num" id="targetMini" type="text" inputmode="decimal" enterkeyhint="done" autocomplete="off" placeholder="未設定" tabindex="-1" aria-describedby="targetMiniError inputStatus"><div class="mini-target-actions"><button type="button" class="mini-action" id="restoreTargetMini" tabindex="-1" aria-label="目標値をデフォルトに戻す">デフォルト</button><button type="button" class="mini-action" id="openMiniTargetDetails" tabindex="-1" aria-controls="sectionBody-1" aria-label="目標値の詳細設定を開く">詳細設定</button></div></div>
 <div class="mini-input mini-current" id="miniCurrentField" hidden><label for="currentMini">現在値</label><input class="num" id="currentMini" type="text" inputmode="decimal" enterkeyhint="done" autocomplete="off" placeholder="0" tabindex="-1" aria-describedby="currentMiniError inputStatus"><button type="button" class="mini-action" id="resetCurrentMini" tabindex="-1" aria-label="現在値をリセット">リセット</button></div>
 <div class="mini-goal-menu" id="miniGoalMenu" hidden aria-label="目標設定メニュー"><select id="miniPeriod" aria-label="集計期間" tabindex="-1"></select><select id="miniRank" aria-label="ランク" tabindex="-1"></select><select id="miniBorder" aria-label="設定する目標のボーダー" tabindex="-1"></select><select id="miniMethod" aria-label="算出方法" tabindex="-1"></select><input id="miniBuffer" type="text" inputmode="decimal" enterkeyhint="done" autocomplete="off" aria-label="上乗せ率（％）" title="上乗せ率（％）" tabindex="-1" aria-describedby="miniBufferError inputStatus"><select id="miniClose" aria-label="締め時間" tabindex="-1"></select><button type="button" id="itemsHudToggle" role="switch" aria-checked="false" aria-controls="itemsWindow">アイテム目安ON</button></div>
@@ -1662,7 +1664,7 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
         <p>日別ボーダーは毎日自動取得します。画面を開いた時と表示中も最新の取得データを確認します。自動算出中の目標・残り・アイテム目安へ反映し、手入力の目標と記録は保持します。更新元の掲載時刻により、最新データ日が昨日より前になる場合があります。</p><h3>記録・保存・移行</h3><p>「記録」で日別値を登録。CSV・ExcelのコピーやJSONを貼り付け、内容を確認して「記録する」で確定します。日別値は±0≦+1≦+2で3つそろえてください。CSV形式：日付,ランク,±0,+1,+2,締め時間。</p>
         <p>バックアップJSONには設定・記録・アイテムを含みます。読み込みは既存へ結合し、同じ締め時間・日付・ランクはバックアップの値で上書きします。「保存メニュー」でJSONバックアップ、全記録CSV、選択期間CSVと保存方法を選べます。全記録CSVは旧版参考値を除外し、選択期間CSVは現在の条件で集計した記録と根拠を出力します。端末移行にはJSONを使い、端末に保存できたことを確認してください。</p>
         <h3>iPhone・Androidで使う</h3><p>iPhoneはSafari、AndroidはChromeなどのブラウザでこのURLを開いてください。初回は通信できる状態で開き、保存メニューの「オフラインで使う」で準備完了を確認してください。準備後は通信なしでも開き直して計算できます。ホーム画面に追加した場合は、そのアイコンからも一度オンラインで開いてください。入力内容は端末・ブラウザごとに保存されます。別の端末へ移す場合はJSONバックアップを読み込んでください。</p>
-        <p>残り時間は端末時計（日本時間）が基準で、公式サーバーとは同期していません。画面へ戻ると再計算します。締め時刻を過ぎても現在値は自動で消えないため、新しい期間の値へ更新してください。</p>
+        <p>現在日時・残り時間はPococha公式サイトの応答時刻に合わせ、日本時間で表示します。初回・画面復帰・通信復帰と表示中の1分ごとに確認します。取得できない場合は前回の同期時刻を最大5分使い、その後は「端末時計・未同期」と表示します。通信による秒単位の誤差があり、Pocochaアプリ内部の時計との一致は確認できません。締め時刻を過ぎても現在値は自動で消えないため、新しい期間の値へ更新してください。</p>
         <h3>換算・便利機能</h3><p>必要コインは残りポイント÷（4×コア倍率）の切り上げです。笹ﾊﾟﾝﾀﾞ・花火・馬車は各アイテムだけで満たす必要数で、合計して投げる個数ではありません。実際の獲得ポイントを保証しません。登録アイテムは実測した1個あたりのポイントで計算し、コア倍率を重ねません。</p>
         <p>主画面の「残りをコピー」で現在の数値をコピーできます。保存済みのデフォルト値は「デフォルト値に戻す」で適用できます。</p>
         <p><a class="manual-link" href="#manualGoal">目標へ</a><a class="manual-link" href="#recordEditor">記録へ</a><a class="manual-link" href="#backupTools">保存・移行へ</a></p>
@@ -1690,7 +1692,7 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
         </div>
       </details>
       <!-- display-settings-menu:end -->
-      <span class="ylogo-update" id="toolUpdatedDate" title="ツール本体の最終更新日時（ボーダーデータの更新日時とは別）"><span>更新時間</span><time class="num" datetime="2026-10-11T15:22:00+09:00">2026/10/11 15:22</time></span>
+      <span class="ylogo-update" id="toolUpdatedDate" title="ツール本体の最終更新日時（ボーダーデータの更新日時とは別）"><span>更新時間</span><time class="num" datetime="2026-10-12T04:26:00+09:00">2026/10/12 04:26</time></span>
     </div>
   </header>
   <p class="hint" id="borderSyncStatus" role="status" style="font-size:.68rem;margin:5px 2px 8px;line-height:1.5">ボーダー確認中…</p>
@@ -1702,7 +1704,7 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
       <div class="remaining-items-head">
         <div class="remainbox">
           <div class="goal-clock-row">
-            <time class="date num meter-now" id="today" title="現在の端末時計・日本時間"><span class="current-datetime-label">現在日時</span><span id="todayYear"></span><span id="todayDate"></span><b id="todayTime"></b></time>
+            <time class="date num meter-now" id="today" title="現在日時・日本時間（時刻同期を確認中）"><span class="current-datetime-label">現在日時</span><span id="todayYear"></span><span id="todayDate"></span><b id="todayTime"></b></time>
             <div class="goal-remaining">
               <p class="remain-label" id="remainLabel">目標まであと</p>
               <p class="remain num" id="remain" aria-describedby="remainExact">—</p>
@@ -1710,7 +1712,7 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
           </div>
           <div class="meter-progress-row">
           <div class="compact-deadline-controls">
-            <div class="deadline-countdown" id="deadlineCountdown"><span id="leftLabel">締めまで</span><div class="countdown-value"><span class="countdown-prefix" id="remainingTimePrefix">残り</span><b class="num" id="left" aria-describedby="leftLabel remainingTimePrefix clockTimeBasis">--:--:--</b></div><small class="clock-time-basis" id="clockTimeBasis"><span>端末時計・日本時間</span><span>公式未同期</span></small></div>
+            <div class="deadline-countdown" id="deadlineCountdown"><span id="leftLabel">締めまで</span><div class="countdown-value"><span class="countdown-prefix" id="remainingTimePrefix">残り</span><b class="num" id="left" aria-describedby="leftLabel remainingTimePrefix clockTimeBasis">--:--:--</b></div><small class="clock-time-basis" id="clockTimeBasis"><span id="clockTimeSource">端末時計・日本時間</span><button type="button" id="clockSyncNow" aria-label="Pococha公式サイト時刻を再同期"><span id="clockSyncStatus">公式サイト時刻を確認中</span></button></small></div>
             <div class="deadline-core-pair">
             <div class="meter-deadline"><label for="closeSel">締め時間</label><select id="closeSel" class="closesel" aria-label="締め時間"><option value="13:00">13時〆</option><option value="22:00">22時〆</option><option value="00:00">24時〆</option><option value="custom">手入力</option></select></div>
             <div class="core-quick meter-core"><label for="coreCountTop">現コア数</label><div class="core-quick-values"><input class="sm num" id="coreCountTop" type="text" inputmode="numeric" enterkeyhint="done" autocomplete="off" aria-describedby="coreBonusTop coreInputError inputStatus" placeholder="0" aria-label="現コア数（0〜1000人）"><span class="bonus num" id="coreBonusTop" aria-label="コアボ倍率">100%</span><small class="core-bonus-caption">コアボ</small></div><small id="coreInputError" class="local-input-error" hidden></small></div>
@@ -1981,6 +1983,8 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
 <script>
 (function(){
   var KEY='pococha-meter-calc-v1';
+  // Keep clock samples in this page only; saved calculator data is unchanged.
+  var clockSample=null,clockBusy=false,clockAttemptMono=null,clockState='pending';
   var DISPLAY_KEY='pococha-meter-display-v1';
   var DISPLAY_COLORS={standard:{dark:'#080e19',light:'#eef3f8'},blue:{dark:'#091422',light:'#edf6fc'},green:{dark:'#0b1813',light:'#edf7f1'},purple:{dark:'#151121',light:'#f5f0fc'},pink:{dark:'#1c111b',light:'#fdf1f7'},black:{dark:'#000000',light:'#f1f1f1'}};
   var DISPLAY_CUSTOM={
@@ -2278,13 +2282,41 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
   var coreMul=function(){return 1+coreInfo().bonus/100;};
   var coinRange=function(rem){return fmt(needCoins(rem));};
 
+  // Official website HTTP time, with an in-page monotonic clock between samples.
+  function clockMonotonic(){try{var n=typeof performance!=='undefined'&&typeof performance.now==='function'?performance.now():null;return Number.isFinite(n)&&n>=0?n:null;}catch(e){return null;}}
+  function clockElapsed(){var n=clockMonotonic();return clockSample&&n!==null?n-clockSample.monoMs:null;}
+  function currentTimeMs(){var elapsed=clockElapsed();return elapsed!==null&&elapsed>=0&&elapsed<=300000?clockSample.timeMs+elapsed:Date.now();}
+  function clockBasis(){
+    var elapsed=clockElapsed(),valid=elapsed!==null&&elapsed>=0&&elapsed<=300000;
+    if(valid){var error=Math.ceil((clockSample.uncertaintyMs+elapsed*.0001)/1000),status=clockState==='failed'?'前回同期・再同期失敗':clockBusy?'再同期中':'同期済み';return {primary:'Pococha公式サイト時刻',secondary:'日本時間・'+status,description:'Pococha公式サイトのHTTP応答時刻を基準に日本時間で計算。'+status+'。通信誤差の目安は約±'+error+'秒。Pocochaアプリ内部の時計との一致は未確認。'};}
+    var status=clockBusy||clockState==='pending'?'公式サイト時刻を取得中':clockSample?'同期切れ・未同期':'公式サイト未同期';
+    return {primary:'端末時計・日本時間',secondary:status,description:'端末時計（日本時間）で計算。'+status+'。'};
+  }
+  function renderClockBasis(){var basis=clockBasis();$('clockTimeSource').textContent=basis.primary;$('clockSyncStatus').textContent=basis.secondary;$('clockTimeBasis').title=basis.description;$('today').title=basis.description;$('miniNow').title=basis.description;}
+  function syncPocochaClock(force){
+    var started=clockMonotonic(),elapsed=clockElapsed();
+    if(clockBusy)return Promise.resolve(false);
+    if(started===null){clockState='failed';renderClockBasis();return Promise.resolve(false);}
+    if(clockAttemptMono!==null&&started-clockAttemptMono>=0&&started-clockAttemptMono<10000)return Promise.resolve(false);
+    if(!force&&clockState==='synced'&&elapsed!==null&&elapsed>=0&&elapsed<60000)return Promise.resolve(false);
+    clockBusy=true;clockAttemptMono=started;renderClockBasis();
+    var controller=new AbortController(),timer;
+    var timeout=new Promise(function(resolve,reject){timer=setTimeout(function(){controller.abort();reject(new Error('clock timeout'));},10000);});
+    var request=Promise.resolve().then(function(){return fetch('https://poco-meter.freefreelife2000.chatgpt.site/api/pococha-time',{cache:'no-store',credentials:'omit',signal:controller.signal});}).then(function(response){if(!response.ok)throw new Error('clock unavailable');return response.json();});
+    return Promise.race([request,timeout]).then(function(data){
+      var received=clockMonotonic(),rtt=received===null?NaN:received-started;
+      if(!isRecord(data)||data.schema!=='pococha-site-time-v1'||data.source!=='pococha-official-website-http-date'||data.sourceURL!=='https://www.pococha.com/'||!Number.isFinite(data.serverTimeMs)||data.serverTimeMs<Date.UTC(2000,0,1)||data.serverTimeMs>=Date.UTC(2100,0,1)||!Number.isFinite(data.sampleAgeMs)||data.sampleAgeMs<0||data.sampleAgeMs>60000||!Number.isFinite(data.uncertaintyMs)||data.uncertaintyMs<500||data.uncertaintyMs>3500||!Number.isFinite(data.upstreamRoundTripMs)||data.upstreamRoundTripMs<0||data.upstreamRoundTripMs>5000||!Number.isFinite(data.processingMs)||data.processingMs<0||data.processingMs>6000||!Number.isFinite(rtt)||rtt<0||rtt>10000||data.processingMs>rtt+100)throw new Error('unverified clock sample');
+      var networkRTT=Math.max(0,rtt-data.processingMs);if(data.uncertaintyMs+networkRTT/2>5500)throw new Error('clock uncertainty');
+      clockSample={timeMs:data.serverTimeMs+networkRTT/2,monoMs:received,uncertaintyMs:data.uncertaintyMs+networkRTT/2};clockState='synced';return true;
+    }).catch(function(){clockState='failed';return false;}).finally(function(){clearTimeout(timer);clockBusy=false;update(true);});
+  }
   // JST helpers
-  function jstNow(ms){var d=new Date((ms===undefined?Date.now():ms)+9*3600e3);return {y:d.getUTCFullYear(),m:d.getUTCMonth()+1,d:d.getUTCDate(),w:d.getUTCDay(),mins:d.getUTCHours()*60+d.getUTCMinutes()+d.getUTCSeconds()/60+d.getUTCMilliseconds()/60000};}
+  function jstNow(ms){var d=new Date((ms===undefined?currentTimeMs():ms)+9*3600e3);return {y:d.getUTCFullYear(),m:d.getUTCMonth()+1,d:d.getUTCDate(),w:d.getUTCDay(),mins:d.getUTCHours()*60+d.getUTCMinutes()+d.getUTCSeconds()/60+d.getUTCMilliseconds()/60000};}
   function toMins(t){if(typeof t!=='string'||!/^\d{2}:\d{2}$/.test(t))return null;var p=t.split(':').map(Number);return p[0]<24&&p[1]<60?p[0]*60+p[1]:null;}
   function meterWindow(ms){var now=jstNow(ms),dl=toMins(state.deadline);if(dl===null)dl=22*60;var end=Date.UTC(now.y,now.m-1,now.d)+dl*60000-9*3600e3;if(end<=ms)end+=864e5;return {end:end,start:end-864e5,left:(end-ms)/60000};}
   function hm(mins){if(mins>0&&mins<1)return Math.ceil(mins*60)+'秒';mins=Math.max(0,Math.floor(mins));var h=Math.floor(mins/60),m=mins%60;return h>0?h+'時間'+m+'分':m+'分';}
   function countdownTime(ms){var seconds=Number.isFinite(ms)?Math.max(0,Math.ceil(ms/1000)):0;return String(Math.floor(seconds/3600)).padStart(2,'0')+':'+String(Math.floor(seconds/60)%60).padStart(2,'0')+':'+String(seconds%60).padStart(2,'0');}
-  function countdownDescription(ms){var parts=countdownTime(ms).split(':');return '残り'+Number(parts[0])+'時間'+Number(parts[1])+'分'+Number(parts[2])+'秒。端末時刻（日本時間）で計算。Pococha公式サーバーとは未同期。';}
+  function countdownDescription(ms){var parts=countdownTime(ms).split(':');return '残り'+Number(parts[0])+'時間'+Number(parts[1])+'分'+Number(parts[2])+'秒。'+clockBasis().description;}
   function ceilPace(amount,unitMs,remainingMs){
     if(amount<=0||remainingMs<=0)return 0n;
     var numerator=BigInt(amount)*BigInt(unitMs),denominator=BigInt(remainingMs);
@@ -2955,11 +2987,11 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
     $('fill').classList.toggle('done',done);$('fill').classList.toggle('mid',!done&&pct>=50&&pct<80);$('fill').classList.toggle('hi',!done&&pct>=80);
     $('pct').textContent=pct+'%';
 
-    var nowMs=Date.now(),now=jstNow(nowMs),period=meterWindow(nowMs);
+    var nowMs=currentTimeMs(),now=jstNow(nowMs),period=meterWindow(nowMs);renderClockBasis();
     var clock=new Date(nowMs+9*3600e3),clockTime=String(clock.getUTCHours()).padStart(2,'0')+':'+String(clock.getUTCMinutes()).padStart(2,'0')+':'+String(clock.getUTCSeconds()).padStart(2,'0');
     $('todayYear').textContent=now.y+'年';$('todayDate').textContent=now.m+'/'+now.d+'（'+'日月火水木金土'[now.w]+'）';$('todayTime').textContent=clockTime;
     $('today').setAttribute('datetime',now.y+'-'+String(now.m).padStart(2,'0')+'-'+String(now.d).padStart(2,'0')+'T'+clockTime+'+09:00');
-    $('today').setAttribute('aria-label',now.y+'年'+now.m+'月'+now.d+'日（'+'日月火水木金土'[now.w]+'） '+clockTime+' 日本時間');
+    $('today').setAttribute('aria-label',now.y+'年'+now.m+'月'+now.d+'日（'+'日月火水木金土'[now.w]+'） '+clockTime+' 日本時間。'+clockBasis().primary+'。'+clockBasis().secondary);
     $('miniNowDate').textContent=now.y+'/'+String(now.m).padStart(2,'0')+'/'+String(now.d).padStart(2,'0')+'（'+'日月火水木金土'[now.w]+'）';$('miniNowTime').textContent=clockTime;
     $('miniNow').setAttribute('datetime',$('today').getAttribute('datetime'));$('miniNow').setAttribute('aria-label',$('today').getAttribute('aria-label'));
     // 締め時刻の「次の到来」までを計算（13時締め＝当日13時〜翌日13時が1日のメーター）
@@ -3493,6 +3525,13 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
   document.addEventListener('visibilitychange',function(){if(!document.hidden){update(true);syncLiveBorders();}});
   window.addEventListener('pageshow',function(){update(true);syncLiveBorders();});
   window.addEventListener('focus',function(){update(true);syncLiveBorders();});
+  document.addEventListener('visibilitychange',function(){if(!document.hidden)syncPocochaClock(true);});
+  window.addEventListener('pageshow',function(){syncPocochaClock(true);});
+  window.addEventListener('focus',function(){syncPocochaClock(true);});
+  window.addEventListener('online',function(){syncPocochaClock(true);});
+  $('clockSyncNow').addEventListener('click',function(){syncPocochaClock(true);});
+  syncPocochaClock();
+  setInterval(function(){if(!document.hidden)syncPocochaClock();},60000);
   // Expose the same local calculator actions when the browser supports WebMCP.
   syncLiveBorders();
   setInterval(function(){if(!document.hidden)syncLiveBorders();},300000);
