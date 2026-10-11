@@ -273,18 +273,18 @@ section.collapsed>*:not(h2){display:none!important}
 #mini.hud-collapsed .hud-actions>:not(#hudToggle){display:none!important}
 #mini.hud-collapsed #hudToggle{display:block!important;margin:0}
 :root #mini #miniClose{grid-column:1;grid-row:2;min-height:24px;height:24px;font-size:10px!important;padding:1px 12px 1px 3px}
-#mini #itemsHudToggle{grid-column:2/-1;grid-row:2;justify-self:start;min-height:26px;padding:2px 6px;font-size:11px!important;line-height:1.4}
+#mini #itemsHudToggle{grid-column:2/-1;grid-row:2;justify-self:start;min-height:28px;padding:3px 6px;font-size:12px!important;line-height:1.4;max-width:100%;white-space:normal}
 #itemsWindow{position:fixed;top:calc(var(--hud-bottom,240px) + 6px);bottom:auto;left:50%;transform:translateX(-50%);z-index:51;width:min(560px,calc(100% - 24px));box-sizing:border-box;padding:6px 8px;background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:12px;box-shadow:0 -4px 18px #0003}
 #itemsWindow[hidden]{display:none}
 #itemsWindow{max-height:calc(var(--meter-visible-height,100vh) / 2);overflow:auto;overscroll-behavior:contain}
-#itemsWindow{display:flex;align-items:center;gap:3px;padding:3px 4px;border-radius:8px}
+#itemsWindow{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:6px;padding:6px 8px;border-radius:8px}
 .items-window-head{display:contents}
 #itemsWindowTitle{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
-#closeItemsWindow{order:2;flex:0 0 18px;min-height:24px;width:18px;padding:0;font-size:10px!important}
-#itemsWindowRow{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:2px;flex:1;min-width:0;padding:0}
-#itemsWindowRow .coin-card{min-width:0;display:flex;flex-direction:column;align-items:center;gap:0;padding:1px 0;margin:0;background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:4px}
-#itemsWindowRow .coin-card span{font-size:8px!important;line-height:1.2;white-space:nowrap;letter-spacing:0}
-#itemsWindowRow .coin-card b{font-size:9px!important;line-height:1.3;margin:0;color:var(--number-ink,var(--teal));white-space:nowrap;letter-spacing:-.3px}
+#closeItemsWindow{grid-column:2;grid-row:1;min-height:30px;width:26px;padding:0;font-size:14px!important}
+#itemsWindowRow{grid-column:1/-1;grid-row:2;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;min-width:0;padding:0}
+#itemsWindowRow .coin-card{min-width:0;display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 6px;margin:0;background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:4px}
+#itemsWindowRow .coin-card span{font-size:11px!important;line-height:1.4;white-space:normal;overflow-wrap:anywhere;max-width:100%;text-align:center;letter-spacing:0}
+#itemsWindowRow .coin-card b{font-size:13px!important;line-height:1.4;margin:0;color:var(--number-ink,var(--teal));white-space:normal;overflow-wrap:anywhere;max-width:100%;text-align:center;letter-spacing:0}
 
 
  .daily-viewer{margin-bottom:16px}
@@ -336,8 +336,8 @@ section.collapsed>*:not(h2){display:none!important}
 :root #dailyViewer :is(#dailyControls,#dailyTable,#historySearch)[hidden]{display:none!important}
 .history-filters{grid-template-columns:repeat(2,minmax(0,1fr))}
 
-:root #itemsWindow .items-core{flex:0 0 44px;min-width:0;display:flex;flex-direction:column;gap:1px;align-items:center}
-:root #itemsWindow .items-core label{font-size:8px!important;line-height:1.2;margin:0;white-space:nowrap;color:var(--ink)!important}
+:root #itemsWindow .items-core{grid-column:1;grid-row:1;min-width:0;display:flex;flex-direction:row;gap:6px;align-items:center}
+:root #itemsWindow .items-core label{font-size:11px!important;line-height:1.4;margin:0;white-space:nowrap;color:var(--ink)!important}
 :root #itemsWindow #coreCountItems{box-sizing:border-box;width:44px;min-width:0;max-width:44px;height:26px;min-height:26px;padding:1px 2px;border-radius:4px;font-size:16px!important;line-height:1.2;text-align:center;background:var(--paper)!important;color:var(--number-ink,var(--ink))!important;border:1px solid var(--line)!important}
 :root #itemsWindow #coreCountItems[aria-invalid="true"]{outline:2px solid var(--red);outline-offset:-2px}
 #coreCountItemsError{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
@@ -1644,13 +1644,13 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
 <time id="miniNow" class="num" hidden title="現在日時・日本時間（時刻同期を確認中）"><span id="miniTimeLabel">時刻を確認中</span><span id="miniNowDate"></span><b id="miniNowTime"></b></time>
 <div class="mini-input mini-target" id="miniTargetField" hidden><label for="targetMini">目標値</label><input class="num" id="targetMini" type="text" inputmode="decimal" enterkeyhint="done" autocomplete="off" placeholder="未設定" tabindex="-1" aria-describedby="targetMiniError inputStatus"><div class="mini-target-actions"><button type="button" class="mini-action" id="restoreTargetMini" tabindex="-1" aria-label="目標値をデフォルトに戻す">デフォルト</button><button type="button" class="mini-action" id="openMiniTargetDetails" tabindex="-1" aria-controls="sectionBody-1" aria-label="目標値の詳細設定を開く">詳細設定</button></div></div>
 <div class="mini-input mini-current" id="miniCurrentField" hidden><label for="currentMini">現在値</label><input class="num" id="currentMini" type="text" inputmode="decimal" enterkeyhint="done" autocomplete="off" placeholder="0" tabindex="-1" aria-describedby="currentMiniError inputStatus"><button type="button" class="mini-action" id="resetCurrentMini" tabindex="-1" aria-label="現在値をリセット">リセット</button></div>
-<div class="mini-goal-menu" id="miniGoalMenu" hidden aria-label="目標設定メニュー"><select id="miniPeriod" aria-label="集計期間" tabindex="-1"></select><select id="miniRank" aria-label="ランク" tabindex="-1"></select><select id="miniBorder" aria-label="設定する目標のボーダー" tabindex="-1"></select><select id="miniMethod" aria-label="算出方法" tabindex="-1"></select><input id="miniBuffer" type="text" inputmode="decimal" enterkeyhint="done" autocomplete="off" aria-label="上乗せ率（％）" title="上乗せ率（％）" tabindex="-1" aria-describedby="miniBufferError inputStatus"><select id="miniClose" aria-label="締め時間" tabindex="-1"></select><button type="button" id="itemsHudToggle" role="switch" aria-checked="false" aria-controls="itemsWindow">アイテム目安ON</button></div>
+<div class="mini-goal-menu" id="miniGoalMenu" hidden aria-label="目標設定メニュー"><select id="miniPeriod" aria-label="集計期間" tabindex="-1"></select><select id="miniRank" aria-label="ランク" tabindex="-1"></select><select id="miniBorder" aria-label="設定する目標のボーダー" tabindex="-1"></select><select id="miniMethod" aria-label="算出方法" tabindex="-1"></select><input id="miniBuffer" type="text" inputmode="decimal" enterkeyhint="done" autocomplete="off" aria-label="上乗せ率（％）" title="上乗せ率（％）" tabindex="-1" aria-describedby="miniBufferError inputStatus"><select id="miniClose" aria-label="締め時間" tabindex="-1"></select><button type="button" id="itemsHudToggle" role="switch" aria-checked="false" aria-controls="itemsWindow">残りアイテム目安ON</button></div>
 <small id="targetMiniError" hidden role="status" aria-live="polite"></small>
 <small id="currentMiniError" hidden role="status" aria-live="polite"></small>
 <small id="miniBufferError" hidden role="status" aria-live="polite"></small>
 <!-- phone-current:end -->
 </div>
-<aside id="itemsWindow" hidden aria-labelledby="itemsWindowTitle"><div class="items-window-head"><span id="itemsWindowTitle">残りアイテムの目安</span><button type="button" id="closeItemsWindow" aria-label="残りアイテムの目安を閉じる">×</button></div><div class="items-core"><label for="coreCountItems">現コア数</label><input id="coreCountItems" class="num" type="text" inputmode="numeric" enterkeyhint="done" autocomplete="off" placeholder="0" aria-label="現コア数（0〜1000人）" aria-describedby="coreCountItemsError inputStatus"><small id="coreCountItemsError" class="items-core-error" hidden></small></div><div id="itemsWindowRow"></div></aside>
+<aside id="itemsWindow" hidden aria-labelledby="itemsWindowTitle"><div class="items-window-head"><span id="itemsWindowTitle">残りアイテムの目安</span><button type="button" id="closeItemsWindow" aria-label="残りアイテムの目安を閉じる">×</button></div><div class="items-core"><label for="coreCountItems">現コア数</label><input id="coreCountItems" class="num" type="text" inputmode="numeric" enterkeyhint="done" autocomplete="off" placeholder="0" aria-label="現コア数（0〜1000人）" aria-describedby="coreCountItemsError inputStatus" value="0"><small id="coreCountItemsError" class="items-core-error" hidden></small></div><div id="itemsWindowRow"></div></aside>
 <div class="wrap">
   <header class="card">
     <div class="header-main">
@@ -1716,7 +1716,7 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
             <div class="deadline-countdown" id="deadlineCountdown"><span id="leftLabel">締めまで</span><div class="countdown-value"><span class="countdown-prefix" id="remainingTimePrefix">残り</span><b class="num" id="left" aria-describedby="leftLabel remainingTimePrefix clockTimeBasis">--:--:--</b></div><small class="clock-time-basis" id="clockTimeBasis"><span id="clockTimeSource">端末時計・日本時間</span><button type="button" id="clockSyncNow" aria-label="Pocochaサーバー時刻を再同期"><span id="clockSyncStatus">サーバー時刻を確認中</span></button></small></div>
             <div class="deadline-core-pair">
             <div class="meter-deadline"><label for="closeSel">締め時間</label><select id="closeSel" class="closesel" aria-label="締め時間"><option value="13:00">13時〆</option><option value="22:00">22時〆</option><option value="00:00">24時〆</option><option value="custom">手入力</option></select></div>
-            <div class="core-quick meter-core"><label for="coreCountTop">現コア数</label><div class="core-quick-values"><input class="sm num" id="coreCountTop" type="text" inputmode="numeric" enterkeyhint="done" autocomplete="off" aria-describedby="coreBonusTop coreInputError inputStatus" placeholder="0" aria-label="現コア数（0〜1000人）"><span class="bonus num" id="coreBonusTop" aria-label="コアボ倍率">100%</span><small class="core-bonus-caption">コアボ</small></div><small id="coreInputError" class="local-input-error" hidden></small></div>
+            <div class="core-quick meter-core"><label for="coreCountTop">現コア数</label><div class="core-quick-values"><input class="sm num" id="coreCountTop" type="text" inputmode="numeric" enterkeyhint="done" autocomplete="off" aria-describedby="coreBonusTop coreInputError inputStatus" placeholder="0" aria-label="現コア数（0〜1000人）" value="0"><span class="bonus num" id="coreBonusTop" aria-label="コアボ倍率">100%</span><small class="core-bonus-caption">コアボ</small></div><small id="coreInputError" class="local-input-error" hidden></small></div>
             </div>
           </div>
           <div class="tubewrap"><div class="tube" id="progressMeter" role="progressbar" aria-label="目標の達成率" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="fill" id="fill"></div></div><span class="pct" id="pct">0%</span></div>
@@ -2063,6 +2063,7 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
   var phoneDefaultsOnOpen=!!(window.matchMedia&&window.matchMedia('(max-width:700px)').matches);
   if(phoneDefaultsOnOpen){state.target='';state.current='0';state.currentSavedAt=Date.now();}
   if(state.goalDefaults.applyOnLoad||phoneDefaultsOnOpen)assignGoalDefaults(state.goalDefaults);
+  state.coreCount='0';
   state.pick=(state.pick!==''&&[0,1,2].indexOf(+state.pick)>=0)?+state.pick:'';
   if(!hasSavedGoalMode&&!state.goalDefaults.applyOnLoad&&state.pick===''&&parseNum(state.target)===0){state.pick=0;state.analysisBorder=0;}
   state.analysisBorder=[0,1,2].indexOf(state.analysisBorder)>=0?state.analysisBorder:(state.pick===''?0:state.pick);
@@ -3320,7 +3321,7 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
   revealHashMenu(false);
   var itemsWindowEnabled=false;try{itemsWindowEnabled=localStorage.getItem('pococha-meter-items-window-v1')==='on';}catch(e){}
   Array.prototype.forEach.call(document.querySelectorAll('#remainingItems .coin-card'),function(card){var clone=card.cloneNode(true);clone.querySelectorAll('[id]').forEach(function(el){el.dataset.mirrorSource=el.id;el.removeAttribute('id');});var label=clone.querySelector('span');label.title=label.textContent;label.textContent=['コイン','犬・猫','笹パンダ','花火','馬車'][$('itemsWindowRow').children.length];$('itemsWindowRow').appendChild(clone);});
-  function syncItemsWindow(){var coreInput=$('coreCountItems');if(document.activeElement!==coreInput&&coreInput.getAttribute('aria-invalid')!=='true')coreInput.value=String(state.coreCount||0);document.querySelectorAll('#itemsWindow [data-mirror-source]').forEach(function(el){el.textContent=$(el.dataset.mirrorSource).textContent;});$('itemsWindow').hidden=!itemsWindowEnabled;if(itemsWindowEnabled)document.querySelectorAll('#itemsWindowRow .coin-card b').forEach(function(el){el.style.setProperty('font-size','9px','important');var width=el.parentNode.clientWidth-2;if(width>0&&el.scrollWidth>width)el.style.setProperty('font-size',Math.max(4,9*width/el.scrollWidth)+'px','important');});document.body.classList.toggle('items-window-on',itemsWindowEnabled);$('itemsHudToggle').textContent=itemsWindowEnabled?'アイテム目安OFF':'アイテム目安ON';$('itemsHudToggle').setAttribute('aria-checked',String(itemsWindowEnabled));document.documentElement.style.setProperty('--items-window-height',(itemsWindowEnabled?$('itemsWindow').getBoundingClientRect().height+6:0)+'px');}
+  function syncItemsWindow(){var coreInput=$('coreCountItems');if(document.activeElement!==coreInput&&coreInput.getAttribute('aria-invalid')!=='true')coreInput.value=String(state.coreCount||0);document.querySelectorAll('#itemsWindow [data-mirror-source]').forEach(function(el){el.textContent=$(el.dataset.mirrorSource).textContent;});$('itemsWindow').hidden=!itemsWindowEnabled;document.body.classList.toggle('items-window-on',itemsWindowEnabled);$('itemsHudToggle').textContent=itemsWindowEnabled?'残りアイテム目安OFF':'残りアイテム目安ON';$('itemsHudToggle').setAttribute('aria-checked',String(itemsWindowEnabled));document.documentElement.style.setProperty('--items-window-height',(itemsWindowEnabled?$('itemsWindow').getBoundingClientRect().height+6:0)+'px');}
   function setItemsWindow(enabled){itemsWindowEnabled=enabled;syncItemsWindow();try{localStorage.setItem('pococha-meter-items-window-v1',enabled?'on':'off');}catch(e){}}
   $('itemsHudToggle').onclick=function(){setItemsWindow(!itemsWindowEnabled);};$('closeItemsWindow').onclick=function(){setItemsWindow(false);(hudEnabled?$('itemsHudToggle'):$('hudToggle')).focus({preventScroll:true});};syncItemsWindow();
   window.addEventListener('resize',syncItemsWindow);
