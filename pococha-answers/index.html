@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-P76ZEZ5Ew9+nPfi6VrZT9k4gtt03PiZCTBXGdRU2HiU=' 'sha256-uNaRaIumIn5v9WjqQEXs1MZ5RqTzBS0B49cDGxzj2Hs=' 'sha256-uE7VyjG2ywos0qkQxgF7/mlFoGu7c4W6UFCB/F/xid4=' 'sha256-q/m2/wWnx9JYsagX6SpA3aKdD7zcYXtbieSCgoWoP7E=' 'sha256-GT303wL9usH5dCCvRln7GnzA/vrHKCaeEBceXv0dOXs='; style-src 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://pococha-challenge.freefreelife2000.chatgpt.site; base-uri 'none'; object-src 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-P76ZEZ5Ew9+nPfi6VrZT9k4gtt03PiZCTBXGdRU2HiU=' 'sha256-uNaRaIumIn5v9WjqQEXs1MZ5RqTzBS0B49cDGxzj2Hs=' 'sha256-uE7VyjG2ywos0qkQxgF7/mlFoGu7c4W6UFCB/F/xid4=' 'sha256-q/m2/wWnx9JYsagX6SpA3aKdD7zcYXtbieSCgoWoP7E=' 'sha256-k9xuqUG8jwAWLjuV93yP/LLbS7x2hJ5hQWBKJ8Aq3wk='; style-src 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://pococha-challenge.freefreelife2000.chatgpt.site; base-uri 'none'; object-src 'none'; form-action 'none'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="referrer" content="no-referrer">
 <meta name="theme-color" content="#111827">
@@ -585,7 +585,8 @@ $('sharePage').addEventListener('click',async()=>{const shared=new URL('https://
     try { const clean = new URL(location.href); clean.searchParams.delete('excludeSelf'); clean.searchParams.delete('exclusionSettings'); history.replaceState(history.state, '', clean.href); } catch {}
   }
   const isExcluded = () => {
-    try { if (localStorage.getItem(excludeKey) === '1') return true; } catch {}
+    if (saveFailed) return excluded;
+    try { return localStorage.getItem(excludeKey) === '1'; } catch {}
     return excluded;
   };
   document.addEventListener('DOMContentLoaded', () => {
@@ -692,6 +693,9 @@ $('sharePage').addEventListener('click',async()=>{const shared=new URL('https://
       });
     } else submit();
   }
+  if (typeof window.addEventListener === 'function') window.addEventListener('storage', event => {
+    if (!settingsBridge && (event.key === excludeKey || event.key === null)) void syncExclusion().then(track);
+  });
   document.addEventListener('visibilitychange', track);
   void syncExclusion(exclusionChoice === '1' || exclusionChoice === '0').then(() => {
     if (settingsBridge) {
