@@ -340,6 +340,10 @@ section.collapsed>*:not(h2){display:none!important}
 /* Official Instagram for the independent tool creator. */
 .official-tools-account{margin:12px 0 8px;font-size:.875rem;line-height:1.7;text-align:left;overflow-wrap:anywhere}
 .official-tools-account a{display:inline-flex;flex-direction:column;justify-content:center;min-height:44px;max-width:100%;color:inherit;text-decoration:underline;text-underline-offset:3px}
+
+@media screen and (forced-colors:active){
+:root[data-theme][data-screen-color] :is(#mini,#itemsWindow){--ink:CanvasText!important;--muted:CanvasText!important;--sub:CanvasText!important;--text:CanvasText!important;--paper:Canvas!important;--panel:Canvas!important;--surface:Canvas!important;--field:Canvas!important;--input-bg:Canvas!important;--raised:Canvas!important;--line:ButtonText!important;--control-border:ButtonText!important;--teal:LinkText!important;--teal-soft:Canvas!important;--on-accent:Canvas!important;--success:CanvasText!important;--success-bg:Canvas!important;--red:CanvasText!important;--error-bg:Canvas!important;--amber:CanvasText!important;--amber-bg:Canvas!important;--number-ink:CanvasText!important;--remaining-ink:CanvasText!important;--c1:LinkText!important;--c2:LinkText!important;--c3:CanvasText!important;--c4:CanvasText!important;--c5:CanvasText!important;--c6:LinkText!important}
+}
 </style>
 <style>
 /* Responsive, offline visual system. Append after the original stylesheet. */
@@ -1657,21 +1661,22 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
             <div><label for="hudVisibility">常時表示</label><select id="hudVisibility"><option value="on">ON</option><option value="off">OFF</option></select></div>
             <div><label for="screenTheme">画面の明るさ</label><select id="screenTheme"><option value="dark">暗い表示</option><option value="light">明るい表示</option></select></div>
             <div><label for="screenColor">画面の色</label><select id="screenColor"><option value="standard">標準</option><option value="blue">ブルー</option><option value="green">グリーン</option><option value="purple">パープル</option><option value="pink">ピンク</option><option value="black">黒</option></select></div>
-            <div><label for="backgroundColor">背景色</label><select id="backgroundColor" aria-describedby="backgroundHelp"><option value="theme">標準</option><option value="black">黒</option><option value="gray">グレー</option><option value="blue">ブルー</option><option value="green">グリーン</option><option value="purple">パープル</option><option value="pink">ピンク</option><option value="red">レッド</option><option value="orange">オレンジ</option><option value="gold">ゴールド</option></select></div>
+            <div><label for="backgroundColor">全体の背景色</label><select id="backgroundColor" aria-describedby="backgroundHelp"><option value="theme">標準</option><option value="black">黒</option><option value="gray">グレー</option><option value="blue">ブルー</option><option value="green">グリーン</option><option value="purple">パープル</option><option value="pink">ピンク</option><option value="red">レッド</option><option value="orange">オレンジ</option><option value="gold">ゴールド</option></select></div>
+            <div><label for="hudBackgroundColor">常時表示の背景色</label><select id="hudBackgroundColor"><option value="theme">標準</option><option value="black">黒</option><option value="gray">グレー</option><option value="blue">ブルー</option><option value="green">グリーン</option><option value="purple">パープル</option><option value="pink">ピンク</option><option value="red">レッド</option><option value="orange">オレンジ</option><option value="gold">ゴールド</option></select></div>
             <div><label for="listColor">リスト内の色</label><select id="listColor"><option value="white">白</option><option value="black">黒</option><option value="gray">グレー</option><option value="blue">ブルー</option><option value="green">グリーン</option><option value="purple">パープル</option><option value="pink">ピンク</option><option value="red">レッド</option><option value="orange">オレンジ</option><option value="gold">ゴールド</option></select></div>
             <div><label for="numberColor">数字の色</label><select id="numberColor"><option value="black">モノクロ</option><option value="gray">グレー</option><option value="blue">ブルー</option><option value="green">グリーン</option><option value="purple">パープル</option><option value="pink">ピンク</option><option value="red">レッド</option><option value="orange">オレンジ</option><option value="gold">ゴールド</option><option value="cyan">シアン</option></select></div>
             <div><label for="textWeight">全体の文字の太さ</label><select id="textWeight"><option value="ultra">極太文字</option><option value="bold">太文字</option><option value="standard">普通</option><option value="thin">細文字</option></select></div>
             <div><label for="displayPreset">おすすめ配色</label><select id="displayPreset"><option value="">設定パターンを選ぶ</option><option value="default">デフォルト設定（太文字）</option><option value="clear">見やすい標準</option><option value="blue">爽やかブルー</option><option value="blueNight">夜用ブルー</option><option value="pink">やさしいピンク</option><option value="green">落ち着くグリーン</option><option value="purple">夜用パープル</option><option value="mono">くっきりモノクロ</option></select></div>
           </div>
-          <p class="hint">選ぶとすぐ反映し、この端末に保存します。</p>
-          <p id="backgroundHelp" class="hint" hidden>黒背景では、文字や入力欄も暗い表示になります。</p>
+          <p class="hint">全体と常時表示の背景色は別々に選べます。選ぶとすぐ反映し、この端末に保存します。</p>
+          <p id="backgroundHelp" class="hint" hidden>全体を黒背景にすると、主画面の文字や入力欄も暗い表示になります。</p>
           <div class="display-settings-actions"><button type="button" id="restoreDisplaySettings">標準の表示に戻す</button></div>
           <details id="pipTestPanel"><summary>小窓表示テスト（実験）</summary><p class="hint">Safariで「準備」→「小窓を開く」を押し、他アプリに切り替えてください。残りK・残り時間・更新時刻が動き続けるか確認します。小窓内では入力できません。更新が止まったらSafariへ戻ってください。</p><div class="row"><button type="button" id="preparePipTest">準備</button><button type="button" id="openPipTest" disabled>小窓を開く</button><button type="button" id="stopPipTest">停止</button></div><video id="pipTestVideo" muted playsinline controls hidden style="width:100%;aspect-ratio:16/9;background:#101827" aria-label="残り目標・締めまでの時間の小窓テスト"></video><p id="pipTestStatus" class="hint" role="status" aria-live="polite">実機での動作は未確認です。</p></details>
           <p class="toast" id="displaySettingsStatus" role="status" aria-live="polite" aria-atomic="true"></p>
         </div>
       </details>
       <!-- display-settings-menu:end -->
-      <span class="ylogo-update" id="toolUpdatedDate" title="ツール本体の最終更新日時（ボーダーデータの更新日時とは別）"><span>更新時間</span><time class="num" datetime="2026-10-09T21:42:40+09:00">2026/10/09 21:42</time></span>
+      <span class="ylogo-update" id="toolUpdatedDate" title="ツール本体の最終更新日時（ボーダーデータの更新日時とは別）"><span>更新時間</span><time class="num" datetime="2026-10-11T10:18:15+09:00">2026/10/11 10:18</time></span>
     </div>
   </header>
   <p class="hint" id="borderSyncStatus" role="status" style="font-size:.68rem;margin:5px 2px 8px;line-height:1.5">ボーダー確認中…</p>
@@ -1969,13 +1974,13 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
     number:{black:{light:'#171717',dark:'#f5f5f5'},gray:{light:'#475569',dark:'#cbd5e1'},blue:{light:'#075f80',dark:'#75d4ff'},green:{light:'#105a39',dark:'#8fe4b4'},purple:{light:'#63368f',dark:'#c4b0ff'},pink:{light:'#912559',dark:'#f7abd8'},red:{light:'#9d2034',dark:'#ffbec8'},orange:{light:'#8a3f00',dark:'#ffc58f'},gold:{light:'#704400',dark:'#ffe1a3'},cyan:{light:'#0e5f68',dark:'#8de6ef'}},
     background:{theme:null,black:{light:'#000000',dark:'#000000'},gray:{light:'#f1f5f9',dark:'#101820'},blue:{light:'#edf6fc',dark:'#091422'},green:{light:'#edf7f1',dark:'#0b1813'},purple:{light:'#f5f0fc',dark:'#151121'},pink:{light:'#fdf1f7',dark:'#1c111b'},red:{light:'#fff0f3',dark:'#210f16'},orange:{light:'#fff4e8',dark:'#21140c'},gold:{light:'#fff2d6',dark:'#20190a'}}
   };
-  var DISPLAY_PRESETS={default:standardDisplaySettings(),clear:{color:'standard',theme:'light',background:'theme',listColor:'white',numberColor:'blue'},blue:{color:'blue',theme:'light',background:'blue',listColor:'blue',numberColor:'blue'},blueNight:{color:'blue',theme:'dark',background:'blue',listColor:'blue',numberColor:'cyan'},pink:{color:'pink',theme:'light',background:'pink',listColor:'pink',numberColor:'pink'},green:{color:'green',theme:'light',background:'green',listColor:'green',numberColor:'green'},purple:{color:'purple',theme:'dark',background:'purple',listColor:'purple',numberColor:'purple'},mono:{color:'black',theme:'dark',background:'black',listColor:'black',numberColor:'black'}};
-  function standardDisplaySettings(){return {color:'standard',weight:'bold',theme:'dark',background:'theme',listColor:'white',numberColor:'blue'};}
+  var DISPLAY_PRESETS={default:standardDisplaySettings(),clear:{color:'standard',theme:'light',background:'theme',hudBackground:'theme',listColor:'white',numberColor:'blue'},blue:{color:'blue',theme:'light',background:'blue',hudBackground:'theme',listColor:'blue',numberColor:'blue'},blueNight:{color:'blue',theme:'dark',background:'blue',hudBackground:'theme',listColor:'blue',numberColor:'cyan'},pink:{color:'pink',theme:'light',background:'pink',hudBackground:'theme',listColor:'pink',numberColor:'pink'},green:{color:'green',theme:'light',background:'green',hudBackground:'theme',listColor:'green',numberColor:'green'},purple:{color:'purple',theme:'dark',background:'purple',hudBackground:'theme',listColor:'purple',numberColor:'purple'},mono:{color:'black',theme:'dark',background:'black',hudBackground:'theme',listColor:'black',numberColor:'black'}};
+  function standardDisplaySettings(){return {color:'standard',weight:'bold',theme:'dark',background:'theme',hudBackground:'theme',listColor:'white',numberColor:'blue'};}
   function displayColor(value){return value==='lavender'?'purple':value==='white'?'standard':value;}
   var DISPLAY_WEIGHTS=['standard','bold','thin','ultra'];
   var DISPLAY_THEMES=['light','dark'];
   var displaySettings=standardDisplaySettings();
-  try{var displayRaw=JSON.parse(localStorage.getItem(DISPLAY_KEY)||'null');if(isRecord(displayRaw)){var storedColor=displayColor(displayRaw.color);if(Object.prototype.hasOwnProperty.call(DISPLAY_COLORS,storedColor))displaySettings.color=storedColor;if(DISPLAY_WEIGHTS.indexOf(displayRaw.weight)>=0)displaySettings.weight=displayRaw.weight;else if(displayRaw.weight==='heavy')displaySettings.weight='bold';if(DISPLAY_THEMES.indexOf(displayRaw.theme)>=0)displaySettings.theme=displayRaw.theme;else displaySettings.theme='light';['background','listColor','numberColor'].forEach(function(key){var choices=DISPLAY_CUSTOM[key==='listColor'?'list':key==='numberColor'?'number':'background'];if(Object.prototype.hasOwnProperty.call(choices,displayRaw[key]))displaySettings[key]=displayRaw[key];});}}catch(e){}
+  try{var displayRaw=JSON.parse(localStorage.getItem(DISPLAY_KEY)||'null');if(isRecord(displayRaw)){var storedColor=displayColor(displayRaw.color);if(Object.prototype.hasOwnProperty.call(DISPLAY_COLORS,storedColor))displaySettings.color=storedColor;if(DISPLAY_WEIGHTS.indexOf(displayRaw.weight)>=0)displaySettings.weight=displayRaw.weight;else if(displayRaw.weight==='heavy')displaySettings.weight='bold';if(DISPLAY_THEMES.indexOf(displayRaw.theme)>=0)displaySettings.theme=displayRaw.theme;else displaySettings.theme='light';['background','hudBackground','listColor','numberColor'].forEach(function(key){var choices=DISPLAY_CUSTOM[key==='listColor'?'list':key==='numberColor'?'number':'background'];if(Object.prototype.hasOwnProperty.call(choices,displayRaw[key]))displaySettings[key]=displayRaw[key];});}}catch(e){}
   var RANKS=['E','D1','D2','D3','C1','C2','C3','B1','B2','B3','A1','A2','A3','S1','S2','S3','S4','S5','S6'];
   var MAX_VALUE=Math.floor(Number.MAX_SAFE_INTEGER/25);
   var state={target:'',current:'0',deadline:'22:00',endTime:'',items:[],presets:[],coreCount:'0',rank:'S2',period:'30d',pick:'',log:{},seedVer:0,provenance:{},asOfDate:'',targetMethod:'mean',bufferPct:0,roundUnit:1,targetOrigin:null,snapshotVersion:'',analysisBorder:null,goalDefaults:null,goalDefaultsVersion:0,borderSync:null};
@@ -2054,6 +2059,25 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
   }catch(e){storageFailed=true;var status=document.getElementById('storageStatus');if(status){status.hidden=false;status.textContent='自動保存できません。この画面を閉じる前にバックアップをコピーして控えてください。';}if(typeof offlineReady==='boolean')renderOfflineStatus();return false;}}
 
   var $=function(id){return document.getElementById(id)};
+  function applyHudDisplaySettings(){
+    // Resolve every HUD token locally: inherited aliases retain root values in CSS.
+    var theme=displaySettings.hudBackground==='black'?'dark':displaySettings.theme;
+    var dark=theme==='dark',accent=displaySettings.color;
+    var surfaces={standard:{light:'#ffffff',dark:'#111e31'},blue:{light:'#ffffff',dark:'#12243a'},green:{light:'#ffffff',dark:'#14291e'},purple:{light:'#ffffff',dark:'#231c36'},pink:{light:'#ffffff',dark:'#2c1c2a'},black:{light:'#ffffff',dark:'#111111'}};
+    var chosen=DISPLAY_CUSTOM.background[displaySettings.hudBackground];
+    var paper=chosen?chosen[theme]:surfaces[accent][theme];
+    var accents={standard:{light:'#096587',dark:'#6adaff'},blue:{light:'#075f80',dark:'#75d4ff'},green:{light:'#105a39',dark:'#8fe4b4'},purple:{light:'#63368f',dark:'#c4b0ff'},pink:{light:'#912559',dark:'#f7abd8'},black:{light:'#202020',dark:'#e6e6e6'}};
+    var teal=accents[accent][theme];
+    var ink=accent==='black'?(dark?'#f5f5f5':'#171717'):(dark?'#edf4fd':'#17283a'),muted=accent==='black'?(dark?'#d0d0d0':'#454545'):(dark?'#c5d1df':'#445466');
+    var raisedDark={standard:'#15243a',blue:'#18304a',green:'#1d3828',purple:'#302647',pink:'#3b2535',black:'#202020'};
+    var lines={standard:{light:'#cdd9e3',dark:'#28394f'},blue:{light:'#b5cfdf',dark:'#35516b'},green:{light:'#b7d7c5',dark:'#385b47'},purple:{light:'#ccbedf',dark:'#54446e'},pink:{light:'#dec0d1',dark:'#70465f'},black:{light:'#bdbdbd',dark:'#444444'}};
+    var raised=dark?raisedDark[accent]:DISPLAY_COLORS[accent].light,line=lines[accent][theme],control=accent==='black'?(dark?'#999999':'#666666'):(dark?'#879bae':'#64778b');
+    var success=dark?'#b3f0cc':'#145737',red=dark?'#ffbec8':'#9d2034',amber=dark?'#ffe1a3':'#704400';
+    var number=DISPLAY_CUSTOM.number[displaySettings.numberColor][theme];
+    var tokens={ink:ink,muted:muted,sub:muted,text:ink,paper:paper,panel:paper,surface:paper,field:paper,'input-bg':paper,raised:raised,line:line,'control-border':control,teal:teal,'teal-soft':raised,'on-accent':dark?'#07131f':'#ffffff',success:success,'success-bg':dark?'#163c2b':'#e5f5ed',red:red,'error-bg':dark?'#3a1d29':'#fff0f3',amber:amber,'amber-bg':dark?'#3b2c19':'#fff2d6','number-ink':number,'remaining-ink':number,c1:teal,c2:teal,c3:amber,c4:success,c5:amber,c6:teal};
+    ['mini','itemsWindow'].forEach(function(id){var panel=$(id);panel.setAttribute('data-hud-background-color',displaySettings.hudBackground);panel.setAttribute('data-hud-theme',theme);panel.style.setProperty('color-scheme',theme);Object.keys(tokens).forEach(function(key){panel.style.setProperty('--'+key,tokens[key]);});});
+    $('hudBackgroundColor').value=displaySettings.hudBackground;
+  }
   function applyDisplaySettings(){
     document.documentElement.setAttribute('data-screen-color',displaySettings.color);
     document.documentElement.setAttribute('data-text-weight',displaySettings.weight);
@@ -2065,6 +2089,7 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
     $('screenColor').value=displaySettings.color;$('textWeight').value=displaySettings.weight;$('screenTheme').value=effectiveTheme;
     $('backgroundColor').value=displaySettings.background;$('backgroundHelp').hidden=displaySettings.background!=='black';
     $('listColor').value=displaySettings.listColor;$('numberColor').value=displaySettings.numberColor;
+    applyHudDisplaySettings();
     $('displayPreset').value=Object.keys(DISPLAY_PRESETS).find(function(name){return Object.keys(DISPLAY_PRESETS[name]).every(function(key){return displaySettings[key]===DISPLAY_PRESETS[name][key];});})||'';
     var background=DISPLAY_CUSTOM.background[displaySettings.background];
     $('browserThemeColor').setAttribute('content',background?background[effectiveTheme]:DISPLAY_COLORS[displaySettings.color][effectiveTheme]);
@@ -2078,6 +2103,7 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
   $('textWeight').onchange=function(){if(DISPLAY_WEIGHTS.indexOf(this.value)<0){applyDisplaySettings();return;}displaySettings.weight=this.value;saveDisplaySettings();};
   $('screenTheme').onchange=function(){if(DISPLAY_THEMES.indexOf(this.value)<0){applyDisplaySettings();return;}displaySettings.theme=this.value;if(displaySettings.background==='black')displaySettings.background='theme';saveDisplaySettings();};
   $('backgroundColor').onchange=function(){if(!Object.prototype.hasOwnProperty.call(DISPLAY_CUSTOM.background,this.value)){applyDisplaySettings();return;}displaySettings.background=this.value;saveDisplaySettings();};
+  $('hudBackgroundColor').onchange=function(){if(!Object.prototype.hasOwnProperty.call(DISPLAY_CUSTOM.background,this.value)){applyDisplaySettings();return;}displaySettings.hudBackground=this.value;saveDisplaySettings();};
   ['listColor','numberColor'].forEach(function(key){$(key).onchange=function(){if(!Object.prototype.hasOwnProperty.call(DISPLAY_CUSTOM[key==='listColor'?'list':'number'],this.value)){applyDisplaySettings();return;}displaySettings[key]=this.value;saveDisplaySettings();};});
   $('displayPreset').onchange=function(){var name=this.value,preset=DISPLAY_PRESETS[name];if(!preset){this.value='';return;}Object.keys(preset).forEach(function(key){displaySettings[key]=preset[key];});saveDisplaySettings();$('displayPreset').value=name;};
   $('restoreDisplaySettings').onclick=function(){displaySettings=standardDisplaySettings();saveDisplaySettings();};
@@ -2814,8 +2840,8 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
   function cleanDisplaySettings(value,strict){
     var weight=isRecord(value)&&value.weight==='heavy'?'bold':isRecord(value)?value.weight:null;
     var color=isRecord(value)?displayColor(value.color):null;
-    if(!isRecord(value)||!Object.prototype.hasOwnProperty.call(DISPLAY_COLORS,color)||DISPLAY_WEIGHTS.indexOf(weight)<0||(value.theme!==undefined&&DISPLAY_THEMES.indexOf(value.theme)<0)||(value.background!==undefined&&!Object.prototype.hasOwnProperty.call(DISPLAY_CUSTOM.background,value.background))||(value.listColor!==undefined&&!Object.prototype.hasOwnProperty.call(DISPLAY_CUSTOM.list,value.listColor))||(value.numberColor!==undefined&&!Object.prototype.hasOwnProperty.call(DISPLAY_CUSTOM.number,value.numberColor))){if(strict)throw new Error('表示設定が正しくありません');return standardDisplaySettings();}
-    return {color:color,weight:weight,theme:value.theme===undefined?'light':value.theme,background:value.background===undefined?'theme':value.background,listColor:value.listColor===undefined?'white':value.listColor,numberColor:value.numberColor===undefined?'blue':value.numberColor};
+    if(!isRecord(value)||!Object.prototype.hasOwnProperty.call(DISPLAY_COLORS,color)||DISPLAY_WEIGHTS.indexOf(weight)<0||(value.theme!==undefined&&DISPLAY_THEMES.indexOf(value.theme)<0)||(value.background!==undefined&&!Object.prototype.hasOwnProperty.call(DISPLAY_CUSTOM.background,value.background))||(value.hudBackground!==undefined&&!Object.prototype.hasOwnProperty.call(DISPLAY_CUSTOM.background,value.hudBackground))||(value.listColor!==undefined&&!Object.prototype.hasOwnProperty.call(DISPLAY_CUSTOM.list,value.listColor))||(value.numberColor!==undefined&&!Object.prototype.hasOwnProperty.call(DISPLAY_CUSTOM.number,value.numberColor))){if(strict)throw new Error('表示設定が正しくありません');return standardDisplaySettings();}
+    return {color:color,weight:weight,theme:value.theme===undefined?'light':value.theme,background:value.background===undefined?'theme':value.background,hudBackground:value.hudBackground===undefined?'theme':value.hudBackground,listColor:value.listColor===undefined?'white':value.listColor,numberColor:value.numberColor===undefined?'blue':value.numberColor};
   }
   function cleanEditorDraftPayload(value,strict){
     var clean={version:1,drafts:{},lastKey:''};
@@ -3301,7 +3327,7 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
   }
 
   $('copyAnalysis').onclick=function(){return copyTextForUser(buildAnalysisReport(),'analysisText','analysisMessage','目標候補と根拠をコピーしました。','自動コピーできませんでした。下の選択された分析文を手動でコピーしてください。',0,'copyAnalysis');};
-  function makeBackup(){var settings={};['target','current','deadline','endTime','coreCount','rank','period','pick','asOfDate','targetMethod','bufferPct','roundUnit','analysisBorder','currentSavedAt','targetOrigin','goalDefaults'].forEach(function(k){settings[k]=state[k];});settings.collapsed=cleanCollapsedPreferences(state.collapsed);return {pmcBackup:1,formatVersion:4,savedAt:new Date().toISOString(),log:state.log,log13:state.log13,log24:state.log24,items:state.items,presets:state.presets,provenance:state.provenance,settings:settings,display:{color:displaySettings.color,weight:displaySettings.weight,theme:displaySettings.theme,background:displaySettings.background,listColor:displaySettings.listColor,numberColor:displaySettings.numberColor},editorDrafts:cleanEditorDraftPayload({version:1,drafts:editorDrafts,lastKey:lastDraftKey},false)};}
+  function makeBackup(){var settings={};['target','current','deadline','endTime','coreCount','rank','period','pick','asOfDate','targetMethod','bufferPct','roundUnit','analysisBorder','currentSavedAt','targetOrigin','goalDefaults'].forEach(function(k){settings[k]=state[k];});settings.collapsed=cleanCollapsedPreferences(state.collapsed);return {pmcBackup:1,formatVersion:4,savedAt:new Date().toISOString(),log:state.log,log13:state.log13,log24:state.log24,items:state.items,presets:state.presets,provenance:state.provenance,settings:settings,display:{color:displaySettings.color,weight:displaySettings.weight,theme:displaySettings.theme,background:displaySettings.background,hudBackground:displaySettings.hudBackground,listColor:displaySettings.listColor,numberColor:displaySettings.numberColor},editorDrafts:cleanEditorDraftPayload({version:1,drafts:editorDrafts,lastKey:lastDraftKey},false)};}
   function downloadText(text,name,type){
     var url='',a=null;
     function removeAnchor(){if(a)try{a.remove();}catch(e){try{if(a.parentNode)a.parentNode.removeChild(a);}catch(ignore){}}}

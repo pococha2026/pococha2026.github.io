@@ -2,7 +2,7 @@
    always use the network. Input/record storage remains device-local. */
 const BASE = new URL(self.registration.scope);
 const CACHE_PREFIX = 'pococha-meter-shell-' + encodeURIComponent(BASE.pathname) + '-';
-const CACHE_NAME = CACHE_PREFIX + 'v26-github';
+const CACHE_NAME = CACHE_PREFIX + 'v27-github';
 const APP_MARKER = '<meta name="pococha-app" content="meter-offline-v1">';
 const HOME = BASE.href;
 let shellGeneration = 0, cachedGeneration = 0;
