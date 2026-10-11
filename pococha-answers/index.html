@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-P76ZEZ5Ew9+nPfi6VrZT9k4gtt03PiZCTBXGdRU2HiU=' 'sha256-uNaRaIumIn5v9WjqQEXs1MZ5RqTzBS0B49cDGxzj2Hs=' 'sha256-uE7VyjG2ywos0qkQxgF7/mlFoGu7c4W6UFCB/F/xid4=' 'sha256-q/m2/wWnx9JYsagX6SpA3aKdD7zcYXtbieSCgoWoP7E=' 'sha256-cNrsOaSH5dUia5XSd38oAqyrBGIL5mUtZs4IpoHrQsQ='; style-src 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://pococha-challenge.freefreelife2000.chatgpt.site; base-uri 'none'; object-src 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-P76ZEZ5Ew9+nPfi6VrZT9k4gtt03PiZCTBXGdRU2HiU=' 'sha256-uNaRaIumIn5v9WjqQEXs1MZ5RqTzBS0B49cDGxzj2Hs=' 'sha256-uE7VyjG2ywos0qkQxgF7/mlFoGu7c4W6UFCB/F/xid4=' 'sha256-q/m2/wWnx9JYsagX6SpA3aKdD7zcYXtbieSCgoWoP7E=' 'sha256-GT303wL9usH5dCCvRln7GnzA/vrHKCaeEBceXv0dOXs='; style-src 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://pococha-challenge.freefreelife2000.chatgpt.site; base-uri 'none'; object-src 'none'; form-action 'none'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="referrer" content="no-referrer">
 <meta name="theme-color" content="#111827">
@@ -565,7 +565,8 @@ $('sharePage').addEventListener('click',async()=>{const shared=new URL('https://
   const endpoint = 'https://pococha-challenge.freefreelife2000.chatgpt.site/api/visits';
   const github = location.origin === 'https://pococha2026.github.io' && /^\/pococha-(?:answers|challenge)\/(?:index\.html)?$/.test(location.pathname);
   const sites = location.origin === 'https://pococha-challenge.freefreelife2000.chatgpt.site' && /^\/(?:index\.html)?$/.test(location.pathname);
-  if (!github && !sites) return;
+  // Only the public GitHub main page participates in access counting.
+  if (!github) return;
   const excludeKey = 'pococha_answers_exclude_self_v1';
   let exclusionToken;
   try { exclusionToken = localStorage.getItem('pococha_answers_exclusion_token_v1'); if (!/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(exclusionToken || '')) { exclusionToken = crypto.randomUUID(); localStorage.setItem('pococha_answers_exclusion_token_v1', exclusionToken); } } catch { exclusionToken = globalThis.crypto?.randomUUID?.(); }
@@ -575,11 +576,13 @@ $('sharePage').addEventListener('click',async()=>{const shared=new URL('https://
     excluded = value;
     try { localStorage.setItem(excludeKey, value ? '1' : '0'); saveFailed = localStorage.getItem(excludeKey) !== (value ? '1' : '0'); } catch { saveFailed = true; }
   };
+  const settingsRequest = new URL(location.href).searchParams.get('exclusionSettings');
+  const settingsBridge = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(settingsRequest || '') && !!window.opener;
   const exclusionChoice = new URL(location.href).searchParams.get('excludeSelf');
   if (exclusionChoice === '1' || exclusionChoice === '0') {
     saveExclusion(exclusionChoice === '1');
     if (saveFailed && typeof window.alert === 'function') window.alert('アクセス集計の設定を保存できません。この画面だけに適用します。サイトデータの保存設定を確認してください。');
-    try { const clean = new URL(location.href); clean.searchParams.delete('excludeSelf'); history.replaceState(history.state, '', clean.href); } catch {}
+    try { const clean = new URL(location.href); clean.searchParams.delete('excludeSelf'); clean.searchParams.delete('exclusionSettings'); history.replaceState(history.state, '', clean.href); } catch {}
   }
   const isExcluded = () => {
     try { if (localStorage.getItem(excludeKey) === '1') return true; } catch {}
@@ -611,7 +614,7 @@ $('sharePage').addEventListener('click',async()=>{const shared=new URL('https://
     exclusionReady = false;
     syncQueue = syncQueue.catch(() => {}).then(async () => {
       try {
-        const result = await fetch(endpoint.replace('/api/visits','/api/visit-exclusions'), { method:'POST', credentials:'omit', mode:'cors', headers:{'Content-Type':'application/json'}, body:JSON.stringify({token:exclusionToken,excluded:choice,update,eventId:exclusionEvent,page:location.origin+location.pathname,meta:metadata()}) });
+        const result = await fetch(endpoint.replace('/api/visits','/api/visit-exclusions'), { method:'POST', credentials:'omit', mode:'cors', headers:{'Content-Type':'application/json'}, body:JSON.stringify({token:exclusionToken,excluded:choice,update,settingsOnly:settingsBridge,eventId:exclusionEvent,page:location.origin+location.pathname,meta:metadata()}) });
         if (!result.ok) throw Error('storage');
         const state = await result.json();
         if (version !== syncVersion) return;
@@ -657,7 +660,7 @@ $('sharePage').addEventListener('click',async()=>{const shared=new URL('https://
     } catch { return null; }
   }
   function track() {
-    if (!exclusionReady || started || isExcluded() || document.visibilityState !== 'visible') return;
+    if (settingsBridge || !exclusionReady || started || isExcluded() || document.visibilityState !== 'visible') return;
     started = true;
     document.removeEventListener('visibilitychange', track);
     const meta = metadata();
@@ -690,7 +693,16 @@ $('sharePage').addEventListener('click',async()=>{const shared=new URL('https://
     } else submit();
   }
   document.addEventListener('visibilitychange', track);
-  void syncExclusion(exclusionChoice === '1' || exclusionChoice === '0').then(track);
+  void syncExclusion(exclusionChoice === '1' || exclusionChoice === '0').then(() => {
+    if (settingsBridge) {
+      if (exclusionReady && !saveFailed) {
+        window.opener.postMessage({type:'pococha-public-exclusion',requestId:settingsRequest,active:isExcluded()},'https://pococha-challenge.freefreelife2000.chatgpt.site');
+        window.close();
+      }
+      return;
+    }
+    track();
+  });
 })();
 </script>
 </body>
