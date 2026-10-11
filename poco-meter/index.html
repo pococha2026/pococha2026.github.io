@@ -792,6 +792,7 @@ header h1{font-size:1.2rem}.date{font-size:.76rem;margin:0}
 #clockBox #clockTimeBasis>span{font-size:.6rem;font-weight:500;line-height:1.4;white-space:normal;overflow-wrap:anywhere}
 #clockTimeBasis #clockSyncNow{font:inherit;font-size:var(--font-meta,.6rem);font-weight:500;line-height:1.4;color:inherit;background:none;border:0;border-radius:3px;box-shadow:none;padding:0;min-height:0;text-align:left;text-decoration:underline;white-space:normal;overflow-wrap:anywhere}
 #clockTimeBasis #clockSyncNow:focus-visible{outline:2px solid var(--c5);outline-offset:3px}
+#todayTimeLabel,#miniTimeLabel{white-space:normal;overflow-wrap:anywhere}
 @media(max-width:560px){#clockBox .countdown-value #left{font-size:1.05rem}}
 @media(max-width:440px){#clockBox .countdown-value #left{font-size:1.15rem}}
 /* Focused overview. */
@@ -1640,7 +1641,7 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
 <body>
 <div class="mini" id="mini" aria-hidden="true"><div class="hud-actions"><button type="button" id="closeHud" aria-label="常時表示を閉じる">閉じる</button><button type="button" id="hudToggle" role="switch" aria-checked="true" aria-label="常時表示">常時表示OFF</button></div><div class="mini-remaining"><span id="miniL">目標まであと</span><br><b id="miniR" class="num">-</b></div><div class="mini-countdown" style="text-align:right"><span id="miniDeadlineLabel">締切まで</span><br><span class="mt" id="miniT">-</span></div><button id="miniAdd" aria-label="現在値に1,000 ptを足す">+1K</button>
 <!-- phone-current:start -->
-<time id="miniNow" class="num" hidden title="現在日時・日本時間（時刻同期を確認中）"><span>現在日時</span><span id="miniNowDate"></span><b id="miniNowTime"></b></time>
+<time id="miniNow" class="num" hidden title="現在日時・日本時間（時刻同期を確認中）"><span id="miniTimeLabel">時刻を確認中</span><span id="miniNowDate"></span><b id="miniNowTime"></b></time>
 <div class="mini-input mini-target" id="miniTargetField" hidden><label for="targetMini">目標値</label><input class="num" id="targetMini" type="text" inputmode="decimal" enterkeyhint="done" autocomplete="off" placeholder="未設定" tabindex="-1" aria-describedby="targetMiniError inputStatus"><div class="mini-target-actions"><button type="button" class="mini-action" id="restoreTargetMini" tabindex="-1" aria-label="目標値をデフォルトに戻す">デフォルト</button><button type="button" class="mini-action" id="openMiniTargetDetails" tabindex="-1" aria-controls="sectionBody-1" aria-label="目標値の詳細設定を開く">詳細設定</button></div></div>
 <div class="mini-input mini-current" id="miniCurrentField" hidden><label for="currentMini">現在値</label><input class="num" id="currentMini" type="text" inputmode="decimal" enterkeyhint="done" autocomplete="off" placeholder="0" tabindex="-1" aria-describedby="currentMiniError inputStatus"><button type="button" class="mini-action" id="resetCurrentMini" tabindex="-1" aria-label="現在値をリセット">リセット</button></div>
 <div class="mini-goal-menu" id="miniGoalMenu" hidden aria-label="目標設定メニュー"><select id="miniPeriod" aria-label="集計期間" tabindex="-1"></select><select id="miniRank" aria-label="ランク" tabindex="-1"></select><select id="miniBorder" aria-label="設定する目標のボーダー" tabindex="-1"></select><select id="miniMethod" aria-label="算出方法" tabindex="-1"></select><input id="miniBuffer" type="text" inputmode="decimal" enterkeyhint="done" autocomplete="off" aria-label="上乗せ率（％）" title="上乗せ率（％）" tabindex="-1" aria-describedby="miniBufferError inputStatus"><select id="miniClose" aria-label="締め時間" tabindex="-1"></select><button type="button" id="itemsHudToggle" role="switch" aria-checked="false" aria-controls="itemsWindow">アイテム目安ON</button></div>
@@ -1692,7 +1693,7 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
         </div>
       </details>
       <!-- display-settings-menu:end -->
-      <span class="ylogo-update" id="toolUpdatedDate" title="ツール本体の最終更新日時（ボーダーデータの更新日時とは別）"><span>更新時間</span><time class="num" datetime="2026-10-12T04:35:00+09:00">2026/10/12 04:35</time></span>
+      <span class="ylogo-update" id="toolUpdatedDate" title="ツール本体の最終更新日時（ボーダーデータの更新日時とは別）"><span>更新時間</span><time class="num" datetime="2026-10-12T04:56:00+09:00">2026/10/12 04:56</time></span>
     </div>
   </header>
   <p class="hint" id="borderSyncStatus" role="status" style="font-size:.68rem;margin:5px 2px 8px;line-height:1.5">ボーダー確認中…</p>
@@ -1704,7 +1705,7 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
       <div class="remaining-items-head">
         <div class="remainbox">
           <div class="goal-clock-row">
-            <time class="date num meter-now" id="today" title="現在日時・日本時間（時刻同期を確認中）"><span class="current-datetime-label">現在日時</span><span id="todayYear"></span><span id="todayDate"></span><b id="todayTime"></b></time>
+            <time class="date num meter-now" id="today" title="現在日時・日本時間（時刻同期を確認中）"><span class="current-datetime-label" id="todayTimeLabel">時刻を確認中</span><span id="todayYear"></span><span id="todayDate"></span><b id="todayTime"></b></time>
             <div class="goal-remaining">
               <p class="remain-label" id="remainLabel">目標まであと</p>
               <p class="remain num" id="remain" aria-describedby="remainExact">—</p>
@@ -1712,7 +1713,7 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
           </div>
           <div class="meter-progress-row">
           <div class="compact-deadline-controls">
-            <div class="deadline-countdown" id="deadlineCountdown"><span id="leftLabel">締めまで</span><div class="countdown-value"><span class="countdown-prefix" id="remainingTimePrefix">残り</span><b class="num" id="left" aria-describedby="leftLabel remainingTimePrefix clockTimeBasis">--:--:--</b></div><small class="clock-time-basis" id="clockTimeBasis"><span id="clockTimeSource">端末時計・日本時間</span><button type="button" id="clockSyncNow" aria-label="Pococha公式サイト時刻を再同期"><span id="clockSyncStatus">公式サイト時刻を確認中</span></button></small></div>
+            <div class="deadline-countdown" id="deadlineCountdown"><span id="leftLabel">締めまで</span><div class="countdown-value"><span class="countdown-prefix" id="remainingTimePrefix">残り</span><b class="num" id="left" aria-describedby="leftLabel remainingTimePrefix clockTimeBasis">--:--:--</b></div><small class="clock-time-basis" id="clockTimeBasis"><span id="clockTimeSource">端末時計・日本時間</span><button type="button" id="clockSyncNow" aria-label="Pocochaサーバー時刻を再同期"><span id="clockSyncStatus">サーバー時刻を確認中</span></button></small></div>
             <div class="deadline-core-pair">
             <div class="meter-deadline"><label for="closeSel">締め時間</label><select id="closeSel" class="closesel" aria-label="締め時間"><option value="13:00">13時〆</option><option value="22:00">22時〆</option><option value="00:00">24時〆</option><option value="custom">手入力</option></select></div>
             <div class="core-quick meter-core"><label for="coreCountTop">現コア数</label><div class="core-quick-values"><input class="sm num" id="coreCountTop" type="text" inputmode="numeric" enterkeyhint="done" autocomplete="off" aria-describedby="coreBonusTop coreInputError inputStatus" placeholder="0" aria-label="現コア数（0〜1000人）"><span class="bonus num" id="coreBonusTop" aria-label="コアボ倍率">100%</span><small class="core-bonus-caption">コアボ</small></div><small id="coreInputError" class="local-input-error" hidden></small></div>
@@ -2288,11 +2289,11 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
   function currentTimeMs(){var elapsed=clockElapsed();return elapsed!==null&&elapsed>=0&&elapsed<=300000?clockSample.timeMs+elapsed:Date.now();}
   function clockBasis(){
     var elapsed=clockElapsed(),valid=elapsed!==null&&elapsed>=0&&elapsed<=300000;
-    if(valid){var error=Math.ceil((clockSample.uncertaintyMs+elapsed*.0001)/1000),status=clockState==='failed'?'前回同期・再同期失敗':clockBusy?'再同期中':'同期済み';return {primary:'Pococha公式サイト時刻',secondary:'日本時間・'+status,description:'Pococha公式サイトのHTTP応答時刻を基準に日本時間で計算。'+status+'。通信誤差の目安は約±'+error+'秒。Pocochaアプリ内部の時計との一致は未確認。'};}
-    var status=clockBusy||clockState==='pending'?'公式サイト時刻を取得中':clockSample?'同期切れ・未同期':'公式サイト未同期';
+    if(valid){var error=Math.ceil((clockSample.uncertaintyMs+elapsed*.0001)/1000),status=clockState==='failed'?'前回同期・再同期失敗':clockBusy?'再同期中':'同期済み';return {primary:'Pocochaサーバー時刻',secondary:'日本時間・'+status,description:'Pococha公式サイトのHTTP応答時刻を基準に日本時間で計算。'+status+'。通信誤差の目安は約±'+error+'秒。Pocochaアプリ内部の時計との一致は未確認。'};}
+    var status=clockBusy||clockState==='pending'?'サーバー時刻を取得中':clockSample?'同期切れ・未同期':'サーバー時刻未同期';
     return {primary:'端末時計・日本時間',secondary:status,description:'端末時計（日本時間）で計算。'+status+'。'};
   }
-  function renderClockBasis(){var basis=clockBasis();$('clockTimeSource').textContent=basis.primary;$('clockSyncStatus').textContent=basis.secondary;$('clockTimeBasis').title=basis.description;$('today').title=basis.description;$('miniNow').title=basis.description;}
+  function renderClockBasis(){var basis=clockBasis(),label=basis.primary==='Pocochaサーバー時刻'?basis.primary:'端末時刻';$('todayTimeLabel').textContent=label;$('miniTimeLabel').textContent=label;$('clockTimeSource').textContent=basis.primary;$('clockSyncStatus').textContent=basis.secondary;$('clockTimeBasis').title=basis.description;$('today').title=basis.description;$('miniNow').title=basis.description;}
   function syncPocochaClock(force){
     var started=clockMonotonic(),elapsed=clockElapsed();
     if(clockBusy)return Promise.resolve(false);
