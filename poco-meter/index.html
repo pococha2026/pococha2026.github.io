@@ -279,6 +279,7 @@ section.collapsed>*:not(h2){display:none!important}
 #appLaunchLink[aria-disabled="true"]{opacity:.6;cursor:default}
 #appLaunchPanel a:focus-visible{outline:2px solid var(--number-ink);outline-offset:2px}
 #mini.app-launch-open{box-sizing:border-box;max-height:calc(var(--app-launch-viewport-height,100vh) - 20px - env(safe-area-inset-top,0px));max-height:calc(var(--app-launch-viewport-height,100dvh) - 20px - env(safe-area-inset-top,0px));overflow-y:auto;overscroll-behavior:contain}
+#mini,#mini.app-launch-open{box-sizing:border-box;max-height:max(44px,calc(var(--meter-visible-height,100vh) - 20px - env(safe-area-inset-top,0px) - var(--items-window-height,0px)));overflow-y:auto;overscroll-behavior:contain;scroll-padding-block:8px}
 #mini.hud-collapsed{display:flex!important;width:auto;min-width:0;padding:4px 6px;gap:0}
 #mini.hud-collapsed>:not(.hud-actions){display:none!important}
 #mini.hud-collapsed .hud-actions>:not(#hudToggle){display:none!important}
@@ -287,6 +288,7 @@ section.collapsed>*:not(h2){display:none!important}
 #mini #itemsHudToggle{grid-column:2/-1;grid-row:2;justify-self:start;min-height:26px;padding:2px 6px;font-size:11px!important;line-height:1.4}
 #itemsWindow{position:fixed;top:calc(var(--hud-bottom,240px) + 6px);bottom:auto;left:50%;transform:translateX(-50%);z-index:51;width:min(560px,calc(100% - 24px));box-sizing:border-box;padding:6px 8px;background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:12px;box-shadow:0 -4px 18px #0003}
 #itemsWindow[hidden]{display:none}
+#itemsWindow{max-height:calc(var(--meter-visible-height,100vh) / 2);overflow:auto;overscroll-behavior:contain}
 #itemsWindow{display:flex;align-items:center;gap:3px;padding:3px 4px;border-radius:8px}
 .items-window-head{display:contents}
 #itemsWindowTitle{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
@@ -1347,7 +1349,7 @@ header.card>.header-main>#toolUpdatedDate>time{font-size:.75rem;white-space:norm
 /* compact-menus:end */
 /* phone-layout:start — preserve the desktop layout above 700px. */
 .sectionToggle .section-title{display:contents}
-@media screen and (min-width:701px){.mini :is(#targetMiniError,#currentMiniError){display:none!important}}
+#mini :is(#targetMiniError,#currentMiniError,#miniBufferError){grid-column:1/-1;margin:0;font-size:.75rem;line-height:1.5;color:var(--red);overflow-wrap:anywhere}
 @media screen and (max-width:700px){
   html{scroll-padding-top:calc(var(--meter-hud-height,64px) + var(--items-window-height,0px) + max(env(safe-area-inset-top,0px),var(--meter-viewport-top,0px)) + 20px);scroll-padding-bottom:calc(20px + var(--meter-keyboard-offset,0px))}
   .wrap{gap:12px;padding-top:calc(var(--meter-hud-height,64px) + var(--items-window-height,0px) + env(safe-area-inset-top,0px) + 20px);padding-bottom:calc(24px + env(safe-area-inset-bottom,0px))}
@@ -1666,9 +1668,10 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
 <time id="miniNow" class="num" hidden title="現在の端末時計・日本時間"><span>現在日時</span><span id="miniNowDate"></span><b id="miniNowTime"></b></time>
 <div class="mini-input mini-target" id="miniTargetField" hidden><label for="targetMini">目標値</label><input class="num" id="targetMini" type="text" inputmode="decimal" enterkeyhint="done" autocomplete="off" placeholder="未設定" tabindex="-1" aria-describedby="targetMiniError inputStatus"><div class="mini-target-actions"><button type="button" class="mini-action" id="restoreTargetMini" tabindex="-1" aria-label="目標値をデフォルトに戻す">デフォルト</button><button type="button" class="mini-action" id="openMiniTargetDetails" tabindex="-1" aria-controls="sectionBody-1" aria-label="目標値の詳細設定を開く">詳細設定</button></div></div>
 <div class="mini-input mini-current" id="miniCurrentField" hidden><label for="currentMini">現在値</label><input class="num" id="currentMini" type="text" inputmode="decimal" enterkeyhint="done" autocomplete="off" placeholder="0" tabindex="-1" aria-describedby="currentMiniError inputStatus"><button type="button" class="mini-action" id="resetCurrentMini" tabindex="-1" aria-label="現在値をリセット">リセット</button></div>
-<div class="mini-goal-menu" id="miniGoalMenu" hidden aria-label="目標設定メニュー"><select id="miniPeriod" aria-label="集計期間" tabindex="-1"></select><select id="miniRank" aria-label="ランク" tabindex="-1"></select><select id="miniBorder" aria-label="設定する目標のボーダー" tabindex="-1"></select><select id="miniMethod" aria-label="算出方法" tabindex="-1"></select><input id="miniBuffer" type="text" inputmode="decimal" enterkeyhint="done" autocomplete="off" aria-label="上乗せ率（％）" title="上乗せ率（％）" tabindex="-1"><select id="miniClose" aria-label="締め時間" tabindex="-1"></select><button type="button" id="itemsHudToggle" role="switch" aria-checked="false" aria-controls="itemsWindow">アイテム目安ON</button></div>
+<div class="mini-goal-menu" id="miniGoalMenu" hidden aria-label="目標設定メニュー"><select id="miniPeriod" aria-label="集計期間" tabindex="-1"></select><select id="miniRank" aria-label="ランク" tabindex="-1"></select><select id="miniBorder" aria-label="設定する目標のボーダー" tabindex="-1"></select><select id="miniMethod" aria-label="算出方法" tabindex="-1"></select><input id="miniBuffer" type="text" inputmode="decimal" enterkeyhint="done" autocomplete="off" aria-label="上乗せ率（％）" title="上乗せ率（％）" tabindex="-1" aria-describedby="miniBufferError inputStatus"><select id="miniClose" aria-label="締め時間" tabindex="-1"></select><button type="button" id="itemsHudToggle" role="switch" aria-checked="false" aria-controls="itemsWindow">アイテム目安ON</button></div>
 <small id="targetMiniError" hidden role="status" aria-live="polite"></small>
 <small id="currentMiniError" hidden role="status" aria-live="polite"></small>
+<small id="miniBufferError" hidden role="status" aria-live="polite"></small>
 <!-- phone-current:end -->
 </div>
 <aside id="itemsWindow" hidden aria-labelledby="itemsWindowTitle"><div class="items-window-head"><span id="itemsWindowTitle">残りアイテムの目安</span><button type="button" id="closeItemsWindow" aria-label="残りアイテムの目安を閉じる">×</button></div><div class="items-core"><label for="coreCountItems">現コア数</label><input id="coreCountItems" class="num" type="text" inputmode="numeric" enterkeyhint="done" autocomplete="off" placeholder="0" aria-label="現コア数（0〜1000人）" aria-describedby="coreCountItemsError inputStatus"><small id="coreCountItemsError" class="items-core-error" hidden></small></div><div id="itemsWindowRow"></div></aside>
@@ -1715,7 +1718,7 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
         </div>
       </details>
       <!-- display-settings-menu:end -->
-      <span class="ylogo-update" id="toolUpdatedDate" title="ツール本体の最終更新日時（ボーダーデータの更新日時とは別）"><span>更新時間</span><time class="num" datetime="2026-10-11T13:13:00+09:00">2026/10/11 13:13</time></span>
+      <span class="ylogo-update" id="toolUpdatedDate" title="ツール本体の最終更新日時（ボーダーデータの更新日時とは別）"><span>更新時間</span><time class="num" datetime="2026-10-11T14:09:00+09:00">2026/10/11 14:09</time></span>
     </div>
   </header>
   <p class="hint" id="borderSyncStatus" role="status" style="font-size:.68rem;margin:5px 2px 8px;line-height:1.5">ボーダー確認中…</p>
@@ -2599,8 +2602,9 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
     [['quickPeriod',state.period],['quickRank',state.rank],['quickBorder',state.pick===undefined||state.pick===null?'':state.pick],['quickMethod',state.targetMethod]].forEach(function(pair){var el=$(pair[0]),value=String(pair[1]);if(document.activeElement!==el&&el.value!==value)el.value=value;var option=el.options[el.selectedIndex];if(option)el.title=el.getAttribute('aria-label')+'：'+(pair[0]==='quickMethod'?METHOD_LABELS[el.value]||option.textContent:option.textContent);});
     [['miniPeriod','quickPeriod'],['miniRank','quickRank'],['miniBorder','quickBorder'],['miniMethod','quickMethod']].forEach(function(pair){var el=$(pair[0]),src=$(pair[1]);if(document.activeElement!==el)el.value=src.value;el.title=src.title;});
     ['bufferPct','quickBufferPct'].forEach(function(id){var el=$(id);if(document.activeElement!==el&&!isNumericComposing(el)&&!(inputErrors&&inputErrors[id]))el.value=String(state.bufferPct);});
-    if(document.activeElement!==$('miniBuffer')){$('miniBuffer').value=$('quickBufferPct').value;$('miniBuffer').setAttribute('aria-invalid',$('quickBufferPct').getAttribute('aria-invalid')||'false');}
+    if(document.activeElement!==$('miniBuffer'))$('miniBuffer').value=$('quickBufferPct').value;syncMiniBufferValidation();
   }
+  function syncMiniBufferValidation(){var source=$('quickBufferPct'),field=$('miniBuffer'),error=$('miniBufferError'),message=$('quickBufferError').textContent;field.setAttribute('aria-invalid',source.getAttribute('aria-invalid')||'false');field.setCustomValidity(source.validationMessage||'');error.textContent=message;error.hidden=!message;}
 
   function prevYM(){return last3YM()[1];}
   function todayMs(){var n=jstNow();return Date.UTC(n.y,n.m-1,n.d);}
@@ -3086,6 +3090,7 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
     el.setCustomValidity(error||'');el.setAttribute('aria-invalid',String(!!error));el.setAttribute('aria-describedby',el.id==='target'?'manualTargetHelp inputStatus':el.id==='coreCountItems'?'coreCountItemsError inputStatus':el.id==='coreCountTop'?'coreBonusTop coreInputError inputStatus':el.id==='quickBufferPct'?'quickBufferError inputStatus':el.id==='currentMini'?'currentMiniError inputStatus':el.id==='targetMini'?'targetMiniError inputStatus':'inputStatus');
     var localError=el.id==='coreCountItems'?$('coreCountItemsError'):el.id==='coreCountTop'?$('coreInputError'):el.id==='quickBufferPct'?$('quickBufferError'):el.id==='currentMini'?$('currentMiniError'):el.id==='targetMini'?$('targetMiniError'):null;
     if(localError){localError.hidden=!error;localError.textContent=error?((el.id==='coreCountTop'||el.id==='coreCountItems')?'0〜1000の整数':el.id==='currentMini'?'入力を確認してください。直前の現在値で計算しています。':el.id==='targetMini'?'目標値は1以上の数値を入力してください。直前の目標値で計算しています。':'0〜50％・小数1桁まで'):'';}
+    if(el.id==='quickBufferPct')syncMiniBufferValidation();
     if(error)inputErrors[el.id]=error;else delete inputErrors[el.id];
     var names={target:'目標値',targetMini:'目標値',current:'現在値',currentTop:'現在値',currentMini:'現在値',coreCountTop:'現コア数',coreCountItems:'現コア数',deadline:'締め時刻',endTime:'配信終了時刻',bufferPct:'上乗せ率',quickBufferPct:'上乗せ率',asOfDate:'集計終了日',adjustAmount:'加減算値',itemName:'アイテム名',itemVal:'アイテム値'},messages=[];
     Object.keys(inputErrors).forEach(function(k){var message=(names[k]?names[k]+'：':'')+inputErrors[k];if(messages.indexOf(message)<0)messages.push(message);});
@@ -3210,7 +3215,7 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
   $('applyCandidate').onclick=function(){if(analysisInvalid())return;var idx=analysisIndex(),s=selectedStats(state.rank,idx),c=targetCalc(s,state.targetMethod,state.bufferPct,state.roundUnit);if(!c)return;state.pick=idx;applyRecentTarget(s,c);};
   [['quickPeriod','pickPeriod'],['quickRank','pickRank'],['quickBorder','pickBorder'],['quickMethod','targetMethod']].forEach(function(pair){var quick=$(pair[0]),source=$(pair[1]);quick.innerHTML=source.innerHTML;if(pair[0]==='quickMethod'){var labels={mean:'平均',median:'中央値',p75:'上位25%',max:'最大',min:'最小'};Array.prototype.forEach.call(quick.options,function(option){option.textContent=labels[option.value]||option.textContent;});}quick.addEventListener('change',function(){source.value=this.value;source.dispatchEvent(new Event('change',{bubbles:true}));});quick.addEventListener('blur',function(){var key={quickPeriod:'period',miniPeriod:'period',quickRank:'rank',miniRank:'rank',quickBorder:'pick',miniBorder:'pick',quickMethod:'targetMethod',miniMethod:'targetMethod'}[this.id];if(this.value!==String(state[key]??''))this.dispatchEvent(new Event('change',{bubbles:true}));syncQuickTargetControls();});});
   [['miniPeriod','quickPeriod'],['miniRank','quickRank'],['miniBorder','quickBorder'],['miniMethod','quickMethod']].forEach(function(pair){var mini=$(pair[0]),source=$(pair[1]);mini.innerHTML=source.innerHTML;mini.addEventListener('change',function(){source.value=this.value;source.dispatchEvent(new Event('change',{bubbles:true}));});mini.addEventListener('blur',function(){var key={quickPeriod:'period',miniPeriod:'period',quickRank:'rank',miniRank:'rank',quickBorder:'pick',miniBorder:'pick',quickMethod:'targetMethod',miniMethod:'targetMethod'}[this.id];if(this.value!==String(state[key]??''))this.dispatchEvent(new Event('change',{bubbles:true}));syncQuickTargetControls();});});
-  ['input','change','compositionstart','compositionend','blur'].forEach(function(type){$('miniBuffer').addEventListener(type,function(e){var source=$('quickBufferPct');source.value=this.value;var forwarded=type.indexOf('composition')===0?new CompositionEvent(type,{bubbles:true,data:e.data||''}):new Event(type,{bubbles:true});source.dispatchEvent(forwarded);this.setAttribute('aria-invalid',source.getAttribute('aria-invalid')||'false');});});
+  ['input','change','compositionstart','compositionend','blur'].forEach(function(type){$('miniBuffer').addEventListener(type,function(e){var source=$('quickBufferPct');source.value=this.value;var forwarded=type.indexOf('composition')===0?new CompositionEvent(type,{bubbles:true,data:e.data||''}):new Event(type,{bubbles:true});source.dispatchEvent(forwarded);syncMiniBufferValidation();});});
   ['quickPeriod','quickRank','quickBorder','quickMethod','miniPeriod','miniRank','miniBorder','miniMethod','pickPeriod','pickRank','pickBorder','targetMethod','closeSel'].forEach(function(id){$(id).addEventListener('input',function(){this.dispatchEvent(new Event('change',{bubbles:true}));});});
   var goalDefaultFields=[['defaultPeriod','period'],['defaultRank','rank'],['defaultBorder','pick'],['defaultMethod','targetMethod'],['defaultBuffer','bufferPct'],['defaultRound','roundUnit'],['defaultDeadline','deadline'],['defaultCore','coreCount'],['defaultTarget','target'],['defaultDate','asOfDate']];
   function goalDefaultMessage(text,error){var status=$('goalDefaultsStatus');status.className=error?'toast err':'toast';status.textContent=text;}
@@ -3312,13 +3317,13 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
   Array.prototype.forEach.call(document.querySelectorAll('#remainingItems .coin-card'),function(card){var clone=card.cloneNode(true);clone.querySelectorAll('[id]').forEach(function(el){el.dataset.mirrorSource=el.id;el.removeAttribute('id');});var label=clone.querySelector('span');label.title=label.textContent;label.textContent=['コイン','犬・猫','笹パンダ','花火','馬車'][$('itemsWindowRow').children.length];$('itemsWindowRow').appendChild(clone);});
   function syncItemsWindow(){var coreInput=$('coreCountItems');if(document.activeElement!==coreInput&&coreInput.getAttribute('aria-invalid')!=='true')coreInput.value=String(state.coreCount||0);document.querySelectorAll('#itemsWindow [data-mirror-source]').forEach(function(el){el.textContent=$(el.dataset.mirrorSource).textContent;});$('itemsWindow').hidden=!itemsWindowEnabled;if(itemsWindowEnabled)document.querySelectorAll('#itemsWindowRow .coin-card b').forEach(function(el){el.style.setProperty('font-size','9px','important');var width=el.parentNode.clientWidth-2;if(width>0&&el.scrollWidth>width)el.style.setProperty('font-size',Math.max(4,9*width/el.scrollWidth)+'px','important');});document.body.classList.toggle('items-window-on',itemsWindowEnabled);$('itemsHudToggle').textContent=itemsWindowEnabled?'アイテム目安OFF':'アイテム目安ON';$('itemsHudToggle').setAttribute('aria-checked',String(itemsWindowEnabled));document.documentElement.style.setProperty('--items-window-height',(itemsWindowEnabled?$('itemsWindow').getBoundingClientRect().height+6:0)+'px');}
   function setItemsWindow(enabled){itemsWindowEnabled=enabled;syncItemsWindow();try{localStorage.setItem('pococha-meter-items-window-v1',enabled?'on':'off');}catch(e){}}
-  $('itemsHudToggle').onclick=function(){setItemsWindow(!itemsWindowEnabled);};$('closeItemsWindow').onclick=function(){setItemsWindow(false);$('itemsHudToggle').focus({preventScroll:true});};syncItemsWindow();
+  $('itemsHudToggle').onclick=function(){setItemsWindow(!itemsWindowEnabled);};$('closeItemsWindow').onclick=function(){setItemsWindow(false);(hudEnabled?$('itemsHudToggle'):$('hudToggle')).focus({preventScroll:true});};syncItemsWindow();
   window.addEventListener('resize',syncItemsWindow);
   // 固定ミニメーター
   var floatingHudController=null;
   var hudEnabled=true;try{hudEnabled=localStorage.getItem('pococha-meter-hud-v1')!=='off';}catch(e){}
   $('hudVisibility').value=hudEnabled?'on':'off';
-  function setHudEnabled(enabled){hudEnabled=enabled;if(!enabled&&floatingHudController)floatingHudController.stop();$('hudVisibility').value=hudEnabled?'on':'off';syncMiniVisibility();try{localStorage.setItem('pococha-meter-hud-v1',hudEnabled?'on':'off');}catch(e){$('displaySettingsStatus').textContent='この画面には反映しましたが、設定を保存できません。';}}
+  function setHudEnabled(enabled,persist){hudEnabled=enabled;if(!enabled&&floatingHudController)floatingHudController.stop();$('hudVisibility').value=hudEnabled?'on':'off';syncMiniVisibility();if(persist===false)return;try{localStorage.setItem('pococha-meter-hud-v1',hudEnabled?'on':'off');}catch(e){$('displaySettingsStatus').textContent='この画面には反映しましたが、設定を保存できません。';}}
   $('hudVisibility').onchange=function(){setHudEnabled(this.value!=='off');};
   $('hudToggle').onclick=function(){setHudEnabled(!hudEnabled);};
   var miniOutsideView=false,mobileScrollTimer=0,phoneHudFocusId='';
@@ -3334,8 +3339,8 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
   if(phoneLayoutQuery){if(phoneLayoutQuery.addEventListener)phoneLayoutQuery.addEventListener('change',syncPhoneLayout);else if(phoneLayoutQuery.addListener)phoneLayoutQuery.addListener(syncPhoneLayout);}
   syncPhoneLayout();
   function isEditingField(el){return !!el&&['INPUT','SELECT','TEXTAREA'].indexOf(el.tagName)>=0;}
-  function syncMiniVisibility(){var editing=isEditingField(document.activeElement),phone=phoneLayoutQuery&&phoneLayoutQuery.matches,show=hudEnabled;document.body.classList.toggle('hud-off',!show);var viewport=window.visualViewport,offset=phone&&viewport?Math.max(0,window.innerHeight-viewport.height-viewport.offsetTop):0,top=phone&&viewport?Math.max(0,viewport.offsetTop||0):0;document.documentElement.style.setProperty('--meter-keyboard-offset',offset+'px');document.documentElement.style.setProperty('--meter-viewport-top',top+'px');document.body.classList.toggle('editing-field',editing);$('mini').classList.add('show');$('mini').classList.toggle('hud-collapsed',!show);$('mini').setAttribute('aria-hidden','false');$('hudToggle').textContent=show?'常時表示OFF':'常時表示ON';$('hudToggle').setAttribute('aria-checked',String(show));$('hudToggle').setAttribute('aria-label',show?'常時表示をOFFにする':'常時表示をONにする');$('miniAdd').tabIndex=-1;['targetMini','currentMini','restoreTargetMini','openMiniTargetDetails','resetCurrentMini','miniPeriod','miniRank','miniBorder','miniMethod','miniBuffer','miniClose','itemsHudToggle'].forEach(function(id){$(id).tabIndex=show?0:-1;});document.documentElement.style.setProperty('--meter-hud-height',$('mini').getBoundingClientRect().height+'px');document.documentElement.style.setProperty('--hud-bottom',$('mini').getBoundingClientRect().bottom+'px');}
-  function keepMiniInputVisible(){var el=document.activeElement;if(!isEditingField(el)||(el.id==='currentMini'||el.id==='targetMini'))return;if(el.closest('#mini, #itemsWindow, #selectWindow, .display-settings-panel')){el.scrollIntoView({behavior:'auto',block:'nearest'});return;}if(!(phoneLayoutQuery&&phoneLayoutQuery.matches)){scrollToControl(el,'nearest');return;}el.scrollIntoView({behavior:'auto',block:'nearest'});var rect=el.getBoundingClientRect(),top=$('mini').getBoundingClientRect().bottom+8,viewport=window.visualViewport,bottom=(viewport?viewport.height+viewport.offsetTop:window.innerHeight)-8;if(rect.top<top)window.scrollBy({top:rect.top-top,behavior:'auto'});else if(rect.bottom>bottom)window.scrollBy({top:rect.bottom-bottom,behavior:'auto'});}
+  function syncMiniVisibility(){var editing=isEditingField(document.activeElement),phone=phoneLayoutQuery&&phoneLayoutQuery.matches,show=hudEnabled;document.body.classList.toggle('hud-off',!show);var viewport=window.visualViewport,offset=phone&&viewport?Math.max(0,window.innerHeight-viewport.height-viewport.offsetTop):0,top=phone&&viewport?Math.max(0,viewport.offsetTop||0):0;document.documentElement.style.setProperty('--meter-keyboard-offset',offset+'px');document.documentElement.style.setProperty('--meter-viewport-top',top+'px');document.body.classList.toggle('editing-field',editing);var visibleHeight=viewport&&viewport.height||window.innerHeight;if(Number.isFinite(visibleHeight)&&visibleHeight>0)document.documentElement.style.setProperty('--meter-visible-height',visibleHeight+'px');syncItemsWindow();$('mini').classList.add('show');$('mini').classList.toggle('hud-collapsed',!show);$('mini').setAttribute('aria-hidden','false');$('hudToggle').textContent=show?'常時表示OFF':'常時表示ON';$('hudToggle').setAttribute('aria-checked',String(show));$('hudToggle').setAttribute('aria-label',show?'常時表示をOFFにする':'常時表示をONにする');$('miniAdd').tabIndex=-1;['targetMini','currentMini','restoreTargetMini','openMiniTargetDetails','resetCurrentMini','miniPeriod','miniRank','miniBorder','miniMethod','miniBuffer','miniClose','itemsHudToggle'].forEach(function(id){$(id).tabIndex=show?0:-1;});document.documentElement.style.setProperty('--meter-hud-height',$('mini').getBoundingClientRect().height+'px');document.documentElement.style.setProperty('--hud-bottom',$('mini').getBoundingClientRect().bottom+'px');}
+  function keepMiniInputVisible(){var el=document.activeElement;if(!isEditingField(el))return;if(el.closest('#mini, #itemsWindow, #selectWindow, .display-settings-panel')){el.scrollIntoView({behavior:'auto',block:'nearest'});return;}if(!(phoneLayoutQuery&&phoneLayoutQuery.matches)){scrollToControl(el,'nearest');return;}el.scrollIntoView({behavior:'auto',block:'nearest'});var rect=el.getBoundingClientRect(),top=$('mini').getBoundingClientRect().bottom+8,viewport=window.visualViewport,bottom=(viewport?viewport.height+viewport.offsetTop:window.innerHeight)-8;if(rect.top<top)window.scrollBy({top:rect.top-top,behavior:'auto'});else if(rect.bottom>bottom)window.scrollBy({top:rect.bottom-bottom,behavior:'auto'});}
   function settleMiniInput(){clearTimeout(mobileScrollTimer);mobileScrollTimer=setTimeout(function(){syncMiniVisibility();keepMiniInputVisible();},80);}
   document.addEventListener('focusin',function(){phoneHudFocusId=['targetMini','currentMini'].indexOf(document.activeElement.id)>=0?document.activeElement.id:'';syncMiniVisibility();if(window.matchMedia&&window.matchMedia('(max-width:700px)').matches)settleMiniInput();});document.addEventListener('focusout',function(e){if((e.target===$('currentMini')||e.target===$('targetMini'))&&phoneLayoutQuery&&phoneLayoutQuery.matches)phoneHudFocusId='';setTimeout(syncMiniVisibility,0);});
   if(window.visualViewport){window.visualViewport.addEventListener('resize',settleMiniInput);window.visualViewport.addEventListener('scroll',syncMiniVisibility);}
@@ -3498,6 +3503,7 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
   window.addEventListener('online',function(){renderOfflineStatus();if(liveBorderBusy){if(liveBorderController&&liveBorderController.signal.aborted)liveBorderRetry=true;}else syncLiveBorders(true);checkOffline(false);});
   window.addEventListener('storage',function(event){
     if(event.storageArea&&event.storageArea!==localStorage)return;
+    if(event.key==='pococha-meter-hud-v1'){if(event.newValue===null||event.newValue==='on'||event.newValue==='off')setHudEnabled(event.newValue!=='off',false);return;}
     if(event.key===null){draftConflict=true;markStorageConflict(true);return;}
     if(event.key===KEY){if(event.newValue!==lastSavedRaw)markStorageConflict(event.newValue===null);return;}
     if(event.key===DRAFT_KEY&&event.newValue!==lastDraftRaw){draftConflict=true;setEditorMessage('別の画面で下書きが変更されました。この入力をバックアップしてから再読み込みしてください。','error');return;}
@@ -3519,7 +3525,10 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
   (function(){
     var video=$('pipTestVideo'),status=$('pipTestStatus'),stream=null,timer=0,canvas=document.createElement('canvas');
     var busy=false,prepared=false,active=false,closing=false,generation=0,opening=null,nextApi='',blockedNative=false;
+    var nativeExitPromise=null,nativeExitChecks=[];
     var waiters=[],nativeReady=null,blobUrl='',recordStream=null,recorder=null,recordTimer=0,recordFrames=0,recordReject=null,snapshot=false,snapshotAt=0,snapshotData=null;
+    var pipModeKey='pococha-meter-pip-mode-v1';try{$('pipVideoMode').value=localStorage.getItem(pipModeKey)==='snapshot'?'snapshot':'live';}catch(e){}
+    function saveVideoMode(){try{localStorage.setItem(pipModeKey,$('pipVideoMode').value==='snapshot'?'snapshot':'live');}catch(e){$('displaySettingsStatus').textContent='小窓の方式はこの画面に反映しましたが、端末に保存できません。';}}
     var defaultLaunchShortcut='Pocochaを開く';
     var launchKey='pococha-meter-app-launch-v1',launchMode='shortcut',launchValues={shortcut:defaultLaunchShortcut,url:''},launchStorageFailed=false;
     try{var savedLaunch=JSON.parse(localStorage.getItem(launchKey));if(savedLaunch&&typeof savedLaunch==='object'){launchMode=savedLaunch.mode==='url'?'url':'shortcut';['shortcut','url'].forEach(function(mode){if(typeof savedLaunch[mode]==='string')launchValues[mode]=savedLaunch[mode].slice(0,mode==='shortcut'?120:2048);});}}catch(e){}
@@ -3532,13 +3541,13 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
       try{if(launchMode==='shortcut')return 'shortcuts://run-shortcut?name='+encodeURIComponent(value);var url=new URL(value);return url.protocol==='https:'&&!url.username&&!url.password?url.href:'';}catch(e){return '';}
     }
     function launchControls(){
-      var link=$('appLaunchLink'),destination=launchDestination(),ready=!!destination&&active&&!busy&&!closing;
+      var link=$('appLaunchLink'),destination=launchDestination(),ready=!!destination&&active&&nativeActive()&&video.paused!==true&&!busy&&!closing;
       link.textContent=launchMode==='shortcut'&&launchValues.shortcut.trim()===defaultLaunchShortcut?'Pocochaライブアプリを開く':'設定したアプリを開く';
       $('appLaunchHelp').textContent=launchMode==='shortcut'?(launchValues.shortcut.trim()===defaultLaunchShortcut?'デフォルトはPocochaライブアプリです。iPhoneでは初回だけ「ショートカット」で「アプリを開く」→「Pococha」を選び、名前を「Pocochaを開く」にして保存してください。':'iPhoneの「ショートカット」で「アプリを開く」アクションを追加し、起動したいアプリを選んで保存します。そのショートカット名をここに入力してください。'):'アプリ公式の起動用リンクを入力してください。対応アプリが未インストールの場合やリンクに未対応の場合は、Webページが開くことがあります。';
       if(ready)link.setAttribute('href',destination);else link.removeAttribute('href');
       link.setAttribute('aria-disabled',String(!ready));link.setAttribute('tabindex',ready?'0':'-1');
       var check=$('appLaunchCheck');if(destination)check.setAttribute('href',destination);else check.removeAttribute('href');check.setAttribute('aria-disabled',String(!destination));check.setAttribute('tabindex',destination?'0':'-1');
-      $('appLaunchStatus').textContent=(launchStorageFailed?'この端末に設定を保存できません。今回の画面では使えます。 ':'')+(!destination?(launchMode==='shortcut'?'保存済みのショートカット名を入力してください。':'アプリ公式のhttps://から始まる起動用URLを入力してください。'):ready?'小窓表示中です。起動リンクを押せます。起動の許可が出たら確認してください。':'先に「他アプリで表示」→「小窓を開く」を押してください。');
+      $('appLaunchStatus').textContent=(launchStorageFailed?'この端末に設定を保存できません。今回の画面では使えます。 ':'')+(!destination?(launchMode==='shortcut'?'保存済みのショートカット名を入力してください。':'アプリ公式のhttps://から始まる起動用URLを入力してください。'):active&&video.paused===true?'動画が一時停止しています。「動画を再生」で再開してください。':ready?'小窓表示中です。起動リンクを押せます。起動の許可が出たら確認してください。':'先に「他アプリで表示」→「小窓を開く」を押してください。');
     }
     function launchFields(){
       $('appLaunchMode').value=launchMode;$('appLaunchValue').value=launchValues[launchMode];
@@ -3551,15 +3560,16 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
     function launchViewport(){var height=window.visualViewport&&window.visualViewport.height||window.innerHeight;if(Number.isFinite(height)&&height>0)$('mini').style.setProperty('--app-launch-viewport-height',height+'px');}
     function closeLaunch(){ $('appLaunchPanel').hidden=true;$('mini').classList.remove('app-launch-open');$('launchOtherApp').setAttribute('aria-expanded','false');syncMiniVisibility(); }
     function controls(){
-      $('preparePipTest').disabled=busy||closing||active||!!opening||blockedNative;
+      var orphan=nativeActive()&&!active;
+      $('preparePipTest').disabled=busy||closing||active||!!opening||blockedNative||orphan;
       $('preparePipSnapshot').disabled=$('preparePipTest').disabled;
-      $('resumePipPlayback').disabled=!hasSource()||busy||closing||active||!!opening||blockedNative;
-      $('pipVideoMode').disabled=busy||closing||active;
+      $('resumePipPlayback').disabled=!hasSource()||busy||closing||(active&&video.paused!==true)||!!opening||blockedNative;
+      $('pipVideoMode').disabled=busy||closing||active||!!opening||blockedNative||orphan;
       $('openPipTest').disabled=!prepared||busy||closing||active||!!opening||blockedNative;
       $('openPipTest').textContent=nextApi==='webkit'?'別方式で小窓を開く':'小窓を開く';
-      $('stopPipTest').disabled=closing||(!hasSource()&&!busy&&!active);
+      $('stopPipTest').disabled=closing||(!hasSource()&&!busy&&!active&&!nativeActive());
       $('floatHudToggle').disabled=busy||closing||!!opening||blockedNative;
-      $('floatHudToggle').textContent=closing?'閉じています…':busy?'準備中…':active?'小窓を閉じる':prepared?'小窓を開く':'他アプリで表示';
+      $('floatHudToggle').textContent=closing?'閉じています…':busy?'準備中…':active||nativeActive()?'小窓を閉じる':prepared?'小窓を開く':'他アプリで表示';
       $('floatHudToggle').setAttribute('aria-label',$('floatHudToggle').textContent);
       launchControls();
     }
@@ -3591,25 +3601,35 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
     function recovery(message){$('mobileHudHelp').open=true;$('appLaunchPanel').hidden=false;$('mini').classList.add('app-launch-open');$('launchOtherApp').setAttribute('aria-expanded','true');launchViewport();announce(message);}
     function cleanupRecording(){clearTimeout(recordTimer);recordTimer=0;clearInterval(recordFrames);recordFrames=0;if(recordReject){var reject=recordReject;recordReject=null;reject(abortError());}if(recorder&&recorder.state!=='inactive')try{recorder.stop();}catch(e){}recorder=null;if(recordStream)recordStream.getTracks().forEach(function(track){track.stop();});recordStream=null;}
     function release(){
+      if(nativeReady&&!active&&!opening)blockedNative=true;
       clearInterval(timer);timer=0;prepared=false;active=false;var cancel=waiters.slice();waiters=[];cancel.forEach(function(fn){fn();});nativeReady=null;nativeMetadata=null;cleanupRecording();
       if(typeof video.pause==='function')video.pause();video.srcObject=null;
       if(stream)stream.getTracks().forEach(function(track){track.stop();});stream=null;
       if(blobUrl){video.removeAttribute('src');if(typeof video.load==='function')video.load();window.URL.revokeObjectURL(blobUrl);blobUrl='';}video.loop=false;video.hidden=true;
     }
-    async function exitNative(){
-      if(document.pictureInPictureElement===video&&typeof document.exitPictureInPicture==='function')await document.exitPictureInPicture();
-      if(video.webkitPresentationMode==='picture-in-picture'&&video.webkitSetPresentationMode)video.webkitSetPresentationMode('inline');
+    function nativeActive(){return document.pictureInPictureElement===video||video.webkitPresentationMode==='picture-in-picture';}
+    function checkNativeExit(){nativeExitChecks.slice().forEach(function(check){check();});}
+    function exitNative(){
+      if(nativeExitPromise)return nativeExitPromise;if(!nativeActive())return Promise.resolve();
+      var promise=new Promise(function(resolve,reject){
+        var settled=false,id=setTimeout(function(){finish(reject,Object.assign(new Error('小窓の終了を確認できませんでした'),{name:'TimeoutError'}));},8000);
+        function finish(callback,value){if(settled)return;settled=true;clearTimeout(id);nativeExitChecks=nativeExitChecks.filter(function(fn){return fn!==check;});callback(value);}
+        function check(){if(!nativeActive())finish(resolve);}
+        nativeExitChecks.push(check);
+        try{var action=document.pictureInPictureElement===video&&typeof document.exitPictureInPicture==='function'?document.exitPictureInPicture():Promise.resolve();if(video.webkitPresentationMode==='picture-in-picture'&&video.webkitSetPresentationMode)video.webkitSetPresentationMode('inline');Promise.resolve(action).then(check,function(error){finish(reject,error);});check();}catch(e){finish(reject,e);}
+      });
+      var tracked=promise.finally(function(){if(nativeExitPromise===tracked)nativeExitPromise=null;controls();});nativeExitPromise=tracked;return tracked;
     }
     async function stop(){
       if(closing)return;if(busy&&nativeReady&&!opening)blockedNative=true;generation++;closing=true;busy=false;nextApi='';closeLaunch();release();controls();
-      try{await bounded(exitNative(),generation,'小窓の終了');if(blockedNative||opening)recovery('表示を停止しました。端末への起動要求が残っているためSafariでページを開き直してください。遅れて出る小窓は閉じます。');else announce('小窓を閉じました。');}
+      try{await exitNative();if(blockedNative||opening)recovery('表示を停止しました。端末への起動要求が残っているためSafariでページを開き直してください。遅れて出る小窓は閉じます。');else announce('小窓を閉じました。');}
       catch(e){announce('表示を停止しました。小窓が残る場合は小窓の×で閉じてください。');}
       finally{closing=false;controls();}
     }
     function entered(){if(!hasSource()||closing||blockedNative){Promise.resolve(exitNative()).then(function(){blockedNative=false;controls();},function(){});return;}if(document.pictureInPictureElement!==video&&video.webkitPresentationMode!=='picture-in-picture')return;active=true;if(nativeReady)nativeReady();busy=false;controls();announce(snapshot?'互換小窓表示中。準備時の静止メーターです。数値変更後は再作成してください。':'小窓表示中。閉じるには小窓の×。');}
-    function left(){if(!active)return;generation++;busy=false;nextApi='';release();controls();announce('小窓を閉じました。');}
+    function left(){checkNativeExit();if(!active){controls();return;}generation++;busy=false;nextApi='';release();controls();announce('小窓を閉じました。');}
     async function prepare(){
-      if(busy||closing||active||opening||blockedNative)return;
+      if(busy||closing||active||opening||blockedNative||nativeActive())return;
       var standard=typeof video.requestPictureInPicture==='function'&&document.pictureInPictureEnabled!==false;
       if(window.isSecureContext===false){recovery('https://のページで開いてください。');return;}
       if(typeof canvas.captureStream!=='function'||(!standard&&typeof video.webkitSetPresentationMode!=='function')){announce('このブラウザでは小窓を使えません。iPhoneはSafariでお試しください。');return;}
@@ -3623,7 +3643,7 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
           var localRecorder=new Recorder(recordStream,{mimeType:type}),chunks=[];recorder=localRecorder;
           var recording=new Promise(function(resolve,reject){recordReject=reject;localRecorder.addEventListener('dataavailable',function(event){if(event.data&&event.data.size)chunks.push(event.data);});localRecorder.addEventListener('error',function(event){recordReject=null;reject(event.error||new Error('互換動画を作成できません'));});localRecorder.addEventListener('stop',function(){recordReject=null;var blob=new Blob(chunks,{type:type});if(blob.size)resolve(blob);else reject(new Error('互換動画が空でした'));});localRecorder.start();draw();recordFrames=setInterval(function(){try{draw();recordStream.getTracks().forEach(function(track){if(track.requestFrame)track.requestFrame();});}catch(e){reject(e);}},100);recordTimer=setTimeout(function(){recordTimer=0;clearInterval(recordFrames);recordFrames=0;try{localRecorder.stop();}catch(e){reject(e);}},1200);});
           var blob=await bounded(recording,op,'互換動画の作成');if(op!==generation)return;cleanupRecording();blobUrl=window.URL.createObjectURL(blob);video.srcObject=null;video.src=blobUrl;video.loop=true;if(typeof video.load==='function')video.load();
-        }else{stream=canvas.captureStream(2);if(!stream.getTracks().length)throw new Error('動画の映像を作成できません');stream.getTracks().forEach(function(track){if(track.addEventListener)track.addEventListener('ended',function(){if(stream&&op===generation){generation++;busy=false;release();Promise.resolve(exitNative()).catch(function(){});controls();recovery('映像が停止しました。「準備」からやり直してください。');}});});video.srcObject=stream;timer=setInterval(function(){try{draw();}catch(e){stop();}},500);}
+        }else{stream=canvas.captureStream(2);if(!stream.getTracks().length)throw new Error('動画の映像を作成できません');stream.getTracks().forEach(function(track){if(track.addEventListener)track.addEventListener('ended',function(){if(stream&&op===generation){generation++;busy=false;release();Promise.resolve(exitNative()).catch(function(){});controls();recovery('映像が停止しました。「準備」からやり直してください。');}});});video.srcObject=stream;timer=setInterval(function(){if(video.paused)return;try{draw();}catch(e){stop();}},500);}
         await bounded(video.play(),op,'動画の再生');if(op!==generation)return;await waitMetadata(op);if(op!==generation)return;
         prepared=true;announce(snapshot?'互換動画の準備ができました。「小窓を開く」を押してください。時計は更新しません。':'準備できました。「小窓を開く」を押してください。');
       }catch(e){if(op===generation){busy=false;if(snapshot&&blobUrl&&e.name==='NotAllowedError'){prepared=false;controls();recovery('互換動画は作成できました。自動再生が許可されないため「動画を再生」を押し、その後「小窓を開く」を押してください。');}else{generation++;release();controls();recovery('準備できませんでした（'+e.name+'）。'+(e.message||'')+' Safariで開くか、別の方式で準備してください。');}}}
@@ -3651,24 +3671,26 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
       finally{nativeReady=null;if(op===generation){busy=false;controls();}}
     }
     video.addEventListener('loadedmetadata',function(){if(nativeMetadata&&video.readyState>0)nativeMetadata();});
-    video.addEventListener('playing',function(){if(hasSource()&&!busy&&!closing&&video.readyState>0){prepared=true;controls();}});
+    video.addEventListener('playing',function(){if(hasSource()&&!busy&&!closing&&video.readyState>0){prepared=true;controls();if(!snapshot)try{draw();}catch(e){stop();}if(active)announce(snapshot?'互換小窓の再生を再開しました。時計は更新しません。':'小窓の再生を再開しました。');}});
+    video.addEventListener('pause',function(){if(hasSource()&&video.paused===true&&!busy&&!closing){prepared=false;controls();recovery('動画が一時停止しています。「動画を再生」で再開してください。小窓は閉じません。');}});
     video.addEventListener('error',function(){if(hasSource()){generation++;busy=false;release();Promise.resolve(exitNative()).catch(function(){});controls();recovery('動画を読み込めません。「準備」からやり直してください。');}});
+    video.addEventListener('ended',function(){if(hasSource()){generation++;busy=false;release();Promise.resolve(exitNative()).catch(function(){});controls();recovery('動画の再生が終了しました。「準備」からやり直してください。');}});
     video.addEventListener('enterpictureinpicture',entered);
     video.addEventListener('leavepictureinpicture',left);
     video.addEventListener('webkitpresentationmodechanged',function(){if(video.webkitPresentationMode==='picture-in-picture')entered();else left();});
     $('preparePipTest').onclick=prepare;$('openPipTest').onclick=open;$('stopPipTest').onclick=stop;
-    $('preparePipSnapshot').onclick=function(){$('pipVideoMode').value='snapshot';return prepare();};
-    $('resumePipPlayback').onclick=async function(){if(!hasSource()||busy||closing||active||opening||blockedNative)return;var op=generation;busy=true;controls();try{await bounded(video.play(),op,'動画の再生');await waitMetadata(op);if(op!==generation)return;prepared=true;announce('動画を再生できました。次に「小窓を開く」を押してください。');}catch(e){if(op===generation){if(e.name==='TimeoutError'){generation++;release();}recovery('動画を再生できません（'+e.name+'）。動画の手動操作を開くか、Safariで開き直してください。');}}finally{busy=false;controls();}};
-    $('showPipVideo').onclick=function(){closeLaunch();$('displaySettings').open=true;$('pipTestPanel').open=true;video.focus({preventScroll:true});};
-    $('pipVideoMode').onchange=function(){if(!busy&&!active){generation++;nextApi='';release();controls();}};
-    $('floatHudToggle').onclick=function(){return active?stop():prepared?open():prepare();};
-    $('launchOtherApp').onclick=function(){var panel=$('appLaunchPanel');panel.hidden=!panel.hidden;$('mini').classList.toggle('app-launch-open',!panel.hidden);$('launchOtherApp').setAttribute('aria-expanded',String(!panel.hidden));if(!panel.hidden){launchViewport();launchFields();$('appLaunchValue').focus({preventScroll:true});}syncMiniVisibility();};
+    $('preparePipSnapshot').onclick=function(){if(busy||closing||active||opening||blockedNative)return;$('pipVideoMode').value='snapshot';saveVideoMode();return prepare();};
+    $('resumePipPlayback').onclick=async function(){if(!hasSource()||busy||closing||(active&&video.paused!==true)||opening||blockedNative)return;var op=generation;busy=true;controls();try{await bounded(video.play(),op,'動画の再生');await waitMetadata(op);if(op!==generation)return;prepared=true;if(!snapshot)draw();announce(active?'小窓の再生を再開しました。': '動画を再生できました。次に「小窓を開く」を押してください。');}catch(e){if(op===generation){if(e.name==='TimeoutError'){generation++;busy=false;release();Promise.resolve(exitNative()).catch(function(){});}recovery('動画を再生できません（'+e.name+'）。動画の手動操作を開くか、Safariで開き直してください。');}}finally{if(op===generation){busy=false;controls();}}};
+    $('showPipVideo').onclick=function(){closeLaunch();$('displaySettings').open=true;$('pipTestPanel').open=true;if(stream||blobUrl){video.hidden=false;video.setAttribute('tabindex','0');video.focus({preventScroll:true});video.scrollIntoView({behavior:'auto',block:'nearest'});}else{$('preparePipTest').focus({preventScroll:true});$('preparePipTest').scrollIntoView({behavior:'auto',block:'nearest'});announce('操作できる動画がありません。「準備」を押してから動画を操作してください。');}};
+    $('pipVideoMode').onchange=function(){if(!busy&&!closing&&!active&&!opening&&!blockedNative){saveVideoMode();generation++;nextApi='';release();controls();}};
+    $('floatHudToggle').onclick=function(){return active||nativeActive()?stop():prepared?open():prepare();};
+    $('launchOtherApp').onclick=function(){var panel=$('appLaunchPanel');panel.hidden=!panel.hidden;$('mini').classList.toggle('app-launch-open',!panel.hidden);$('launchOtherApp').setAttribute('aria-expanded',String(!panel.hidden));if(!panel.hidden){launchViewport();launchFields();(phoneLayoutQuery&&phoneLayoutQuery.matches?$('closeAppLaunch'):$('appLaunchValue')).focus({preventScroll:true});}syncMiniVisibility();};
     $('closeAppLaunch').onclick=function(){closeLaunch();$('launchOtherApp').focus({preventScroll:true});};
     $('restorePocochaLaunch').onclick=function(){launchMode='shortcut';launchValues.shortcut=defaultLaunchShortcut;launchFields();saveLaunch();syncMiniVisibility();};
     $('appLaunchPanel').addEventListener('keydown',function(event){if(event.key==='Escape'){event.preventDefault();closeLaunch();$('launchOtherApp').focus({preventScroll:true});}});
     $('appLaunchMode').onchange=function(){launchMode=this.value==='url'?'url':'shortcut';launchFields();saveLaunch();syncMiniVisibility();};
     $('appLaunchValue').oninput=function(){launchValues[launchMode]=this.value.slice(0,launchMode==='shortcut'?120:2048);saveLaunch();syncMiniVisibility();};
-    $('appLaunchLink').onclick=function(event){if(!active||busy||closing||!launchDestination()){event.preventDefault();launchControls();return;} $('appLaunchStatus').textContent='起動リンクを開きます。小窓が消えた場合はツールへ戻って再度開いてください。';};
+    $('appLaunchLink').onclick=function(event){if(!active||!nativeActive()||video.paused===true||busy||closing||!launchDestination()){event.preventDefault();if(active&&!nativeActive())left();launchControls();return;} $('appLaunchStatus').textContent='起動リンクを開きます。小窓が消えた場合はツールへ戻って再度開いてください。';};
     $('appLaunchCheck').onclick=function(event){if(!launchDestination()){event.preventDefault();return;}$('appLaunchStatus').textContent='起動先だけを確認します。確認後にこのページへ戻り、小窓を準備してください。';};
     $('mobileHudToolUrl').value=window.location&&window.location.href||'https://poco-meter.freefreelife2000.chatgpt.site/';
     if(navigator.standalone===true||(window.matchMedia&&window.matchMedia('(display-mode: standalone)').matches))$('mobileHudCompatibility').textContent='ホーム画面版で開いています。iPhoneではOS側の制約で小窓が開かない場合があります。下のURLをコピーし、Safariのアドレス欄で開いてから準備してください。';
@@ -3676,7 +3698,8 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
     $('closeHud').onclick=function(){setItemsWindow(false);setHudEnabled(false);$('hudToggle').focus({preventScroll:true});};
     floatingHudController={stop:stop};launchFields();controls();
     window.addEventListener('resize',launchViewport);if(window.visualViewport)window.visualViewport.addEventListener('resize',launchViewport);
-    document.addEventListener('visibilitychange',function(){if(stream&&!snapshot)try{draw();}catch(e){stop();}});
+    function reconcileNative(){checkNativeExit();controls();if(active&&!nativeActive())left();if(hasSource()&&video.paused===true&&!busy&&!closing){prepared=false;controls();recovery('動画が一時停止しています。「動画を再生」で再開してください。');}else if(stream&&!snapshot)try{draw();}catch(e){stop();}}
+    document.addEventListener('visibilitychange',reconcileNative);window.addEventListener('pageshow',reconcileNative);window.addEventListener('focus',reconcileNative);
     window.addEventListener('pagehide',function(e){if(!e.persisted){generation++;busy=false;release();Promise.resolve(exitNative()).catch(function(){});controls();}});
   })();
   // Expose the same local calculator actions when the browser supports WebMCP.
