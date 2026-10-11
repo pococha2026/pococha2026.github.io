@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-P76ZEZ5Ew9+nPfi6VrZT9k4gtt03PiZCTBXGdRU2HiU=' 'sha256-uNaRaIumIn5v9WjqQEXs1MZ5RqTzBS0B49cDGxzj2Hs=' 'sha256-ri5sc4FFGCKdOP/KtGm25GxcsOszBb2kyVqU2oM0T6g=' 'sha256-8aXq60PlxAvpxpbeEZz0coOUGy1fsF6b9MSuuhtpUPY=' 'sha256-k9xuqUG8jwAWLjuV93yP/LLbS7x2hJ5hQWBKJ8Aq3wk='; style-src 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://pococha-challenge.freefreelife2000.chatgpt.site; base-uri 'none'; object-src 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-P76ZEZ5Ew9+nPfi6VrZT9k4gtt03PiZCTBXGdRU2HiU=' 'sha256-uNaRaIumIn5v9WjqQEXs1MZ5RqTzBS0B49cDGxzj2Hs=' 'sha256-ri5sc4FFGCKdOP/KtGm25GxcsOszBb2kyVqU2oM0T6g=' 'sha256-Iy34wD5WBYmisEN/JmHa9PkUN0LO8seg0uwqUTOMCi4=' 'sha256-k9xuqUG8jwAWLjuV93yP/LLbS7x2hJ5hQWBKJ8Aq3wk='; style-src 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://pococha-challenge.freefreelife2000.chatgpt.site; base-uri 'none'; object-src 'none'; form-action 'none'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="referrer" content="no-referrer">
 <meta name="theme-color" content="#111827">
@@ -130,6 +130,7 @@ html[data-display-theme]:not([data-display-theme="standard"]) .copy-btn{color:va
 .department>.free-memo{margin:6px 6px 8px}
 .free-memo{display:flex;flex-direction:column;gap:3px;min-width:0;color:var(--muted);font-size:.65rem;font-weight:750}
 .free-memo textarea{display:block;box-sizing:border-box;width:100%;min-width:0;min-height:64px;padding:6px;border:1px solid var(--line);border-radius:9px;background:var(--card);color:var(--ink);font-family:inherit;font-size:16px;line-height:1.35;resize:vertical}
+.memo-open{min-height:44px;width:100%;padding:6px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);font:inherit;font-size:14px;touch-action:manipulation;cursor:pointer}
 .free-memo textarea:focus-visible{outline:2px solid var(--blue);outline-offset:1px}
 @media print{.copy-memo-row,.free-memo{display:none!important}}
 
@@ -561,7 +562,7 @@ function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;',
 function line(m,i){const n=String(i+1).padStart(2,'0');return `［${n}］${m.need} ${m.label}`;}
 function copyText(kind,index=null){const d=DATA[current];if(!d||!d.verified?.[kind]||!Array.isArray(d[kind]))return null;if(index!==null)return Number.isInteger(index)&&index>=0&&index<d[kind].length&&d[kind][index].confirmed!==false?d[kind][index].label:null;if(d[kind].some(m=>m.confirmed===false))return null;const name=d.labels?.[kind]||(kind==='open'?'🟠オープン部門':'🩷ファミリー部門'),rows=d[kind].map(line).join('\n');return `【${d.title} ぽこチャレ】\n${name}\n\n開始：${d.start}\n終了：${d.end}\n\n${rows}`;}
 function lockedCard(kind,d){const isOpen=kind==='open',title=d?.labels?.[kind]||(isOpen?'🟠オープン':'🩷ファミリー'),status=d?.confidence?.[kind]==='対象なし'?'対象なし':'未収録';return `<article class="department ${kind} locked"><div class="department-head"><h2>${title}</h2></div><div class="locked-note">${status}</div></article>`;}
-function card(kind,d){if(!d.verified?.[kind]||!Array.isArray(d[kind]))return lockedCard(kind,d,d.lockReason?.[kind]);const isOpen=kind==='open',title=d?.labels?.[kind]||(isOpen?'🟠オープン':'🩷ファミリー'),lis=d[kind].map((m,i)=>{const num=`［${String(i+1).padStart(2,'0')}］`,need=m.f?`<span class="f">Ｆ</span>${esc(m.need.replace(/^Ｆ/,''))}`:esc(m.need);if(m.confirmed===false)return `<li class="mission"><span class="num">${num}</span><span class="need">—</span><span class="answer" title="不一致または根拠不足">照合待ち</span></li>`;return `<li class="mission"><span class="num">${num}</span><span class="need">${need}</span><button class="answer answer-copy" type="button" data-copy="${kind}" data-copy-index="${i}" aria-label="${esc(m.label)}だけをコピー" title="単語だけをコピー">${esc(m.label)}</button></li>`;}).join('');return `<article class="department ${kind}"><label class="free-memo"><span>フリーメモ</span><textarea data-memo="${kind}" aria-label="${isOpen?'オープン':'ファミリー'}貼り付け確認用フリーメモ" autocomplete="off" spellcheck="false" readonly aria-haspopup="dialog" title="クリックして広いメモ帳を開く">${esc(freeMemos[kind])}</textarea></label><div class="department-head"><h2>${title}</h2><div class="period"><span>開始 <b>${esc(d.start)}</b></span><span>終了 <b>${esc(d.end)}</b></span></div></div><div class="copy-memo-row"><button class="copy-btn" type="button" ${d[kind].some(m=>m.confirmed===false)?'disabled title="全13問の照合完了後に利用できます"':''} data-copy="${kind}" aria-label="${isOpen?'オープン':'ファミリー'}一括コピー"><span>${isOpen?'オープン':'ファミリー'}</span><span>一括コピー</span></button></div><ol class="missions">${lis}</ol></article>`;}
+function card(kind,d){if(!d.verified?.[kind]||!Array.isArray(d[kind]))return lockedCard(kind,d,d.lockReason?.[kind]);const isOpen=kind==='open',title=d?.labels?.[kind]||(isOpen?'🟠オープン':'🩷ファミリー'),lis=d[kind].map((m,i)=>{const num=`［${String(i+1).padStart(2,'0')}］`,need=m.f?`<span class="f">Ｆ</span>${esc(m.need.replace(/^Ｆ/,''))}`:esc(m.need);if(m.confirmed===false)return `<li class="mission"><span class="num">${num}</span><span class="need">—</span><span class="answer" title="不一致または根拠不足">照合待ち</span></li>`;return `<li class="mission"><span class="num">${num}</span><span class="need">${need}</span><button class="answer answer-copy" type="button" data-copy="${kind}" data-copy-index="${i}" aria-label="${esc(m.label)}だけをコピー" title="単語だけをコピー">${esc(m.label)}</button></li>`;}).join('');return `<article class="department ${kind}"><div class="free-memo"><span>フリーメモ</span><button class="memo-open" type="button" data-memo="${kind}" aria-haspopup="dialog" aria-label="${isOpen?'オープン':'ファミリー'}のフリーメモを開く">メモを開く</button><textarea data-memo="${kind}" aria-label="${isOpen?'オープン':'ファミリー'}貼り付け確認用フリーメモ" autocomplete="off" spellcheck="false" readonly aria-haspopup="dialog" title="クリックして広いメモ帳を開く">${esc(freeMemos[kind])}</textarea></div><div class="department-head"><h2>${title}</h2><div class="period"><span>開始 <b>${esc(d.start)}</b></span><span>終了 <b>${esc(d.end)}</b></span></div></div><div class="copy-memo-row"><button class="copy-btn" type="button" ${d[kind].some(m=>m.confirmed===false)?'disabled title="全13問の照合完了後に利用できます"':''} data-copy="${kind}" aria-label="${isOpen?'オープン':'ファミリー'}一括コピー"><span>${isOpen?'オープン':'ファミリー'}</span><span>一括コピー</span></button></div><ol class="missions">${lis}</ol></article>`;}
 function researchView(){return lockedCard('open')+lockedCard('family');}
 function setMonth(key,push=true){if(!keys.includes(key))key='2026-10';current=key;$('month').value=key;document.querySelector('.manual-copy')?.remove();[...$('quick').children].forEach(b=>b.setAttribute('aria-current',b.dataset.month===key?'true':'false'));const d=DATA[key];$('departments').innerHTML=d?card('open',d)+card('family',d):researchView();$('prev').disabled=keys.indexOf(key)<=0;$('next').disabled=keys.indexOf(key)>=keys.length-1;if(push){const u=new URL(location.href);u.searchParams.set('month',key);history.replaceState(null,'',u);}}
 function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('show'),1900);}
@@ -571,33 +572,53 @@ function openFreeMemo(kind){
   if(kind!=='open'&&kind!=='family')return;
   const existing=memoEditors[kind];
   if(existing&&!existing.closed()){existing.focus();return;}
-  let popup=null;try{popup=window.open('about:blank','_blank','popup=yes,width=960,height=800,resizable=yes,scrollbars=yes');}catch{}
-  const doc=popup?popup.document:document;
-  if(popup){doc.title=(kind==='open'?'オープン':'ファミリー')+' フリーメモ';doc.documentElement.lang='ja';const meta=doc.createElement('meta');meta.name='viewport';meta.content='width=device-width,initial-scale=1';doc.head.append(meta);}
+  existing?.close();
+  for(const editor of Object.values(memoEditors))if(!editor.closed())editor.close();
+  const mobile=window.matchMedia?.('(max-width:699px), (pointer:coarse)').matches||false;
+  let popup=null,doc=document;
+  if(!mobile){
+    try{
+      popup=window.open('about:blank','_blank','popup=yes,width=960,height=800,resizable=yes,scrollbars=yes');
+      if(popup&&!popup.closed&&popup.document?.body){doc=popup.document;doc.title=(kind==='open'?'オープン':'ファミリー')+' フリーメモ';doc.documentElement.lang='ja';const meta=doc.createElement('meta');meta.name='viewport';meta.content='width=device-width,initial-scale=1';doc.head.append(meta);}
+      else{try{popup?.close();}catch{}popup=null;}
+    }catch{try{popup?.close();}catch{}popup=null;doc=document;}
+  }
   const root=doc.createElement('div');
-  root.setAttribute('role','dialog');root.setAttribute('aria-label','フリーメモ');root.setAttribute('aria-modal','true');
-  root.style.cssText='position:fixed;inset:0;height:100dvh;max-height:100%;overflow:auto;overscroll-behavior:contain;z-index:10000;display:flex;flex-direction:column;gap:12px;box-sizing:border-box;padding:max(16px,env(safe-area-inset-top)) 16px max(16px,env(safe-area-inset-bottom));background:#f8fafc;color:#111827;font-family:system-ui,sans-serif;';
-  const heading=doc.createElement('strong');heading.textContent=(kind==='open'?'オープン':'ファミリー')+' フリーメモ';
-  const field=doc.createElement('textarea');field.value=freeMemos[kind];field.setAttribute('aria-label',heading.textContent);field.spellcheck=false;field.style.cssText='flex:1;min-height:0;width:100%;box-sizing:border-box;resize:none;border:1px solid #94a3b8;border-radius:10px;padding:14px;font:16px/1.6 system-ui,sans-serif;background:#fff;color:#111827;';
-  const origin=document.querySelector('[data-memo="'+kind+'"]');
-  const sync=()=>{freeMemos[kind]=field.value;const inline=document.querySelector('[data-memo="'+kind+'"]');if(inline)inline.value=field.value;};
-  const close=()=>{sync();if(popup)popup.close();else root.remove();delete memoEditors[kind];origin?.focus();};
-  const button=()=>{const b=doc.createElement('button');b.type='button';b.textContent='閉じる';b.style.cssText='align-self:flex-end;min-height:44px;padding:8px 24px;border:1px solid #64748b;border-radius:8px;background:#fff;color:#111827;font:16px system-ui,sans-serif;cursor:pointer;';b.addEventListener('click',close);return b;};
-  const actions=doc.createElement('div');actions.style.cssText='display:flex;flex-wrap:wrap;gap:8px;';
-  const status=doc.createElement('span');status.setAttribute('role','status');status.setAttribute('aria-live','polite');status.style.cssText='font-size:14px;align-self:center;';
-  const copyAll=button();copyAll.textContent='全コピー';copyAll.removeEventListener('click',close);
-  copyAll.addEventListener('click',async()=>{
+  root.setAttribute('role','dialog');root.setAttribute('aria-label',(kind==='open'?'オープン':'ファミリー')+' フリーメモ');root.setAttribute('aria-modal','true');
+  root.style.cssText='position:fixed;inset:0;height:100%;height:100dvh;overflow:auto;overscroll-behavior:contain;z-index:10000;display:flex;flex-direction:column;gap:6px;box-sizing:border-box;padding:max(8px,env(safe-area-inset-top)) max(8px,env(safe-area-inset-right)) max(8px,env(safe-area-inset-bottom)) max(8px,env(safe-area-inset-left));background:#f8fafc;color:#111827;font-family:system-ui,sans-serif;';
+  const heading=doc.createElement('strong');heading.textContent=(kind==='open'?'オープン':'ファミリー')+' フリーメモ';heading.style.cssText='font-size:16px;flex:none;';
+  const field=doc.createElement('textarea');field.value=freeMemos[kind];field.setAttribute('aria-label',heading.textContent);field.spellcheck=false;field.style.cssText='flex:1 1 0%;min-height:48px;min-width:0;width:100%;box-sizing:border-box;resize:none;overflow:auto;border:1px solid #94a3b8;border-radius:10px;padding:8px;font:16px/1.4 ui-monospace,monospace;background:#fff;color:#111827;';
+  const origin=document.querySelector('button[data-memo="'+kind+'"]')||document.querySelector('[data-memo="'+kind+'"]');
+  const sync=()=>{freeMemos[kind]=field.value;const inline=document.querySelector('textarea[data-memo="'+kind+'"]');if(inline)inline.value=field.value;};
+  let closed=false;const cleanups=[];
+  const focus=()=>{if(closed)return;try{popup?.focus();field.focus({preventScroll:true});}catch{field.focus();}};
+  const close=()=>{if(closed)return;sync();closed=true;for(const cleanup of cleanups)cleanup();field.blur();root.remove();delete memoEditors[kind];try{popup?.close();}catch{}try{origin?.focus({preventScroll:true});}catch{origin?.focus();}};
+  const status=doc.createElement('span');status.setAttribute('role','status');status.setAttribute('aria-live','polite');status.style.cssText='font-size:13px;min-height:18px;flex:none;';
+  const controls=[];
+  const button=(text,handler)=>{const b=doc.createElement('button');b.type='button';b.textContent=text;b.style.cssText='flex:1;min-width:0;min-height:44px;padding:6px;border:1px solid #64748b;border-radius:8px;background:#fff;color:#111827;font:16px system-ui,sans-serif;touch-action:manipulation;cursor:pointer;';b.addEventListener('click',handler);controls.push(b);return b;};
+  const copyAll=async()=>{
     const text=field.value;
-    try{const clipboard=doc.defaultView?.navigator?.clipboard;if(!clipboard)throw new Error('clipboard unavailable');await clipboard.writeText(text);status.textContent='全コピーしました';}
-    catch{field.focus();field.select();field.setSelectionRange(0,field.value.length);let copied=false;try{copied=doc.execCommand('copy');}catch{}status.textContent=copied?'全コピーしました':'全選択しました。コピー操作をしてください';}
+    try{const clipboard=doc.defaultView?.navigator?.clipboard;if(!clipboard)throw new Error('clipboard unavailable');await clipboard.writeText(text);if(!closed)status.textContent='全コピーしました';}
+    catch{if(closed)return;focus();field.select();field.setSelectionRange(0,field.value.length);let copied=false;try{copied=doc.execCommand('copy');}catch{}status.textContent=copied?'全コピーしました':'全選択しました。コピー操作をしてください';}
+  };
+  const clearAll=()=>{field.value='';sync();status.textContent='全削除しました';focus();};
+  const bar=()=>{const actions=doc.createElement('div');actions.style.cssText='display:flex;gap:6px;flex:none;';actions.append(button('閉じる',close),button('全コピー',copyAll),button('全削除',clearAll));return actions;};
+  root.append(bar(),heading,field,status,bar());doc.body.append(root);
+  field.addEventListener('input',sync);
+  const view=doc.defaultView||window,viewport=view.visualViewport;
+  const fit=()=>{if(closed||!viewport)return;root.style.top=Math.max(0,viewport.offsetTop||0)+'px';root.style.height=Math.max(0,viewport.height)+'px';root.style.bottom='auto';};
+  if(viewport){for(const event of ['resize','scroll']){viewport.addEventListener(event,fit);cleanups.push(()=>viewport.removeEventListener(event,fit));}fit();}
+  if(!popup){
+    const overflow=document.body.style.overflow;document.body.style.overflow='hidden';cleanups.push(()=>{document.body.style.overflow=overflow;});
+    const background=[...document.body.children].filter(element=>element!==root).map(element=>[element,element.inert]);for(const [element] of background)element.inert=true;cleanups.push(()=>{for(const [element,inert] of background)element.inert=inert;});
+  }
+  root.addEventListener('keydown',e=>{
+    if(e.key==='Escape'){e.preventDefault();close();return;}
+    if(e.key==='Tab'){const order=[...controls.slice(0,3),field,...controls.slice(3)],index=order.indexOf(doc.activeElement);if(index<0||(!e.shiftKey&&index===order.length-1)||(e.shiftKey&&index===0)){e.preventDefault();order[e.shiftKey?order.length-1:0].focus();}}
   });
-  const clearAll=button();clearAll.textContent='全削除';clearAll.removeEventListener('click',close);
-  clearAll.addEventListener('click',()=>{field.value='';sync();status.textContent='全削除しました';field.focus();});
-  actions.append(copyAll,clearAll,status);
-  root.append(button(),heading,actions,field,button());doc.body.append(root);
-  field.addEventListener('input',sync);root.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();close();}});
-  if(popup)popup.addEventListener('pagehide',sync,{once:true});
-  memoEditors[kind]={closed:()=>popup?popup.closed:!root.isConnected,focus:()=>{popup?.focus();field.focus();}};field.focus();
+  const pagehide=()=>{sync();for(const cleanup of cleanups)cleanup();closed=true;root.remove();delete memoEditors[kind];};
+  view.addEventListener('pagehide',pagehide,{once:true});cleanups.push(()=>view.removeEventListener('pagehide',pagehide));
+  memoEditors[kind]={closed:()=>closed||(popup?popup.closed:!root.isConnected),focus,close};focus();
 }
 $('departments').addEventListener('click',e=>{const memo=e.target.closest('[data-memo]');if(memo&&(memo.dataset.memo==='open'||memo.dataset.memo==='family')){openFreeMemo(memo.dataset.memo);return;}const b=e.target.closest('[data-copy]');if(b)copy(b.dataset.copy,b.dataset.copyIndex===undefined?null:Number(b.dataset.copyIndex));});
 $('departments').addEventListener('keydown',e=>{if(e.target.dataset.memo&&(e.key==='Enter'||e.key===' ')){e.preventDefault();openFreeMemo(e.target.dataset.memo);}});
