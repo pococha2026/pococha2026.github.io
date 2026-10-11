@@ -1640,10 +1640,10 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
 <div class="mini" id="mini" aria-hidden="true"><div class="hud-actions"><button type="button" id="floatHudToggle" aria-controls="pipTestPanel">他アプリで表示</button><button type="button" id="launchOtherApp" aria-controls="appLaunchPanel" aria-expanded="false">他アプリを起動</button><button type="button" id="closeHud" aria-label="常時表示と小窓を閉じる">閉じる</button><button type="button" id="hudToggle" role="switch" aria-checked="true" aria-label="常時表示">常時表示OFF</button><span id="floatingHudStatus" role="status" aria-live="polite"></span>
 <div id="appLaunchPanel" hidden role="region" aria-label="他アプリの起動設定">
 <label for="appLaunchMode">起動方法</label><select id="appLaunchMode"><option value="shortcut">iPhoneのショートカット</option><option value="url">アプリの起動用URL</option></select>
-<label for="appLaunchValue" id="appLaunchValueLabel">ショートカット名</label><input id="appLaunchValue" type="text" autocomplete="off" maxlength="120" placeholder="例：Pocochaを開く" aria-describedby="appLaunchHelp appLaunchStatus">
-<p id="appLaunchHelp">iPhoneの「ショートカット」で「アプリを開く」アクションを追加し、起動したいアプリを選んで保存します。そのショートカット名をここに入力してください。</p>
+<label for="appLaunchValue" id="appLaunchValueLabel">ショートカット名</label><input id="appLaunchValue" type="text" autocomplete="off" maxlength="120" value="Pocochaを開く" placeholder="例：Pocochaを開く" aria-describedby="appLaunchHelp appLaunchStatus">
+<p id="appLaunchHelp">デフォルトはPocochaライブアプリです。iPhoneでは初回だけ「ショートカット」で「アプリを開く」→「Pococha」を選び、名前を「Pocochaを開く」にして保存してください。</p>
 <p>起動先はこの端末に保存します。「他アプリで表示」→「小窓を開く」の後、下の起動リンクを押します。元のタブは開いたままにしてください。小窓の中からは起動操作できません。</p>
-<div class="app-launch-actions"><a id="appLaunchLink" role="link" target="_blank" rel="noopener noreferrer" aria-disabled="true" tabindex="-1">設定したアプリを開く</a><button type="button" id="closeAppLaunch">設定を閉じる</button></div><p id="appLaunchStatus" role="status" aria-live="polite"></p>
+<div class="app-launch-actions"><a id="appLaunchLink" role="link" target="_blank" rel="noopener noreferrer" aria-disabled="true" tabindex="-1">Pocochaライブアプリを開く</a><button type="button" id="restorePocochaLaunch">Pocochaに戻す</button><button type="button" id="closeAppLaunch">設定を閉じる</button></div><p id="appLaunchStatus" role="status" aria-live="polite"></p>
 </div></div><div class="mini-remaining"><span id="miniL">目標まであと</span><br><b id="miniR" class="num">-</b></div><div class="mini-countdown" style="text-align:right"><span id="miniDeadlineLabel">締切まで</span><br><span class="mt" id="miniT">-</span></div><button id="miniAdd" aria-label="現在値に1,000 ptを足す">+1K</button>
 <!-- phone-current:start -->
 <time id="miniNow" class="num" hidden title="現在の端末時計・日本時間"><span>現在日時</span><span id="miniNowDate"></span><b id="miniNowTime"></b></time>
@@ -1698,7 +1698,7 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
         </div>
       </details>
       <!-- display-settings-menu:end -->
-      <span class="ylogo-update" id="toolUpdatedDate" title="ツール本体の最終更新日時（ボーダーデータの更新日時とは別）"><span>更新時間</span><time class="num" datetime="2026-10-11T11:38:39+09:00">2026/10/11 11:38</time></span>
+      <span class="ylogo-update" id="toolUpdatedDate" title="ツール本体の最終更新日時（ボーダーデータの更新日時とは別）"><span>更新時間</span><time class="num" datetime="2026-10-11T12:03:33+09:00">2026/10/11 12:03</time></span>
     </div>
   </header>
   <p class="hint" id="borderSyncStatus" role="status" style="font-size:.68rem;margin:5px 2px 8px;line-height:1.5">ボーダー確認中…</p>
@@ -3502,8 +3502,10 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
   (function(){
     var video=$('pipTestVideo'),status=$('pipTestStatus'),stream=null,timer=0,canvas=document.createElement('canvas');
     var busy=false,prepared=false,active=false,closing=false,generation=0,opening=null;
-    var launchKey='pococha-meter-app-launch-v1',launchMode='shortcut',launchValues={shortcut:'',url:''},launchStorageFailed=false;
+    var defaultLaunchShortcut='Pocochaを開く';
+    var launchKey='pococha-meter-app-launch-v1',launchMode='shortcut',launchValues={shortcut:defaultLaunchShortcut,url:''},launchStorageFailed=false;
     try{var savedLaunch=JSON.parse(localStorage.getItem(launchKey));if(savedLaunch&&typeof savedLaunch==='object'){launchMode=savedLaunch.mode==='url'?'url':'shortcut';['shortcut','url'].forEach(function(mode){if(typeof savedLaunch[mode]==='string')launchValues[mode]=savedLaunch[mode].slice(0,mode==='shortcut'?120:2048);});}}catch(e){}
+    if(!launchValues[launchMode].trim()){launchMode='shortcut';launchValues.shortcut=defaultLaunchShortcut;}
     canvas.width=640;canvas.height=360;
     function announce(message){status.textContent=message;$('floatingHudStatus').textContent=message;syncMiniVisibility();}
     function launchDestination(){
@@ -3513,6 +3515,8 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
     }
     function launchControls(){
       var link=$('appLaunchLink'),destination=launchDestination(),ready=!!destination&&active&&!busy&&!closing;
+      link.textContent=launchMode==='shortcut'&&launchValues.shortcut.trim()===defaultLaunchShortcut?'Pocochaライブアプリを開く':'設定したアプリを開く';
+      $('appLaunchHelp').textContent=launchMode==='shortcut'?(launchValues.shortcut.trim()===defaultLaunchShortcut?'デフォルトはPocochaライブアプリです。iPhoneでは初回だけ「ショートカット」で「アプリを開く」→「Pococha」を選び、名前を「Pocochaを開く」にして保存してください。':'iPhoneの「ショートカット」で「アプリを開く」アクションを追加し、起動したいアプリを選んで保存します。そのショートカット名をここに入力してください。'):'アプリ公式の起動用リンクを入力してください。対応アプリが未インストールの場合やリンクに未対応の場合は、Webページが開くことがあります。';
       if(ready)link.setAttribute('href',destination);else link.removeAttribute('href');
       link.setAttribute('aria-disabled',String(!ready));link.setAttribute('tabindex',ready?'0':'-1');
       $('appLaunchStatus').textContent=(launchStorageFailed?'この端末に設定を保存できません。今回の画面では使えます。 ':'')+(!destination?(launchMode==='shortcut'?'保存済みのショートカット名を入力してください。':'アプリ公式のhttps://から始まる起動用URLを入力してください。'):ready?'小窓表示中です。起動リンクを押せます。起動の許可が出たら確認してください。':'先に「他アプリで表示」→「小窓を開く」を押してください。');
@@ -3522,7 +3526,6 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
       $('appLaunchValue').setAttribute('maxlength',launchMode==='shortcut'?'120':'2048');
       $('appLaunchValueLabel').textContent=launchMode==='shortcut'?'ショートカット名':'アプリの起動用URL（https://）';
       $('appLaunchValue').setAttribute('placeholder',launchMode==='shortcut'?'例：Pocochaを開く':'例：https://line.me/R/nv/chat');
-      $('appLaunchHelp').textContent=launchMode==='shortcut'?'iPhoneの「ショートカット」で「アプリを開く」アクションを追加し、起動したいアプリを選んで保存します。そのショートカット名をここに入力してください。':'アプリ公式の起動用リンクを入力してください。対応アプリが未インストールの場合やリンクに未対応の場合は、Webページが開くことがあります。';
       launchControls();
     }
     function saveLaunch(){try{localStorage.setItem(launchKey,JSON.stringify({mode:launchMode,shortcut:launchValues.shortcut,url:launchValues.url}));launchStorageFailed=false;}catch(e){launchStorageFailed=true;}launchControls();}
@@ -3605,6 +3608,7 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
     $('floatHudToggle').onclick=function(){return active?stop():prepared?open():prepare();};
     $('launchOtherApp').onclick=function(){var panel=$('appLaunchPanel');panel.hidden=!panel.hidden;$('mini').classList.toggle('app-launch-open',!panel.hidden);$('launchOtherApp').setAttribute('aria-expanded',String(!panel.hidden));if(!panel.hidden){launchViewport();launchFields();$('appLaunchValue').focus({preventScroll:true});}syncMiniVisibility();};
     $('closeAppLaunch').onclick=function(){closeLaunch();$('launchOtherApp').focus({preventScroll:true});};
+    $('restorePocochaLaunch').onclick=function(){launchMode='shortcut';launchValues.shortcut=defaultLaunchShortcut;launchFields();saveLaunch();syncMiniVisibility();};
     $('appLaunchPanel').addEventListener('keydown',function(event){if(event.key==='Escape'){event.preventDefault();closeLaunch();$('launchOtherApp').focus({preventScroll:true});}});
     $('appLaunchMode').onchange=function(){launchMode=this.value==='url'?'url':'shortcut';launchFields();saveLaunch();syncMiniVisibility();};
     $('appLaunchValue').oninput=function(){launchValues[launchMode]=this.value.slice(0,launchMode==='shortcut'?120:2048);saveLaunch();syncMiniVisibility();};
