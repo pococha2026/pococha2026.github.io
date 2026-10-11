@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-P76ZEZ5Ew9+nPfi6VrZT9k4gtt03PiZCTBXGdRU2HiU=' 'sha256-uNaRaIumIn5v9WjqQEXs1MZ5RqTzBS0B49cDGxzj2Hs=' 'sha256-uE7VyjG2ywos0qkQxgF7/mlFoGu7c4W6UFCB/F/xid4=' 'sha256-q/m2/wWnx9JYsagX6SpA3aKdD7zcYXtbieSCgoWoP7E=' 'sha256-1zt+3C8tV7VWMhQUC7oKcD/nvDARSVnZqKAHid6jcqE='; style-src 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://pococha-challenge.freefreelife2000.chatgpt.site; base-uri 'none'; object-src 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-P76ZEZ5Ew9+nPfi6VrZT9k4gtt03PiZCTBXGdRU2HiU=' 'sha256-uNaRaIumIn5v9WjqQEXs1MZ5RqTzBS0B49cDGxzj2Hs=' 'sha256-uE7VyjG2ywos0qkQxgF7/mlFoGu7c4W6UFCB/F/xid4=' 'sha256-q/m2/wWnx9JYsagX6SpA3aKdD7zcYXtbieSCgoWoP7E=' 'sha256-cNrsOaSH5dUia5XSd38oAqyrBGIL5mUtZs4IpoHrQsQ='; style-src 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://pococha-challenge.freefreelife2000.chatgpt.site; base-uri 'none'; object-src 'none'; form-action 'none'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="referrer" content="no-referrer">
 <meta name="theme-color" content="#111827">
@@ -567,6 +567,8 @@ $('sharePage').addEventListener('click',async()=>{const shared=new URL('https://
   const sites = location.origin === 'https://pococha-challenge.freefreelife2000.chatgpt.site' && /^\/(?:index\.html)?$/.test(location.pathname);
   if (!github && !sites) return;
   const excludeKey = 'pococha_answers_exclude_self_v1';
+  let exclusionToken;
+  try { exclusionToken = localStorage.getItem('pococha_answers_exclusion_token_v1'); if (!/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(exclusionToken || '')) { exclusionToken = crypto.randomUUID(); localStorage.setItem('pococha_answers_exclusion_token_v1', exclusionToken); } } catch { exclusionToken = globalThis.crypto?.randomUUID?.(); }
   let excluded = false, saveFailed = false;
   try { excluded = localStorage.getItem(excludeKey) === '1'; } catch {}
   const saveExclusion = value => {
@@ -589,6 +591,7 @@ $('sharePage').addEventListener('click',async()=>{const shared=new URL('https://
     control.checked = isExcluded();
     control.addEventListener('change', () => {
       saveExclusion(control.checked);
+      void syncExclusion(true).then(() => { if (!isExcluded()) track(); });
       if (saveFailed && typeof window.alert === 'function') window.alert('アクセス集計の設定を保存できません。この画面だけに適用します。');
     });
   }, { once: true });
@@ -600,7 +603,24 @@ $('sharePage').addEventListener('click',async()=>{const shared=new URL('https://
   } catch { /* The restored collector supports blocked Cookie access. */ }
   if (window.self !== window.top || navigator.webdriver || navigator.doNotTrack === '1' || navigator.globalPrivacyControl === true || !globalThis.crypto?.randomUUID) return;
   const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-  let started = false;
+  let started = false, exclusionReady = false;
+  let syncQueue = Promise.resolve(), syncVersion = 0;
+  const exclusionEvent = crypto.randomUUID();
+  function syncExclusion(update = false) {
+    const choice = isExcluded(), version = ++syncVersion;
+    exclusionReady = false;
+    syncQueue = syncQueue.catch(() => {}).then(async () => {
+      try {
+        const result = await fetch(endpoint.replace('/api/visits','/api/visit-exclusions'), { method:'POST', credentials:'omit', mode:'cors', headers:{'Content-Type':'application/json'}, body:JSON.stringify({token:exclusionToken,excluded:choice,update,eventId:exclusionEvent,page:location.origin+location.pathname,meta:metadata()}) });
+        if (!result.ok) throw Error('storage');
+        const state = await result.json();
+        if (version !== syncVersion) return;
+        if (!state.ignored && typeof state.active === 'boolean') { saveExclusion(state.active); const control=document.getElementById('excludeSelfVisits'); if(control)control.checked=state.active; }
+        exclusionReady = true;
+      } catch { if(version === syncVersion) exclusionReady = false; }
+    });
+    return syncQueue;
+  }
   function metadata() {
     const ua = navigator.userAgent || '';
     const tablet = /iPad|Tablet/i.test(ua) || (/Macintosh/i.test(ua) && navigator.maxTouchPoints > 1) || (/Android/i.test(ua) && !/Mobile/i.test(ua));
@@ -637,11 +657,11 @@ $('sharePage').addEventListener('click',async()=>{const shared=new URL('https://
     } catch { return null; }
   }
   function track() {
-    if (started || isExcluded() || document.visibilityState !== 'visible') return;
+    if (!exclusionReady || started || isExcluded() || document.visibilityState !== 'visible') return;
     started = true;
     document.removeEventListener('visibilitychange', track);
     const meta = metadata();
-    const payload = { eventId: crypto.randomUUID(), visitorId: visitorId(), page: location.origin + location.pathname, meta };
+    const payload = { eventId: crypto.randomUUID(), exclusionToken, visitorId: visitorId(), page: location.origin + location.pathname, meta };
     function submit() {
       if (isExcluded()) return;
       const body = JSON.stringify(payload);
@@ -670,7 +690,7 @@ $('sharePage').addEventListener('click',async()=>{const shared=new URL('https://
     } else submit();
   }
   document.addEventListener('visibilitychange', track);
-  track();
+  void syncExclusion(exclusionChoice === '1' || exclusionChoice === '0').then(track);
 })();
 </script>
 </body>
