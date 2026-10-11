@@ -1639,7 +1639,7 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
 </style>
 </head>
 <body>
-<div class="mini" id="mini" aria-hidden="true"><div class="hud-actions"><button type="button" id="closeHud" aria-label="常時表示を閉じる">閉じる</button><button type="button" id="hudToggle" role="switch" aria-checked="true" aria-label="常時表示">常時表示OFF</button></div><div class="mini-remaining"><span id="miniL">目標まであと</span><br><b id="miniR" class="num">-</b></div><div class="mini-countdown" style="text-align:right"><span id="miniDeadlineLabel">締切まで</span><br><span class="mt" id="miniT">-</span></div><button id="miniAdd" aria-label="現在値に1,000 ptを足す">+1K</button>
+<div class="mini" id="mini" aria-hidden="true"><div class="hud-actions"><button type="button" id="hudToggle" role="switch" aria-checked="true" aria-label="常時表示">常時表示OFF</button></div><div class="mini-remaining"><span id="miniL">目標まであと</span><br><b id="miniR" class="num">-</b></div><div class="mini-countdown" style="text-align:right"><span id="miniDeadlineLabel">締切まで</span><br><span class="mt" id="miniT">-</span></div><button id="miniAdd" aria-label="現在値に1,000 ptを足す">+1K</button>
 <!-- phone-current:start -->
 <time id="miniNow" class="num" hidden title="現在日時・日本時間（時刻同期を確認中）"><span id="miniTimeLabel">時刻を確認中</span><span id="miniNowDate"></span><b id="miniNowTime"></b></time>
 <div class="mini-input mini-target" id="miniTargetField" hidden><label for="targetMini">目標値</label><input class="num" id="targetMini" type="text" inputmode="decimal" enterkeyhint="done" autocomplete="off" placeholder="未設定" tabindex="-1" aria-describedby="targetMiniError inputStatus"><div class="mini-target-actions"><button type="button" class="mini-action" id="restoreTargetMini" tabindex="-1" aria-label="目標値をデフォルトに戻す">デフォルト</button><button type="button" class="mini-action" id="openMiniTargetDetails" tabindex="-1" aria-controls="sectionBody-1" aria-label="目標値の詳細設定を開く">詳細設定</button></div></div>
@@ -3330,7 +3330,6 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
   function setHudEnabled(enabled,persist){hudEnabled=enabled;$('hudVisibility').value=hudEnabled?'on':'off';syncMiniVisibility();if(persist===false)return;try{localStorage.setItem('pococha-meter-hud-v1',hudEnabled?'on':'off');}catch(e){$('displaySettingsStatus').textContent='この画面には反映しましたが、設定を保存できません。';}}
   $('hudVisibility').onchange=function(){setHudEnabled(this.value!=='off');};
   $('hudToggle').onclick=function(){setHudEnabled(!hudEnabled);};
-  $('closeHud').onclick=function(){setItemsWindow(false);setHudEnabled(false);$('hudToggle').focus({preventScroll:true});};
   var miniOutsideView=false,mobileScrollTimer=0,phoneHudFocusId='';
   var phoneLayoutQuery=window.matchMedia&&window.matchMedia('(max-width:700px)'),items=$('remainingItems'),itemsHome=items.parentNode,itemsNext=items.nextSibling;
   var deadlineControls=document.querySelector('#liveMeter .compact-deadline-controls'),deadlineHome=deadlineControls.parentNode,deadlineNext=deadlineControls.nextSibling;
