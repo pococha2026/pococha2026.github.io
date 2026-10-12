@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#15121e">
 <meta name="referrer" content="no-referrer">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; object-src 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; object-src 'none'; form-action 'none'; script-src 'sha256-gJaamJQRB1BEMtTA76P3fmgP2cNcB4XUIVIcydsja4c='; script-src-attr 'none'; connect-src https://pococha-comment-access.freefreelife2000.chatgpt.site">
 <title>Pococha1012 キラコメ・定期コメント集</title>
 <style>
 :root{color-scheme:dark;--ink:#f5effc;--muted:#c3b8d1;--accent:#a783e4;--bg:#15121e;--card:#231b30;--line:#493756}*{box-sizing:border-box}body{margin:0;min-height:100dvh;padding:20px max(14px,env(safe-area-inset-right)) max(20px,env(safe-area-inset-bottom)) max(14px,env(safe-area-inset-left));background:var(--bg);color:var(--ink);font:16px/1.7 -apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",Meiryo,sans-serif}main{max-width:640px;margin:auto;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:clamp(16px,4vw,24px)}.launcher-topbar{display:flex;align-items:center;gap:10px;margin-bottom:8px}.brand{margin:0;font-size:14px;font-weight:800;color:var(--accent)}h1{font-size:clamp(23px,5.6vw,33px);line-height:1.4;margin:0 0 20px}p{margin:0 0 16px}.note{padding:14px 16px;border:1px solid var(--line);border-radius:14px;color:var(--muted);font-size:14px}.launch{display:flex;align-items:center;justify-content:center;min-height:56px;margin:16px 0 12px;padding:14px;border-radius:14px;background:var(--accent);color:white;text-decoration:none;font-weight:800;text-align:center;touch-action:manipulation}.launch:hover{background:#614094}a:focus-visible{outline:3px solid #cb6c95;outline-offset:4px}.back{color:var(--accent);font-size:14px}footer{margin-top:24px;color:var(--muted);font-size:12px;text-align:center}@media(prefers-color-scheme:dark){:root{color-scheme:dark;--bg:#161121;--card:#231b30;--ink:#f5effc;--muted:#c3b8d1;--line:#493756;--accent:#9870d3}}
@@ -20,6 +20,7 @@
 <p>キラコメ・定期コメント・タグをテーマ別に探して、1件ずつコピーできます。Simeji公式のキラキラ・ハート・応援の顔文字もキラコメの収集先に含まれます。半角・全角の空白、タブ、改行を保ち、AAは折り返さず横にスクロールして確認できます。</p>
 <p class="note">キラコメ・定期コメントは特殊記号や日付を問わず収集します。タグは特殊記号を含む本文だけ直近1年に限定し、登録済みPocochaプロフィールは日付を問いません。URL・個人情報を含む原文は全分類で除外します。取得に失敗した収集先は削除し、次回以降は収集しません。郵便番号・電話番号・住所・連絡先・本名などの私的個人情報を含む原文は除外します。出典は個人名を伏せたサービス名で表示し、元の更新日・登録公開日・公開本文の確認日・収集日を区別します。不明な日付は不明と表示し、確認日や収集日を更新日にはしません。</p>
 <p class="note">ネットからの更新は、本人専用のSites版または管理ページから行えます。</p>
+<p id="pococha-public-access-privacy" class="note">アクセス記録：IPアドレス・アクセス時刻・IPから得た国／地域・機種等を記録し、IPは7日分を保存します。記録は本人専用管理ページでのみ確認できます。DNT／GPC設定時は記録しません。この記録にCookieは使いません。</p>
 <a class="launch" href="https://pococha-comment-library.freefreelife2000.chatgpt.site" target="_blank" rel="noopener noreferrer">本人専用ツールを開く ↗</a>
 <a class="memo-launch" href="https://pococha-comment-library.freefreelife2000.chatgpt.site/memo">フリーメモをこの画面で開く</a>
 <p class="note">フリーメモは同じウィンドウで開きます。貼り付けて形を確認でき、キーボード表示時は入力欄の高さを調整します。上部・下部の両方に、閉じる・全コピー・全削除を設置。メモとお気に入りはこのブラウザーに保存します。貼り付け先のフォントや絵文字幅によって見え方は変わる場合があります。</p>
@@ -29,5 +30,107 @@
 <a class="back" href="https://pococha2026.github.io/">← Pococha1012 ツール一覧</a>
 <footer><span>© Pococha1012</span><a class="admin-link" href="https://pococha-comment-library.freefreelife2000.chatgpt.site/admin">管理ページ ↗</a></footer>
 </main>
+<!-- Pococha1012 public access tracker: start -->
+<script id="pococha-public-access-tracker">(() => {
+  "use strict";
+  const collectorOrigin = "https://pococha-comment-access.freefreelife2000.chatgpt.site";
+  const publicOrigin = "https://pococha2026.github.io";
+  const page = publicOrigin + "/comments/";
+  let preparing = false;
+  let sent = false;
+  let eventId;
+  function allowed() {
+    try {
+      if (location.origin !== publicOrigin || !["/comments/", "/comments/index.html"].includes(location.pathname)) return false;
+      if (window.top !== window.self || navigator.webdriver || document.visibilityState === "hidden") return false;
+      if (navigator.globalPrivacyControl === true) return false;
+      if ([navigator.doNotTrack, navigator.msDoNotTrack, window.doNotTrack].some(value => /^(?:1|yes)$/i.test(String(value || "")))) return false;
+      if (/bot|spider|crawl|slurp|headless|phantom|selenium|playwright|puppeteer|lighthouse|preview|facebookexternalhit|whatsapp|telegrambot/i.test(String(navigator.userAgent || ""))) return false;
+      return typeof fetch === "function";
+    } catch { return false; }
+  }
+  function metadata() {
+    const ua = String(navigator.userAgent || "");
+    const ios = /iPhone|iPad|iPod/i.test(ua) || (/Macintosh/i.test(ua) && Number(navigator.maxTouchPoints || 0) > 1);
+    const android = /Android/i.test(ua);
+    let os = "unknown";
+    if (ios) os = "ios";
+    else if (android) os = "android";
+    else if (/Windows/i.test(ua)) os = "windows";
+    else if (/CrOS/i.test(ua)) os = "chromeos";
+    else if (/Macintosh|Mac OS X/i.test(ua)) os = "macos";
+    else if (/Linux|X11/i.test(ua)) os = "linux";
+    let device = "unknown";
+    if (/iPad/i.test(ua) || (ios && /Macintosh/i.test(ua))) device = "tablet";
+    else if (/iPhone|iPod|Mobile/i.test(ua)) device = "mobile";
+    else if (android) device = "tablet";
+    else if (os !== "unknown") device = "desktop";
+    let browser = "unknown";
+    if (/Edg(?:e|A|iOS)?\//i.test(ua)) browser = "edge";
+    else if (/OPR\/|Opera|OPT\//i.test(ua)) browser = "opera";
+    else if (/SamsungBrowser\//i.test(ua)) browser = "samsung";
+    else if (/Firefox\/|FxiOS\//i.test(ua)) browser = "firefox";
+    else if (/Chrome\/|CriOS\//i.test(ua)) browser = "chrome";
+    else if (/Safari\//i.test(ua)) browser = "safari";
+    else if (ua) browser = "other";
+    // UA cannot reveal an exact iPhone generation. Do not guess a model.
+    return { device, os, browser, model: "unknown" };
+  }
+  async function withReportedModel(meta) {
+    let timer;
+    try {
+      const hints = navigator.userAgentData;
+      if (!hints || typeof hints.getHighEntropyValues !== "function") return meta;
+      const result = await Promise.race([
+        Promise.resolve().then(() => hints.getHighEntropyValues(["model"])),
+        new Promise(resolve => { timer = setTimeout(() => resolve(null), 500); })
+      ]);
+      const model = typeof result?.model === "string" ? result.model.trim() : "";
+      if (/^[A-Za-z0-9][A-Za-z0-9 ._()+,-]{0,79}$/.test(model) && !/^(?:k|unknown|generic|android|iphone|ipad|ipod|pc)$/i.test(model) && !/^(?:\d{1,3}\.){3}\d{1,3}$/.test(model)) {
+        meta.model = "reported:" + model;
+      }
+    } catch { /* Unknown models and failed hints remain unknown. */ }
+    finally { if (timer !== undefined) clearTimeout(timer); }
+    return meta;
+  }
+  function uuid() {
+    try {
+      if (typeof crypto.randomUUID === "function") {
+        const value = crypto.randomUUID();
+        if (/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value)) return value;
+      }
+      const bytes = new Uint8Array(16);
+      crypto.getRandomValues(bytes);
+      bytes[6] = (bytes[6] & 15) | 64;
+      bytes[8] = (bytes[8] & 63) | 128;
+      const hex = Array.from(bytes, byte => byte.toString(16).padStart(2, "0")).join("");
+      return hex.slice(0, 8) + "-" + hex.slice(8, 12) + "-" + hex.slice(12, 16) + "-" + hex.slice(16, 20) + "-" + hex.slice(20);
+    } catch { return undefined; }
+  }
+  async function record() {
+    if (sent || preparing || !allowed()) return;
+    preparing = true;
+    try {
+      const meta = await withReportedModel(metadata());
+      if (!allowed()) return;
+      eventId ||= uuid();
+      if (!eventId) return;
+      const body = JSON.stringify({ eventId, page, meta });
+      if (body.length > 1024) return;
+      sent = true;
+      await fetch(collectorOrigin + "/api/visits", {
+        method: "POST", headers: { "Content-Type": "application/json" }, body,
+        credentials: "omit", cache: "no-store", keepalive: true,
+        referrerPolicy: "no-referrer"
+      });
+    } catch { /* Recording failure must never interrupt private navigation. */ }
+    finally { preparing = false; }
+  }
+  // A bfcache pageshow uses the same document and never creates another event.
+  window.addEventListener("pageshow", record);
+  document.addEventListener("visibilitychange", record);
+  void record();
+})();</script>
+<!-- Pococha1012 public access tracker: end -->
 </body>
 </html>
