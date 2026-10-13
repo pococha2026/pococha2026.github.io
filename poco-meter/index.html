@@ -3,7 +3,7 @@
 <head>
 <!-- GitHub static publication: administration remains on Sites. -->
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src 'self' data: blob:; font-src 'none'; connect-src 'self' https://poco-meter.freefreelife2000.chatgpt.site; object-src 'none'; frame-src 'none'; worker-src 'self'; media-src 'none'; manifest-src 'self'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-LrvX2Cb4ZrJhHoPvw7rmGv42AuqP5qUqedIke/XGJPw=' 'sha256-Am65bTS3NBC0+xQnvwOWESMXqr+EVllutn0mp2OHQkc='; style-src 'unsafe-inline'; img-src 'self' data: blob:; font-src 'none'; connect-src 'self' https://poco-meter.freefreelife2000.chatgpt.site; object-src 'none'; frame-src 'none'; worker-src 'self'; media-src 'none'; manifest-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="pococha-app" content="meter-offline-v1">
 <!-- offline-head:start -->
 <link rel="manifest" href="./meter.webmanifest">
@@ -1697,7 +1697,7 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
       </details>
       <!-- display-settings-menu:end -->
       <button type="button" id="refreshPage" aria-label="ページ全体を再読み込みする" title="ページ全体を再読み込み">更新</button>
-      <span class="ylogo-update" id="toolUpdatedDate" title="ツール本体の最終更新日時とバージョン（ボーダーデータの更新日時とは別）"><span>更新時間</span><time class="num" datetime="2026-10-13T11:39:40+09:00">2026/10/13 11:39:40</time><span class="num" id="toolVersion">最終更新バージョン：v2026.10.13.1</span></span>
+      <span class="ylogo-update" id="toolUpdatedDate" title="ツール本体の最終更新日時とバージョン（ボーダーデータの更新日時とは別）"><span>更新時間</span><time class="num" datetime="2026-10-13T13:02:13+09:00">2026/10/13 13:02:13</time><span class="num" id="toolVersion">最終更新バージョン：v2026.10.13.2</span></span>
     </div>
   </header>
   <p class="hint" id="borderSyncStatus" role="status" style="font-size:.68rem;margin:5px 2px 8px;line-height:1.5">ボーダー確認中…</p>
@@ -2259,6 +2259,7 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
   function validTriple(v){return Array.isArray(v)&&v.length===3&&v.every(function(n){return typeof n==='number'&&Number.isSafeInteger(n)&&n>0&&n<=MAX_VALUE;})&&v[0]<=v[1]&&v[1]<=v[2];}
   function cleanLog(log,strict){
     var out={};if(!isRecord(log)){if(strict)throw new Error('記録の形式');return out;}
+    if(strict&&Object.keys(log).length>5000)throw new Error('記録は締め時間ごとに5000日までです');
     Object.keys(log).forEach(function(d){if(!validDate(d)||!isRecord(log[d])){if(strict)throw new Error('記録の日付');return;}
       var ranks={};Object.keys(log[d]).forEach(function(r){if(RANKS.indexOf(r)<0||!validTriple(log[d][r])){if(strict)throw new Error('ボーダーの数値');return;}ranks[r]=log[d][r].slice();});
       if(Object.keys(ranks).length)out[d]=ranks;
@@ -2266,7 +2267,9 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
   }
   function cleanList(list,strict){
     if(!Array.isArray(list)){if(strict)throw new Error('一覧の形式');return [];}
+    if(strict&&list.length>500)throw new Error('登録内容は各500件までです');
     return list.reduce(function(out,it){var n=isRecord(it)&&typeof it.name==='string'?it.name.trim():'';
+      if(strict&&n.length>256)throw new Error('登録名は256文字までです');
       if(!n||typeof it.val!=='number'||!Number.isSafeInteger(it.val)||it.val<=0||it.val>MAX_VALUE){if(strict)throw new Error('登録内容');return out;}
       out.push({name:n,val:it.val});return out;},[]);
   }
@@ -2892,6 +2895,7 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
   }
   function normalizeCSVDate(value){var match=String(value||'').trim().match(/^(\d{4})[-/](\d{1,2})[-/](\d{1,2})$/);return match?match[1]+'-'+match[2].padStart(2,'0')+'-'+match[3].padStart(2,'0'):'';}
   function parseImports(text,defDate){
+    requireImportSize(text);
     var raw=normText(text).replace(/^\uFEFF/,'').trim();if(!raw)throw new Error('貼り付け欄が空です');var first=raw.split('\n')[0],out=[];
     var csv=/^(?:\d{4}[-/]\d{1,2}[-/]\d{1,2}|date|日付|記録日)[,\t]/i.test(first.replace(/"/g,''));
     if(csv){var rows=parseCSV(raw,first.indexOf('\t')>=0?'\t':','),header=/^(date|日付|記録日)$/i.test(rows[0][0]),indices=[0,1,2,3,4,5];
@@ -2899,7 +2903,7 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
       rows.forEach(function(row,i){var d=normalizeCSVDate(row[indices[0]]),r=row[indices[1]]&&row[indices[1]].toUpperCase(),v=[2,3,4].map(function(j){return readNumber(row[indices[j]]);}),c=indices[5]>=0?(row[indices[5]]||''):'';c=c.trim().replace(/時締め|時$/g,'');c=c==='13:00'?'13':c==='22:00'?'22':c==='00:00'||c==='24:00'?'24':c||closeKey();if(!validDate(d)||RANKS.indexOf(r)<0||!validTriple(v)||['13','22','24'].indexOf(c)<0)throw new Error('CSV '+(i+(header?2:1))+'行目の日付・ランク・数値・締め時間を確認してください');out.push({date:d,rank:r,vals:v,close:c});});
     }else{splitByDate(raw,defDate).forEach(function(part){var got=parseBorders(part.t),expected=[],m,re=/([SABCD])\s*([1-6])/g;while((m=re.exec(part.t))){var r=m[1]+m[2];if(RANKS.indexOf(r)>=0&&expected.indexOf(r)<0)expected.push(r);}if(expected.some(function(r){return !got[r];}))throw new Error('±0・+1・+2をそろえ、1以上かつ小さい順で入力してください');Object.keys(got).forEach(function(r){if(!validDate(part.d))throw new Error('対象日を選んでください');out.push({date:part.d,rank:r,vals:got[r],close:closeKey()});});});}
     if(!out.length)throw new Error('日付・ランクと3つのボーダー値が見つかりません');
-    var seen=Object.create(null),unique=[];out.forEach(function(x){var key=x.close+'|'+x.date+'|'+x.rank,values=JSON.stringify(x.vals);if(seen[key]!==undefined){if(seen[key]!==values)throw new Error(x.date+' '+x.rank+' '+x.close+'時締めに異なる値が重複しています。同じ日の記録を1行にしてください。');return;}seen[key]=values;unique.push(x);});return unique;
+    var seen=Object.create(null),unique=[];out.forEach(function(x){var key=x.close+'|'+x.date+'|'+x.rank,values=JSON.stringify(x.vals);if(seen[key]!==undefined){if(seen[key]!==values)throw new Error(x.date+' '+x.rank+' '+x.close+'時締めに異なる値が重複しています。同じ日の記録を1行にしてください。');return;}seen[key]=values;unique.push(x);});if(unique.length>90000)throw new Error('一度の取込は90000件までです');return unique;
   }
   function validateBackupSettings(cfg){
     if(!isRecord(cfg))throw new Error('バックアップの設定が正しくありません');
@@ -2921,6 +2925,9 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
     if(bk.editorDrafts!==undefined){cleanEditorDraftPayload(bk.editorDrafts,true);found=true;}
     if(bk.provenance!==undefined)cleanProvenance(bk.provenance,true);if(bk.settings!==undefined){validateBackupSettings(bk.settings);if(bk.settings.collapsed!==undefined)cleanCollapsedPreferences(bk.settings.collapsed,true);}if(!found)throw new Error('復元する記録や登録内容がありません');return bk;
   }
+  function requireImportSize(text){if(typeof text!=='string'||text.length>8*1024*1024)throw new Error('貼り付け・復元は8MB相当までです。期間を分けて取り込んでください。');return text;}
+  function parseBackupText(text){return validateBackupPayload(JSON.parse(requireImportSize(text)));}
+  function importedProvenance(meta){var clean=cleanProvenance(meta,true);Object.keys(clean).forEach(function(c){Object.keys(clean[c]).forEach(function(d){Object.keys(clean[c][d]).forEach(function(r){var m=clean[c][d][r];if(m.origin==='verified'||m.origin==='remote')clean[c][d][r]={origin:'backup',source:'バックアップ（出典未再確認）',checkedAt:''};});});});return clean;}
   function cleanDisplaySettings(value,strict){
     var weight=isRecord(value)&&value.weight==='heavy'?'bold':isRecord(value)?value.weight:null;
     var color=isRecord(value)?displayColor(value.color):null;
@@ -2941,7 +2948,7 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
   }
   function previewRows(rows){var dates={},overwrites=0;rows.forEach(function(x){dates[x.close+':'+x.date]=true;if(logFor(x.close)[x.date]&&logFor(x.close)[x.date][x.rank])overwrites++;});var text=Object.keys(dates).length+'日・締め時間分 / '+rows.length+'件を登録します。既存の'+overwrites+'件は上書き。';if(rows.some(function(x){return x.date>=new Date(todayMs()).toISOString().slice(0,10);}))text+=' 当日・未来の記録は30日集計に含めません。';return text;}
   function commitRows(rows){rows.forEach(function(x){var log=logFor(x.close);if(!log[x.date])log[x.date]={};log[x.date][x.rank]=x.vals.slice();setMeta(x.close,x.date,x.rank,'import','貼り付け・CSV',new Date().toISOString());});statsCache={};dataRevision++;if(save())discardEditorDrafts(rows.map(function(x){return x.close+'|'+x.rank+'|'+x.date;}));update();}
-  $('previewImport').onclick=function(){var raw=$('paste').value.trim(),box=$('importPreview');box.hidden=false;try{if(raw[0]==='{'){validateBackupPayload(JSON.parse(raw));box.textContent='バックアップの記録・登録内容・設定を検証しました。「記録する」で復元します。';}else box.textContent=previewRows(parseImports(raw,$('logDate').value));box.className='import-preview';}catch(e){box.className='import-preview toast err';box.textContent=e.message;}};
+  $('previewImport').onclick=function(){var raw=$('paste').value.trim(),box=$('importPreview');box.hidden=false;try{if(raw[0]==='{'){parseBackupText(raw);box.textContent='バックアップの記録・登録内容・設定を検証しました。「記録する」で復元します。';}else box.textContent=previewRows(parseImports(raw,$('logDate').value));box.className='import-preview';}catch(e){box.className='import-preview toast err';box.textContent=e.message;}};
   $('paste').addEventListener('input',function(){$('importPreview').hidden=true;});
   var offlineReadToken=0,offlineReader=null,offlineReadContext=null;
   function cancelOfflineFileRead(message){
@@ -2956,21 +2963,22 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
     if(file.size>8*1024*1024){msg.className='toast err';msg.textContent='ファイルは8MBまでです。必要な期間に分けて読み込んでください。';return;}
     msg.className='toast';msg.textContent='端末内のファイルを読み込んでいます…';$('importPreview').hidden=true;
     try{var reader=new FileReader();offlineReader=reader;offlineReadContext=context;reader.onerror=reader.onabort=function(){if(token!==offlineReadToken)return;offlineReader=null;offlineReadContext=null;msg.className='toast err';msg.textContent='ファイルを読み込めませんでした。内容を貼り付け欄へコピーする方法も使えます。';};
-      reader.onload=function(){if(token!==offlineReadToken)return;if(context.date!==$('logDate').value||context.deadline!==state.deadline){cancelOfflineFileRead('読込中に対象条件が変わりました。必要なファイルを選び直してください。');return;}offlineReader=null;offlineReadContext=null;try{var text=String(reader.result||'').trim();if(!text)throw new Error('ファイルが空です。');var preview;if(text.charAt(0)==='{'){validateBackupPayload(JSON.parse(text));preview='バックアップの記録・登録内容・設定を検証しました。「記録する」で復元します。';}else preview=previewRows(parseImports(text,context.date));$('paste').value=text;var box=$('importPreview');box.hidden=false;box.className='import-preview';box.textContent=preview;msg.className='toast';msg.textContent=file.name+' の内容を確認しました。「記録する」で確定します。';}catch(e){msg.className='toast err';msg.textContent='読み込みできません：'+e.message;}};
+      reader.onload=function(){if(token!==offlineReadToken)return;if(context.date!==$('logDate').value||context.deadline!==state.deadline){cancelOfflineFileRead('読込中に対象条件が変わりました。必要なファイルを選び直してください。');return;}offlineReader=null;offlineReadContext=null;try{var text=String(reader.result||'').trim();if(!text)throw new Error('ファイルが空です。');var preview;if(text.charAt(0)==='{'){parseBackupText(text);preview='バックアップの記録・登録内容・設定を検証しました。「記録する」で復元します。';}else preview=previewRows(parseImports(text,context.date));$('paste').value=text;var box=$('importPreview');box.hidden=false;box.className='import-preview';box.textContent=preview;msg.className='toast';msg.textContent=file.name+' の内容を確認しました。「記録する」で確定します。';}catch(e){msg.className='toast err';msg.textContent='読み込みできません：'+e.message;}};
       reader.readAsText(file,'UTF-8');
     }catch(e){offlineReader=null;offlineReadContext=null;msg.className='toast err';msg.textContent='ファイルを読み込めません。内容を貼り付け欄へコピーしてください。';}
   });
   $('importBtn').onclick=function(){
     cancelOfflineFileRead('');
     var dd=$('logDate').value,msg=$('importMsg'),raw=$('paste').value.trim();
-    if(raw.charAt(0)==='{'){try{var bk=validateBackupPayload(JSON.parse(raw));
+    if(raw.charAt(0)==='{'){try{var bk=parseBackupText(raw);
       var next=JSON.parse(JSON.stringify(state)),found=bk.editorDrafts!==undefined;
-      var backupMeta=bk.provenance!==undefined?cleanProvenance(bk.provenance,true):{};
+      var backupMeta=bk.provenance!==undefined?importedProvenance(bk.provenance):{};
       ['log','log13','log24'].forEach(function(k){if(bk[k]===undefined)return;found=true;var clean=cleanLog(bk[k],true),c=k==='log13'?'13':k==='log24'?'24':'22';Object.keys(clean).forEach(function(d){next[k][d]=Object.assign({},next[k][d]||{},clean[d]);if(!next.provenance[c])next.provenance[c]={};if(!next.provenance[c][d])next.provenance[c][d]={};Object.keys(clean[d]).forEach(function(r){next.provenance[c][d][r]=backupMeta[c]&&backupMeta[c][d]&&backupMeta[c][d][r]||{origin:'backup',source:'バックアップ'};});});});
       ['items','presets'].forEach(function(k){if(bk[k]===undefined)return;found=true;cleanList(bk[k],true).forEach(function(it){if(!next[k].some(function(x){return x.name===it.name&&x.val===it.val;}))next[k].push(it);});});
       if(bk.settings!==undefined){var cfg=bk.settings;
         ['deadline','endTime','rank','period','targetMethod','bufferPct','roundUnit','asOfDate'].forEach(function(k){next[k]=cfg[k];});next.target=cfg.target===''?'':String(readNumber(cfg.target));next.current=String(readNumber(cfg.current));next.pick=cfg.pick!==undefined&&cfg.pick!==''?+cfg.pick:'';next.analysisBorder=cfg.analysisBorder!==undefined?+cfg.analysisBorder:next.pick!==''?next.pick:0;if(cfg.coreCount!==undefined)next.coreCount=String(readCoreCount(cfg.coreCount));next.targetOrigin=cleanTargetOrigin(cfg.targetOrigin,true);next.currentSavedAt=Number.isFinite(cfg.currentSavedAt)&&cfg.currentSavedAt>0&&cfg.currentSavedAt<=Date.now()?cfg.currentSavedAt:Date.now();if(cfg.collapsed!==undefined)next.collapsed=Object.assign(cleanCollapsedPreferences(next.collapsed),cleanCollapsedPreferences(cfg.collapsed,true));}
       if(bk.settings&&bk.settings.goalDefaults!==undefined)next.goalDefaults=cleanGoalDefaults(bk.settings.goalDefaults);
+      ['items','presets'].forEach(function(k){cleanList(next[k],true);});['log','log13','log24'].forEach(function(k){if(next[k]!==undefined)cleanLog(next[k],true);});
       if(!found)throw new Error('復元する内容');Object.keys(next).forEach(function(k){state[k]=next[k];});statsCache={};dataRevision++;
       clearTargetResetUndo();resetCurrentUndo();applyCollapsedPreferences();var recordsSaved=save(),displaySaved=true;
       if(recordsSaved){var importedDraftKeys=[];['log','log13','log24'].forEach(function(k){var c=k==='log13'?'13':k==='log24'?'24':'22';Object.keys(bk[k]||{}).forEach(function(d){Object.keys(bk[k][d]).forEach(function(r){importedDraftKeys.push(c+'|'+r+'|'+d);});});});discardEditorDrafts(importedDraftKeys);}
@@ -3191,6 +3199,7 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
   });
   function addTo(listKey,nameId,valId){
     var n=$(nameId).value.trim(),v=readNumber($(valId).value);
+    if(n.length>256||state[listKey].length>=500){flagInput($(nameId),n.length>256?'名前は256文字までです。':'登録は500件までです。不要な項目を削除してください。');$(nameId).focus();return;}
     if(!n){flagInput($(nameId),'名前を入力してください。');$(nameId).focus();return;}
     flagInput($(nameId),'');
     if(v===null||v<=0){flagInput($(valId),'登録値は1以上の数値を入力してください。');$(valId).focus();return;}
