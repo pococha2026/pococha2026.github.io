@@ -3,7 +3,7 @@
 <head>
 <!-- GitHub static publication: administration remains on Sites. -->
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-LrvX2Cb4ZrJhHoPvw7rmGv42AuqP5qUqedIke/XGJPw=' 'sha256-Am65bTS3NBC0+xQnvwOWESMXqr+EVllutn0mp2OHQkc='; style-src 'unsafe-inline'; img-src 'self' data: blob:; font-src 'none'; connect-src 'self' https://poco-meter.freefreelife2000.chatgpt.site; object-src 'none'; frame-src 'none'; worker-src 'self'; media-src 'none'; manifest-src 'self'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-LrvX2Cb4ZrJhHoPvw7rmGv42AuqP5qUqedIke/XGJPw=' 'sha256-08LMRKKvplLncbRgFLWs5sXBl1uJzNm4prNFVU6G/C4='; style-src 'unsafe-inline'; img-src 'self' data: blob:; font-src 'none'; connect-src 'self' https://poco-meter.freefreelife2000.chatgpt.site; object-src 'none'; frame-src 'none'; worker-src 'self'; media-src 'none'; manifest-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="pococha-app" content="meter-offline-v1">
 <!-- offline-head:start -->
 <link rel="manifest" href="./meter.webmanifest">
@@ -1639,10 +1639,17 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
 :root #logList .saved-record-month-close{min-height:44px;margin:0 0 8px;padding:6px 12px;font-size:.8125rem!important}
 :root #logList .saved-record-month-rows{display:flex;flex-direction:column;gap:8px;max-height:24rem;max-height:min(50dvh,24rem);overflow:auto;min-width:0}
 :root #logList .saved-record-month-rows:focus-visible,:root #logList .saved-record-month>summary:focus-visible{outline:3px solid var(--teal);outline-offset:-3px}
+/* Period review and explicit clock uncertainty */
+.period-notice{padding:10px 12px;border:2px solid var(--warn);border-radius:10px;font-weight:700}
+.period-notice-actions{display:flex;flex-wrap:wrap;gap:8px;margin:-4px 0 12px}
+.period-notice-actions button{min-height:44px;white-space:normal}
+#clockAccuracy{display:block;font-size:11px;line-height:1.5;overflow-wrap:anywhere}
+#miniClockAccuracy{display:block;font-size:11px;line-height:1.5;white-space:normal;overflow-wrap:anywhere}
+#miniPeriodReview{min-height:44px;max-width:100%;white-space:normal;font-size:11px;line-height:1.4}
 </style>
 </head>
 <body>
-<div class="mini" id="mini" aria-hidden="true"><div class="hud-actions"><button type="button" id="hudToggle" role="switch" aria-checked="true" aria-label="常時表示">常時表示OFF</button></div><div class="mini-remaining"><span id="miniL">目標まであと</span><br><b id="miniR" class="num">-</b></div><div class="mini-countdown" style="text-align:right"><span id="miniDeadlineLabel">締切まで</span><br><span class="mt" id="miniT">-</span></div><button id="miniAdd" aria-label="現在値に1,000 ptを足す">+1K</button>
+<div class="mini" id="mini" aria-hidden="true"><div class="hud-actions"><button type="button" id="hudToggle" role="switch" aria-checked="true" aria-label="常時表示">常時表示OFF</button></div><div class="mini-remaining"><span id="miniL">目標まであと</span><br><b id="miniR" class="num">-</b></div><div class="mini-countdown" style="text-align:right"><span id="miniDeadlineLabel">締切まで</span><br><span class="mt" id="miniT">-</span><small class="clock-accuracy" id="miniClockAccuracy">誤差：未確認</small><button type="button" id="miniPeriodReview" hidden>締め後・現在値を確認</button></div><button id="miniAdd" aria-label="現在値に1,000 ptを足す">+1K</button>
 <!-- phone-current:start -->
 <time id="miniNow" class="num" hidden title="現在日時・日本時間（時刻同期を確認中）"><span id="miniTimeLabel">時刻を確認中</span><span id="miniNowDate"></span><b id="miniNowTime"></b></time>
 <div class="mini-input mini-target" id="miniTargetField" hidden><label for="targetMini">目標値</label><input class="num" id="targetMini" type="text" inputmode="decimal" enterkeyhint="done" autocomplete="off" placeholder="未設定" tabindex="-1" aria-describedby="targetMiniError inputStatus"><div class="mini-target-actions"><button type="button" class="mini-action" id="restoreTargetMini" tabindex="-1" aria-label="目標値をデフォルトに戻す">デフォルト</button><button type="button" class="mini-action" id="openMiniTargetDetails" tabindex="-1" aria-controls="sectionBody-1" aria-label="目標値の詳細設定を開く">詳細設定</button></div></div>
@@ -1697,12 +1704,13 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
       </details>
       <!-- display-settings-menu:end -->
       <button type="button" id="refreshPage" aria-label="ページ全体を再読み込みする" title="ページ全体を再読み込み">更新</button>
-      <span class="ylogo-update" id="toolUpdatedDate" title="ツール本体の最終更新日時とバージョン（ボーダーデータの更新日時とは別）"><span>更新時間</span><time class="num" datetime="2026-10-13T13:02:13+09:00">2026/10/13 13:02:13</time><span class="num" id="toolVersion">最終更新バージョン：v2026.10.13.2</span></span>
+      <span class="ylogo-update" id="toolUpdatedDate" title="ツール本体の最終更新日時とバージョン（ボーダーデータの更新日時とは別）"><span>更新時間</span><time class="num" datetime="2026-10-13T14:09:15+09:00">2026/10/13 14:09:15</time><span class="num" id="toolVersion">最終更新バージョン：v2026.10.13.3</span></span>
     </div>
   </header>
   <p class="hint" id="borderSyncStatus" role="status" style="font-size:.68rem;margin:5px 2px 8px;line-height:1.5">ボーダー確認中…</p>
   <p class="hint" id="storageStatus" role="status" hidden></p>
-  <p class="hint" id="periodNotice" role="status" hidden></p>
+  <p class="hint period-notice" id="periodNotice" role="status" hidden></p>
+  <div class="period-notice-actions" id="periodNoticeActions" hidden><button type="button" id="reviewPeriodCurrent">現在値を確認・入力</button><button type="button" id="resetPeriodCurrent">0にリセット</button></div>
 
   <div class="meter card" id="liveMeter" role="region" aria-label="目標までの残り・入力・必要アイテム">
     <div id="remainingSummary">
@@ -1717,7 +1725,7 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
           </div>
           <div class="meter-progress-row">
           <div class="compact-deadline-controls">
-            <div class="deadline-countdown" id="deadlineCountdown"><span id="leftLabel">締めまで</span><div class="countdown-value"><span class="countdown-prefix" id="remainingTimePrefix">残り</span><b class="num" id="left" aria-describedby="leftLabel remainingTimePrefix clockTimeBasis">--:--:--</b></div><small class="clock-time-basis" id="clockTimeBasis"><span id="clockTimeSource">端末時計・日本時間</span><button type="button" id="clockSyncNow" aria-label="Pocochaサーバー時刻を再同期"><span id="clockSyncStatus">サーバー時刻を確認中</span></button></small></div>
+            <div class="deadline-countdown" id="deadlineCountdown"><span id="leftLabel">締めまで</span><div class="countdown-value"><span class="countdown-prefix" id="remainingTimePrefix">残り</span><b class="num" id="left" aria-describedby="leftLabel remainingTimePrefix clockTimeBasis">--:--:--</b></div><small class="clock-time-basis" id="clockTimeBasis"><span id="clockTimeSource">端末時計・日本時間</span><span id="clockAccuracy">誤差：未確認</span><button type="button" id="clockSyncNow" aria-label="Pocochaサーバー時刻を再同期"><span id="clockSyncStatus">サーバー時刻を確認中</span></button></small></div>
             <div class="deadline-core-pair">
             <div class="meter-deadline"><label for="closeSel">締め時間</label><select id="closeSel" class="closesel" aria-label="締め時間"><option value="13:00">13時〆</option><option value="22:00">22時〆</option><option value="00:00">24時〆</option><option value="custom">手入力</option></select></div>
             <div class="core-quick meter-core"><label for="coreCountTop">現コア数</label><div class="core-quick-values"><input class="sm num" id="coreCountTop" type="text" inputmode="numeric" enterkeyhint="done" autocomplete="off" aria-describedby="coreBonusTop coreInputError inputStatus" placeholder="0" aria-label="現コア数（0〜1000人）" value="0"><span class="bonus num" id="coreBonusTop" aria-label="コアボ倍率">100%</span><small class="core-bonus-caption">コアボ</small></div><small id="coreInputError" class="local-input-error" hidden></small></div>
@@ -2297,11 +2305,11 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
   function currentTimeMs(){var elapsed=clockElapsed();return elapsed!==null&&elapsed>=0&&elapsed<=300000?clockSample.timeMs+elapsed:Date.now();}
   function clockBasis(){
     var elapsed=clockElapsed(),valid=elapsed!==null&&elapsed>=0&&elapsed<=300000;
-    if(valid){var error=Math.ceil((clockSample.uncertaintyMs+elapsed*.0001)/1000),status=clockState==='failed'?'前回同期・再同期失敗':clockBusy?'再同期中':'同期済み';return {primary:'Pocochaサーバー時刻',secondary:'日本時間・'+status,description:'Pococha公式サイトのHTTP応答時刻を基準に日本時間で計算。'+status+'。通信誤差の目安は約±'+error+'秒。Pocochaアプリ内部の時計との一致は未確認。'};}
+    if(valid){var error=Math.ceil((clockSample.uncertaintyMs+elapsed*.0001)/1000),status=clockState==='failed'?'前回同期・再同期失敗':clockBusy?'再同期中':'同期済み';return {primary:'Pocochaサーバー時刻',secondary:'日本時間・'+status,accuracy:'通信誤差目安 ±'+error+'秒',description:'Pococha公式サイトのHTTP応答時刻を基準に日本時間で計算。'+status+'。通信誤差の目安は約±'+error+'秒。Pocochaアプリ内部の時計との一致は未確認。'};}
     var status=clockBusy||clockState==='pending'?'サーバー時刻を取得中':clockSample?'同期切れ・未同期':'サーバー時刻未同期';
-    return {primary:'端末時計・日本時間',secondary:status,description:'端末時計（日本時間）で計算。'+status+'。'};
+    return {primary:'端末時計・日本時間',secondary:status,accuracy:'誤差：未確認（端末時刻）',description:'端末時計（日本時間）で計算。'+status+'。'};
   }
-  function renderClockBasis(){var basis=clockBasis(),label=basis.primary==='Pocochaサーバー時刻'?basis.primary:'端末時刻';$('todayTimeLabel').textContent=label;$('miniTimeLabel').textContent=label;$('clockTimeSource').textContent=basis.primary;$('clockSyncStatus').textContent=basis.secondary;$('clockTimeBasis').title=basis.description;$('today').title=basis.description;$('miniNow').title=basis.description;}
+  function renderClockBasis(){var basis=clockBasis(),label=basis.primary==='Pocochaサーバー時刻'?basis.primary:'端末時刻';$('todayTimeLabel').textContent=label;$('miniTimeLabel').textContent=label;$('clockTimeSource').textContent=basis.primary;$('clockSyncStatus').textContent=basis.secondary;$('clockAccuracy').textContent=basis.accuracy;$('miniClockAccuracy').textContent=basis.accuracy;$('clockAccuracy').title=basis.description;$('miniClockAccuracy').title=basis.description;$('clockTimeBasis').title=basis.description;$('today').title=basis.description;$('miniNow').title=basis.description;}
   function syncPocochaClock(force){
     var started=clockMonotonic(),elapsed=clockElapsed();
     if(clockBusy)return Promise.resolve(false);
@@ -3079,7 +3087,7 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
     var editKey=closeKey()+'|'+state.rank+'|'+$('editDate').value;if(editKey!==editorContext)loadEditor();
     var itemListSignature=JSON.stringify(state.items)+':'+tgt+':'+remain;if(listSignatures.items!==itemListSignature){listSignatures.items=itemListSignature;renderList($('items'),state.items,tgt?remain:null);}
     var stale=cur>0&&meterWindow(state.currentSavedAt).end!==period.end;
-    $('periodNotice').hidden=!stale;$('periodNotice').textContent=stale?'新しいメーター期間になっています。現在値は前の入力を保持しています。必要に応じて更新・リセットしてください。':'';
+    $('periodNotice').hidden=!stale;$('periodNoticeActions').hidden=!stale;$('miniPeriodReview').hidden=!stale;$('periodNotice').textContent=stale?'締め時刻を過ぎ、新しいメーター期間になっています。現在値は前の入力を保持しています。Pocochaの現在値を確認して入力するか、0にリセットしてください。':'';
 
     if(inputErrors)['target','targetMini','current','currentTop','currentMini'].forEach(function(id){var el=$(id),n=readNumber(el.value);if(!isNumericComposing(el)&&el.getAttribute('aria-invalid')==='true'&&n!==null&&(!isTargetInput(el)||(el.value.trim()!==''&&n>0)))flagInput(el,'');});
     refreshManualGoal();renderConvenience();refreshSaveMenu();
@@ -3186,6 +3194,9 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
     $('currentActionMsg').textContent=(actual>0?'＋':actual<0?'−':'')+fmt(Math.abs(actual))+' ptを反映しました。'+(requested<0?'0 ptを下回るため、0 ptで止めました。':requested>MAX_VALUE?'入力上限に達したため、上限で止めました。':'');
   }
   $('resetTop').onclick=function(){setCurrent(0);};
+  $('reviewPeriodCurrent').onclick=function(){revealMenuTarget('currentTop',true);};
+  $('miniPeriodReview').onclick=function(){revealMenuTarget('currentTop',true);};
+  $('resetPeriodCurrent').onclick=function(){setCurrent(0);$('currentActionMsg').textContent='現在値を0にリセットしました。元に戻すボタンで直前の値に戻せます。';};
   document.querySelectorAll('[data-addtop]').forEach(function(b){b.onclick=function(){adjustCurrentBy(+b.dataset.addtop);};});
   ['target','targetMini'].forEach(function(id){$(id).addEventListener('blur',function(){delete numericComposing[id];numericInput(this,'target');var n=readNumber(this.value);if(this.value.trim()!==''&&n!==null&&n>0)this.value=fmt(n);});});
   function clearPick(){state.targetOrigin=null;if(state.pick!==''&&state.pick!==undefined){state.pick='';$('pickNote').textContent='目標値を手入力しました。「自動計算・分析」の候補からも設定できます。';}}
