@@ -1646,6 +1646,7 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
 #clockAccuracy{display:block;font-size:11px;line-height:1.5;overflow-wrap:anywhere}
 #miniClockAccuracy{display:block;font-size:11px;line-height:1.5;white-space:normal;overflow-wrap:anywhere}
 #miniPeriodReview{min-height:44px;max-width:100%;white-space:normal;font-size:11px;line-height:1.4}
+.history-portal{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:12px 0}.history-portal a{min-height:44px;display:inline-flex;align-items:center;padding:8px 12px;border:1px solid var(--line);border-radius:9px;font-weight:700}
 </style>
 </head>
 <body>
@@ -1704,11 +1705,12 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
       </details>
       <!-- display-settings-menu:end -->
       <button type="button" id="refreshPage" aria-label="ページ全体を再読み込みする" title="ページ全体を再読み込み">更新</button>
-      <span class="ylogo-update" id="toolUpdatedDate" title="ツール本体の最終更新日時とバージョン（ボーダーデータの更新日時とは別）"><span>更新時間</span><time class="num" datetime="2026-10-13T14:09:15+09:00">2026/10/13 14:09:15</time><span class="num" id="toolVersion">最終更新バージョン：v2026.10.13.3</span></span>
+      <span class="ylogo-update" id="toolUpdatedDate" title="ツール本体の最終更新日時とバージョン（ボーダーデータの更新日時とは別）"><span>更新時間</span><time class="num" datetime="2026-10-13T15:12:46+09:00">2026/10/13 15:12:46</time><span class="num" id="toolVersion">最終更新バージョン：v2026.10.13.4</span></span>
     </div>
   </header>
   <p class="hint" id="borderSyncStatus" role="status" style="font-size:.68rem;margin:5px 2px 8px;line-height:1.5">ボーダー確認中…</p>
   <p class="hint" id="storageStatus" role="status" hidden></p>
+  <div class="history-portal"><a href="./border-history.html" class="manual-link">🗂️ 過去のボーダー表を開く</a><span class="hint">日付・ランク・締め時間から検索</span></div>
   <p class="hint period-notice" id="periodNotice" role="status" hidden></p>
   <div class="period-notice-actions" id="periodNoticeActions" hidden><button type="button" id="reviewPeriodCurrent">現在値を確認・入力</button><button type="button" id="resetPeriodCurrent">0にリセット</button></div>
 
@@ -1874,7 +1876,8 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
   <section class="card collapsed">
     <h2>🗂️ ボーダー記録（<span class="closeLbl">22時締め</span>）</h2>
     <div class="section-body" id="sectionBody-4" hidden>
-    <details class="save-menu daily-viewer" id="dailyViewer">
+    <p><a class="manual-link" href="./border-history.html">過去のボーダー表を専用ページで開く</a></p>
+    <div id="legacyHistoryViewer" hidden inert aria-hidden="true"><details class="save-menu daily-viewer" id="dailyViewer">
       <summary>過去のボーダーを検索・閲覧</summary>
       <div class="history-view-switch" role="group" aria-label="記録の探し方"><button type="button" id="historyDateView" aria-pressed="true" aria-controls="dailyControls dailyTable">日付で見る</button><button type="button" id="historyPeriodView" aria-pressed="false" aria-controls="historySearch">期間で探す</button></div>
       <div id="dailyControls">
@@ -1912,6 +1915,7 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
         <table><caption id="dailyCaption"></caption><thead><tr><th scope="col">ランク</th><th scope="col">±0（pt）</th><th scope="col">+1（pt）</th><th scope="col">+2（pt）</th></tr></thead><tbody id="dailyRows"></tbody></table>
       </div>
     </details>
+    </div>
     <div class="record-editor" id="recordEditor"><div class="studio-head"><b>1日分をかんたん登録</b><span id="editorScope"></span></div><div class="record-grid"><div><label for="editDate">記録日</label><input id="editDate" type="date"></div><div><label for="editZero">±0</label><input id="editZero" type="text" inputmode="decimal" placeholder="例 300K"></div><div><label for="editPlus1">+1</label><input id="editPlus1" type="text" inputmode="decimal" placeholder="例 600K"></div><div><label for="editPlus2">+2</label><input id="editPlus2" type="text" inputmode="decimal" placeholder="例 900K"></div></div><div class="editor-actions"><button class="main" id="saveDay">この日の記録を保存</button><button id="loadDay">保存済みの値を読み込む</button><button id="deleteDay">このランクの記録を削除</button></div><p id="editorMsg" class="toast" role="status"></p><p class="hint">対象は上で選んだランク・締め時間です。3つの値をそろえて入力します。K・万・全角数字も使えます。</p></div>
     <p class="hint" style="margin:0 0 10px">早見表の「前日ランクボーダー」を貼り付けると全ランク分を記録します。「9月23日」などの日付を含めて貼り付ければ、何日分でもまとめて日付ごとに記録できます（日付がない場合は下の対象日で記録）。30日分そろうと「30日」の平均が完成します。</p>
     <div class="fields one">

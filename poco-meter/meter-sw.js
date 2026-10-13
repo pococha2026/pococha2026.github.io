@@ -2,20 +2,23 @@
    always use the network. Input/record storage remains device-local. */
 const BASE = new URL(self.registration.scope);
 const CACHE_PREFIX = 'pococha-meter-shell-' + encodeURIComponent(BASE.pathname) + '-';
-const CACHE_NAME = CACHE_PREFIX + 'v46-github';
+const CACHE_NAME = CACHE_PREFIX + 'v47-github';
 const APP_MARKER = '<meta name="pococha-app" content="meter-offline-v1">';
 const HOME = BASE.href;
 let shellGeneration = 0, cachedGeneration = 0;
 let shellWrites = Promise.resolve(), preparation = null;
 const METHOD_PATH = new URL('calculation-methods.html', BASE).pathname;
+const HISTORY_PATH = new URL('border-history.html', BASE).pathname;
+const HISTORY_MARKER = '<meta name="pococha-history" content="border-history-v1">';
 const METHOD_MARKER = '<meta name="pococha-help" content="calculation-methods-v1">';
-const ASSETS = ['meter.webmanifest', 'meter-icon-192.png', 'meter-icon-512.png', 'meter-icon-180.png'].map(path => new URL(path, BASE).pathname).concat(METHOD_PATH);
+const ASSETS = ['meter.webmanifest', 'meter-icon-192.png', 'meter-icon-512.png', 'meter-icon-180.png'].map(path => new URL(path, BASE).pathname).concat(METHOD_PATH, HISTORY_PATH);
 function expectedAssetType(response, expected) {
   return (response.headers.get('content-type') || '').split(';')[0].trim().toLowerCase() === expected;
 }
 async function validAsset(response, path) {
-  const expected = path === METHOD_PATH ? 'text/html' : path.endsWith('.png') ? 'image/png' : 'application/manifest+json';
+  const expected = (path === METHOD_PATH || path === HISTORY_PATH) ? 'text/html' : path.endsWith('.png') ? 'image/png' : 'application/manifest+json';
   if (!response || response.status !== 200 || response.redirected || !expectedAssetType(response, expected)) return false;
+  if (path === HISTORY_PATH) {if(response.url && response.url !== new URL(HISTORY_PATH, HOME).href)return false;return (await response.clone().text()).includes(HISTORY_MARKER);}
   if (path !== METHOD_PATH) return true;
   if (response.url && response.url !== new URL(METHOD_PATH, HOME).href) return false;
   return (await response.clone().text()).includes(METHOD_MARKER);
