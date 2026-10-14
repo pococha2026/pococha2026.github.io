@@ -1,6 +1,6 @@
 /* © 2026 Pococha1012 — offline application shell only; no user data. */
 'use strict';
-const VERSION='2.46',BASE=new URL(self.registration.scope),ROOT=new URL('./',BASE).href;
+const VERSION='2.47',BASE=new URL(self.registration.scope),ROOT=new URL('./',BASE).href;
 const PREFIX='pococha-offline:'+encodeURIComponent(BASE.pathname)+':',CACHE=PREFIX+VERSION;
 const CONTROL=PREFIX+'control',CONTROL_URL=new URL('offline-control',BASE).href;
 const ASSETS=['manifest.webmanifest','icon-192.png','icon-512.png'];

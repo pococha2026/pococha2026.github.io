@@ -1,7 +1,4 @@
 <!DOCTYPE html><html><head><meta charset="utf8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
-/* Official Instagram for the independent tool creator. */
-.official-tools-account{margin:12px 0 8px;font-size:.875rem;line-height:1.7;text-align:left;overflow-wrap:anywhere}
-.official-tools-account a{display:inline-flex;flex-direction:column;justify-content:center;min-height:44px;max-width:100%;color:inherit;text-decoration:underline;text-underline-offset:3px}
 </style>
 
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22%23111e31%22%2F%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2222%22%20fill%3D%22none%22%20stroke%3D%22%236adaff%22%20stroke-width%3D%224%22%2F%3E%3Ctext%20x%3D%2232%22%20y%3D%2243%22%20font-family%3D%22sans-serif%22%20font-size%3D%2232%22%20font-weight%3D%22bold%22%20text-anchor%3D%22middle%22%20fill%3D%22%236adaff%22%3EC%3C%2Ftext%3E%3C%2Fsvg%3E"><style id="pc-v219-simplification">
@@ -16,14 +13,14 @@
 }
 @media print{.source-details-menu,.direct-input-tools,.direct-save-menu{display:none!important}}
 </style>
-<meta name="pococha-offline-version" content="2.46">
+<meta name="pococha-offline-version" content="2.47">
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" href="./icon-192.png">
 <meta name="apple-mobile-web-app-title" content="コイン計算">
 </head><body>
 <title>Pococha 同額コイン計算機</title>
 <meta name="pococha-edition" content="offline">
-<meta name="pococha-updated" content="2026-10-05">
+<meta name="pococha-updated" content="2026-10-14">
 <style>.hero{--ylt:#ffffff;--yln:#a5b4fc}.day-theme .hero{--ylt:#1b1f2e;--yln:#4338ca}.ylogo-wm{line-height:0!important;text-shadow:none!important}.ylogo-wm .ylogo-svg{height:46px;width:auto;max-width:100%;display:block}@media(max-width:700px){.ylogo-wm .ylogo-svg{height:36px}}@media print{.hero{--ylt:#142c42;--yln:#142c42}.ylogo-wm .ylogo-svg{height:30px}}</style>
 <meta name="copyright" content="© 2026 Pococha1012 All Rights Reserved. 無断転載・転用・再配布禁止">
 <meta name="pococha-owner" content="Pococha1012">
@@ -748,7 +745,7 @@ button,summary,select,a,label,input[type=checkbox]{touch-action:manipulation}
   <p id="rightsMessage" class="rights-message" role="status" aria-live="polite"></p>
  </div>
 </details></section><details class="card usage"><summary>計算の前提</summary><div class="body"><p><b>同額の定義：</b>「全員同じK」は 人数×必要コイン＝元の予算、「Kを混ぜる」は原則として各人の必要コイン合計＝元の予算です。ただし「人数ごとの最大配分」の1人だけは、完全一致がない場合に予算以内最大と余りコインを参考表示します。カスタムカードは指定した垢数で予算内の最大Kと実際の余りコインを表示します。</p><p><b>配分の前提：</b>配分する人数には、1K以上になる人だけを含めます。0Kの人を人数に含めません。予算不足や、選択範囲の必要額が一致しない場合は「該当なし」を表示します。すべての人が条件1の非コイン条件も満たす場合だけの比較です。</p><p><b>最大配分：</b>整数の動的計画法で、人数と必要コイン合計ごとに合計Kの最大値を求めます。同じ最大値が複数人数で得られる場合、要約では少ない人数の1例を優先します。同じ人数・同じ最大Kでは、1つの配分のみ表示します。予算以内で同じ最大Kが得られるなら、必要コインの少ない配分を優先します。</p><p><b>保存と通信：</b>計算・CSV保存はHTMLファイル内で実行します。必要コインの手動変更は、利用できる場合のみブラウザーのローカル保存領域に保存します。ファイル名・場所・ブラウザーの変更やデータ削除で引き継がれない場合があります。入力値・計算結果をサーバーへ自動送信しません。Web版はアプリファイル取得・キャッシュ更新のため同じ配信元へアクセスします。共有・バックアップ送信・資料リンクは、自分で操作した場合にだけ実行します。保存領域は端末・ブラウザーごとで、自動同期しません。</p></div></details>
- <footer class="footer"><span class="copyright-footer">© 2026 Pococha1012</span><span class="footer-terms">無断転載・転用・再配布禁止・無断改変／販売禁止</span><span>非公式・数値比較用 ／ 各人1アカウントを前提</span><span>初期資料確認日 2026/09/23 ・ ソフト v2.46 ・ 最終更新 2026/10/09 JST</span></footer>
+ <footer class="footer"><span class="copyright-footer">© 2026 Pococha1012</span><span class="footer-terms">無断転載・転用・再配布禁止・無断改変／販売禁止</span><span>非公式・数値比較用 ／ 各人1アカウントを前提</span><span>初期資料確認日 2026/09/23 ・ ソフト v2.47 ・ 最終更新 2026/10/14 JST</span></footer>
 </main>
 <div id="displayPreferences" class="save-sheet display-preferences" role="dialog" aria-modal="true" aria-labelledby="displayPreferencesTitle" hidden>
  <div class="save-card display-preferences-card">
@@ -1281,7 +1278,7 @@ button,summary,select,a,label,input[type=checkbox]{touch-action:manipulation}
    doc.getElementById('pocochaCustomCardsConfig').textContent=JSON.stringify(window.pocochaCustomCards.counts());
    doc.getElementById('pocochaPatternDefaultsConfig').textContent=JSON.stringify(window.pocochaPatternDefaults.get());
    doc.querySelectorAll('.flow-switch,.smart-heading,#directOptions,#fixedMainPatterns').forEach(el=>el.remove());const directResult=doc.getElementById('directResult');if(directResult){directResult.replaceChildren();directResult.removeAttribute('data-state');}doc.getElementById('directOutputs').hidden=true;doc.body.classList.remove('direct-mode','source-mode','direct-settings');
-   doc.title='Pococha 同額コイン計算機 v2.46｜Pococha1012・利用者用';
+   doc.title='Pococha 同額コイン計算機 v2.47｜Pococha1012・利用者用';
    doc.querySelectorAll('link[rel=manifest],link[rel=apple-touch-icon],meta[name=pococha-offline-version]').forEach(el=>el.remove());
    // Runtime-created controls must not be serialized and created a second time on startup.
    ['sourcePeople','sourceK'].forEach(id=>doc.getElementById(id)?.replaceChildren());
@@ -2454,7 +2451,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 </script>
 
 
-<!--Y1012-FOOTER-START--><footer class="y1012-foot" style="max-width:720px;margin:24px auto 12px;padding:0 16px;font:12px/1.6 -apple-system,BlinkMacSystemFont,'Hiragino Sans',sans-serif;color:inherit;opacity:.8"><details style="border:1px solid rgba(127,127,127,.35);border-radius:10px;padding:8px 12px"><summary style="cursor:pointer;font-weight:600">免責事項</summary><ul style="margin:8px 0 2px;padding-left:1.2em"><li>本ツールは Pococha1012 が個人で制作した非公式ツールです。Pococha・Instagram・TikTok・X・LINE・Google など、各サービスの運営会社とは一切関係ありません。</li><li>計算結果・表示内容は目安（参考値）です。正確性・最新性・完全性を保証するものではありません。実際の数値・ルールは各サービスの公式情報で必ずご確認ください。</li><li>本ツールの利用、または利用できなかったことにより生じたいかなる損害・トラブルについても、制作者は一切の責任を負いません。</li><li>入力・保存したデータは、端末やブラウザの設定・データ削除・不具合などにより消える場合があります。大切なデータはご自身で控えを取ってください。</li><li>本ツールの内容・仕様は、予告なく変更・公開停止する場合があります。</li></ul><p class="official-tools-account"><a id="officialToolsInstagram" href="https://www.instagram.com/pococha1012/" target="_blank" rel="noopener noreferrer" aria-label="Pococha1012 ツール公式Instagram @pococha1012 を新しいタブで開く">Pococha1012 ツール公式Instagram<br>@pococha1012</a></p></details></footer><!--Y1012-FOOTER-END-->
+<!--Y1012-FOOTER-START--><footer class="y1012-foot" style="max-width:720px;margin:24px auto 12px;padding:0 16px;font:12px/1.6 -apple-system,BlinkMacSystemFont,'Hiragino Sans',sans-serif;color:inherit;opacity:.8"><details style="border:1px solid rgba(127,127,127,.35);border-radius:10px;padding:8px 12px"><summary style="cursor:pointer;font-weight:600">免責事項</summary><p style="margin:8px 0 2px">本ツールは非公式です。計算結果は目安としてご利用ください。</p></details></footer><!--Y1012-FOOTER-END-->
 
 
 <style id="pc-v2-style">
@@ -3028,10 +3025,10 @@ body.large-text .pattern-search-select{font-size:18px}
 }
 </style>
 <script id="pc-offline-v221">
-/* © 2026 Pococha1012 — device-local offline and draft recovery v2.46. */
+/* © 2026 Pococha1012 — device-local offline and draft recovery v2.47. */
 (function(){
  'use strict';
- const VERSION='2.46',KEY='pococha-offline-draft-v1',FORMAT='pococha-local-input',MAX=16000,$=id=>document.getElementById(id);
+ const VERSION='2.47',KEY='pococha-offline-draft-v1',FORMAT='pococha-local-input',MAX=16000,$=id=>document.getElementById(id);
  let memory=null,lastContent='',diskSaved=false,timer=0,restoring=false,started=false,remote=null,importPending=null,regPromise=null,statusSerial=0,importSerial=0,reg=null,preparing=false,prepared=false,requestedReload=false,installPrompt=null,lastUpdate=0,newerActive=false,reloadTarget=null,reloadTimer=0,reloadSerial=0;
  const text=(id,value,error=false)=>{const el=$(id);if(!el)return;if(el.textContent!==value)el.textContent=value;el.classList.toggle('is-error',error);};
  const composing=()=>$('directBudget')?.dataset.composing==='true';
