@@ -3,7 +3,7 @@
 <head>
 <!-- GitHub static publication: administration remains on Sites. -->
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-LrvX2Cb4ZrJhHoPvw7rmGv42AuqP5qUqedIke/XGJPw=' 'sha256-vZJmxfQi3cefX5Or3YdyrAhXrcUynic+Jplqg3Wysvk='; style-src 'unsafe-inline'; img-src 'self' data: blob:; font-src 'none'; connect-src 'self' https://poco-meter.freefreelife2000.chatgpt.site; object-src 'none'; frame-src 'none'; worker-src 'self'; media-src 'none'; manifest-src 'self'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-LrvX2Cb4ZrJhHoPvw7rmGv42AuqP5qUqedIke/XGJPw=' 'sha256-JXAM+xz69M2K/gn37+kxrGmMCcN+R9ZKjo9FMEKaark='; style-src 'unsafe-inline'; img-src 'self' data: blob:; font-src 'none'; connect-src 'self' https://poco-meter.freefreelife2000.chatgpt.site; object-src 'none'; frame-src 'none'; worker-src 'self'; media-src 'none'; manifest-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="pococha-app" content="meter-offline-v1">
 <!-- offline-head:start -->
 <link rel="manifest" href="./meter.webmanifest">
@@ -1249,6 +1249,7 @@ header.card>div:first-child h1{min-width:0;overflow-wrap:anywhere}
   .conversion-note>summary,.pace-details>summary,.method-details>summary,.stats-details>summary{min-height:max(44px,2.75rem);font-size:.875rem;line-height:1.5}
   #liveMeter .pace span{font-size:.75rem}.pace b{max-width:100%;overflow-wrap:anywhere}
   .sectionToggle,.goal-defaults>summary{min-height:max(44px,2.75rem);font-size:.9375rem!important;line-height:1.5}
+  .goal-defaults-actions button{min-height:max(44px,2.75rem);padding:8px}
   .secondary-menus label,.goal-defaults-grid label,.analysis-table-wrap th,.analysis-table-wrap td{font-size:.875rem;line-height:1.5}
   .secondary-menus input,.secondary-menus select,.secondary-menus textarea{font-size:1rem;min-height:max(44px,2.75rem)}
   .method-comparison button b,.candidate-value{overflow-wrap:anywhere;max-width:100%}
@@ -1705,7 +1706,7 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
       </details>
       <!-- display-settings-menu:end -->
       <button type="button" id="refreshPage" aria-label="ページ全体を再読み込みする" title="ページ全体を再読み込み">更新</button>
-      <span class="ylogo-update" id="toolUpdatedDate" title="ツール本体の最終更新日時とバージョン（ボーダーデータの更新日時とは別）"><span>更新時間</span><time class="num" datetime="2026-10-14T13:25:05+09:00">2026/10/14 13:25:05</time><span class="num" id="toolVersion">最終更新バージョン：v2026.10.14.1</span></span>
+      <span class="ylogo-update" id="toolUpdatedDate" title="ツール本体の最終更新日時とバージョン（ボーダーデータの更新日時とは別）"><span>更新時間</span><time class="num" datetime="2026-10-14T13:39:28+09:00">2026/10/14 13:39:28</time><span class="num" id="toolVersion">最終更新バージョン：v2026.10.14.2</span></span>
     </div>
   </header>
   <p class="hint" id="borderSyncStatus" role="status" style="font-size:.68rem;margin:5px 2px 8px;line-height:1.5">ボーダー確認中…</p>
@@ -1811,6 +1812,8 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
     <div class="analysis-controls"><label for="analysisBorder">選んだ期間の目標ボーダー</label><select id="analysisBorder" class="num"><option value="0">±0</option><option value="1">+1</option><option value="2">+2</option></select><p class="hint">±0・+1・+2の自動目標は、締め時間・期間・ランク・算出方法・上乗せ率・切り上げ単位の変更に即連動します。「手入力」は入力した目標を基準に残りを計算します。記録の保存・取り込み後も自動目標を再計算します。</p></div>
     <details class="goal-defaults" id="goalDefaultsPanel"><summary>デフォルト値を設定</summary>
       <p class="hint" id="goalDefaultsHelp">各項目を保存し、必要なときに適用できます。現在値は保持します。</p>
+      <p class="hint" id="goalDefaultsSavedSummary"></p>
+      <p class="toast" id="goalDefaultsDraftNote" role="status" aria-live="polite" hidden>編集中の値は未保存です。「デフォルトを保存」で確定します。</p>
       <div class="goal-defaults-grid">
         <div><label for="defaultPeriod">集計期間</label><select id="defaultPeriod"></select></div>
         <div><label for="defaultRank">ランク</label><select id="defaultRank"></select></div>
@@ -3174,7 +3177,8 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
   $('applyManualTarget').onclick=function(){applyManualGoal($('target'));};
   $('openBorderTargets').onclick=function(){navigateMenuTarget('targetStudio');};
   $('openMiniTargetDetails').onclick=function(){navigateMenuTarget('targetStudio');};
-  $('openGoalDefaults').onclick=function(){navigateMenuTarget('goalDefaultsPanel');};
+  var goalDefaultsReturnTrigger=null;
+  $('openGoalDefaults').onclick=function(){goalDefaultsReturnTrigger=this;navigateMenuTarget('goalDefaultsPanel');};
   ['target','targetMini'].forEach(function(id){$(id).addEventListener('keydown',function(e){if(e.key==='Enter'&&!isNumericComposing(this,e)){e.preventDefault();if(applyManualGoal(this))this.blur();}});});
   ['target','targetMini','current','currentTop','currentMini'].forEach(function(id){var el=$(id),key=isTargetInput(el)?'target':'current';el.addEventListener('focus',function(){prepareNumericEdit(this);if(key==='target')refreshManualGoal();});el.addEventListener('compositionstart',function(){numericComposing[id]=true;if(key==='current'&&document.activeElement===this){beginCurrentEdit(this);currentEdit.compositionPending=true;}if(key==='target')refreshManualGoal();});el.addEventListener('input',function(e){if(e.isComposing===false){delete numericComposing[id];if(key==='current'&&currentEdit&&currentEdit.id===id)currentEdit.compositionPending=false;}if(isNumericComposing(this,e)){var n=readNumber(this.value);if(n===null||(key==='target'&&(this.value.trim()===''||n<=0)))return;}numericInput(this,key);});el.addEventListener('change',function(){delete numericComposing[id];numericInput(this,key);});el.addEventListener('compositionend',function(){delete numericComposing[id];if(key==='current'&&currentEdit&&currentEdit.id===id)currentEdit.compositionPending=false;numericInput(this,key);if(key==='current'&&document.activeElement!==this)finishCurrentEdit(this);});});
     ['deadline','endTime'].forEach(function(id){
@@ -3276,11 +3280,20 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
   ['input','change','compositionstart','compositionend','blur'].forEach(function(type){$('miniBuffer').addEventListener(type,function(e){var source=$('quickBufferPct');source.value=this.value;var forwarded=type.indexOf('composition')===0?new CompositionEvent(type,{bubbles:true,data:e.data||''}):new Event(type,{bubbles:true});source.dispatchEvent(forwarded);syncMiniBufferValidation();});});
   ['quickPeriod','quickRank','quickBorder','quickMethod','miniPeriod','miniRank','miniBorder','miniMethod','pickPeriod','pickRank','pickBorder','targetMethod','closeSel'].forEach(function(id){$(id).addEventListener('input',function(){this.dispatchEvent(new Event('change',{bubbles:true}));});});
   var goalDefaultFields=[['defaultPeriod','period'],['defaultRank','rank'],['defaultBorder','pick'],['defaultMethod','targetMethod'],['defaultBuffer','bufferPct'],['defaultRound','roundUnit'],['defaultDeadline','deadline'],['defaultCore','coreCount'],['defaultTarget','target'],['defaultDate','asOfDate']];
+  var goalDefaultsSavedSignature='';
+  function goalDefaultInputSignature(){return JSON.stringify(goalDefaultFields.map(function(pair){return [pair[0],$(pair[0]).value];}).concat([['defaultClose',$('defaultClose').value],['defaultOnLoad',$('defaultOnLoad').checked]]));}
+  function goalDefaultDraftChanged(){return goalDefaultInputSignature()!==goalDefaultsSavedSignature;}
+  function renderGoalDefaultDraft(){
+    $('goalDefaultsDraftNote').hidden=!goalDefaultDraftChanged();
+    var d=state.goalDefaults,periods={'30d':'直近30日',month:'当月',prev:'先月','3m':'3か月',all:'全期間'},border=d.pick===''?'手入力':BLABEL[d.pick];
+    $('goalDefaultsSavedSummary').textContent='保存済み：'+periods[d.period]+' / '+d.rank+' '+border+' / '+METHOD_LABELS[d.targetMethod]+' / '+d.deadline+' / 上乗せ'+d.bufferPct+'％';
+  }
   function goalDefaultMessage(text,error){var status=$('goalDefaultsStatus');status.className=error?'toast err':'toast';status.textContent=text;}
   function refreshGoalDefaultFields(){var manual=$('defaultBorder').value==='';$('defaultManualField').hidden=!manual;$('defaultTarget').disabled=!manual;$('defaultDeadline').hidden=$('defaultClose').value!=='custom';$('defaultDate').disabled=$('defaultPeriod').value!=='30d';}
-  function syncGoalDefaultInputs(defaults){
+  function syncGoalDefaultInputs(defaults,draft){
     goalDefaultFields.forEach(function(pair){var el=$(pair[0]);el.value=String(defaults[pair[1]]);el.setCustomValidity('');el.setAttribute('aria-invalid','false');});
     $('defaultClose').value=['13:00','22:00','00:00'].indexOf(defaults.deadline)>=0?defaults.deadline:'custom';$('defaultOnLoad').checked=defaults.applyOnLoad;$('defaultDate').max=new Date(todayMs()-864e5).toISOString().slice(0,10);refreshGoalDefaultFields();
+    if(!draft)goalDefaultsSavedSignature=goalDefaultInputSignature();renderGoalDefaultDraft();
   }
   function readGoalDefaultInputs(){
     var value={},bad=function(id,message){var el=$(id);el.setCustomValidity(message);el.setAttribute('aria-invalid','true');el.focus();throw new Error(message);};
@@ -3296,11 +3309,11 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
   }
   [['defaultPeriod','pickPeriod'],['defaultRank','pickRank'],['defaultBorder','pickBorder'],['defaultMethod','quickMethod'],['defaultRound','roundUnit']].forEach(function(pair){$(pair[0]).innerHTML=$(pair[1]).innerHTML;});
   Array.prototype.forEach.call($('defaultRound').options,function(option){option.textContent=fmt(Number(option.value))+' pt';});
-  document.querySelectorAll('#goalDefaultsPanel input,#goalDefaultsPanel select').forEach(function(el){el.setAttribute('aria-describedby','goalDefaultsHelp goalDefaultsStatus');el.addEventListener('input',function(){this.setCustomValidity('');this.setAttribute('aria-invalid','false');goalDefaultMessage('編集中です。「デフォルトを保存」で確定します。',false);});el.addEventListener('change',refreshGoalDefaultFields);});
-  $('captureGoalDefaults').onclick=function(){var defaults={};Object.keys(standardGoalDefaults()).forEach(function(k){defaults[k]=state[k];});defaults.coreCount=String(state.coreCount||0);defaults.applyOnLoad=$('defaultOnLoad').checked;syncGoalDefaultInputs(defaults);goalDefaultMessage('今の設定を読み込みました。保存するとデフォルトになります。',false);};
-  $('standardGoalDefaults').onclick=function(){syncGoalDefaultInputs(standardGoalDefaults());goalDefaultMessage('標準値を読み込みました。保存するとデフォルトになります。',false);};
-  $('saveGoalDefaults').onclick=function(){try{var defaults=readGoalDefaultInputs();state.goalDefaults=defaults;save();if(storageFailed){goalDefaultMessage('デフォルトを保存できません。バックアップを保存してください。',true);return;}syncGoalDefaultInputs(defaults);goalDefaultMessage('デフォルトを保存しました。「保存済みの値を適用」で反映できます。',false);}catch(e){goalDefaultMessage(e.message,true);}};
-  $('applyGoalDefaults').onclick=function(){try{var defaults=cleanGoalDefaults(state.goalDefaults);clearTargetResetUndo();delete numericComposing.target;assignGoalDefaults(defaults);automaticTargetSignature='';statsCache={};syncAllInputs();loadEditor();save();update();goalDefaultMessage('保存済みのデフォルトを適用しました。',false);}catch(e){goalDefaultMessage(e.message,true);}};
+  document.querySelectorAll('#goalDefaultsPanel input,#goalDefaultsPanel select').forEach(function(el){el.setAttribute('aria-describedby','goalDefaultsHelp goalDefaultsSavedSummary goalDefaultsDraftNote goalDefaultsStatus');el.addEventListener('input',function(){this.setCustomValidity('');this.setAttribute('aria-invalid','false');renderGoalDefaultDraft();goalDefaultMessage('編集中です。「デフォルトを保存」で確定します。',false);});el.addEventListener('change',function(){refreshGoalDefaultFields();renderGoalDefaultDraft();});});
+  $('captureGoalDefaults').onclick=function(){var defaults={};Object.keys(standardGoalDefaults()).forEach(function(k){defaults[k]=state[k];});defaults.coreCount=String(state.coreCount||0);defaults.applyOnLoad=$('defaultOnLoad').checked;syncGoalDefaultInputs(defaults,true);goalDefaultMessage('今の設定を読み込みました。保存するとデフォルトになります。',false);};
+  $('standardGoalDefaults').onclick=function(){syncGoalDefaultInputs(standardGoalDefaults(),true);goalDefaultMessage('標準値を読み込みました。保存するとデフォルトになります。',false);};
+  $('saveGoalDefaults').onclick=function(){try{var defaults=readGoalDefaultInputs(),previous=state.goalDefaults;state.goalDefaults=defaults;if(!save()){state.goalDefaults=previous;renderGoalDefaultDraft();goalDefaultMessage('デフォルトを保存できません。編集内容は未保存です。画面の保存エラーを確認して再保存してください。',true);return;}syncGoalDefaultInputs(defaults);goalDefaultMessage('デフォルトを保存しました。「保存済みの値を適用」で反映できます。',false);}catch(e){goalDefaultMessage(e.message,true);}};
+  $('applyGoalDefaults').onclick=function(){try{var defaults=cleanGoalDefaults(state.goalDefaults);clearTargetResetUndo();delete numericComposing.target;assignGoalDefaults(defaults);automaticTargetSignature='';statsCache={};syncAllInputs();loadEditor();var persisted=save();update();renderGoalDefaultDraft();if(!persisted||storageFailed){goalDefaultMessage('この画面に適用しましたが、端末へ保存できません。画面の保存エラーを確認してください。',true);return;}goalDefaultMessage('保存済みのデフォルトを適用しました。'+(goalDefaultDraftChanged()?'編集中の値は未保存です。':''),false);}catch(e){goalDefaultMessage(e.message,true);}};
   $('restoreGoalDefaults').onclick=function(){$('applyGoalDefaults').click();$('summaryStatus').className=$('goalDefaultsStatus').className;$('summaryStatus').textContent=$('goalDefaultsStatus').textContent;};
   syncGoalDefaultInputs(state.goalDefaults);
   if(phoneDefaultsOnOpen){$('goalDefaultsHelp').textContent='スマホ版は開くたびに保存済みの目標設定を適用し、現在値を0で開始します。';$('defaultOnLoad').parentNode.lastChild.textContent='PC版の起動時にも保存済みのデフォルトを適用';}
@@ -3341,10 +3354,15 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
     var row=document.createElement('div'),button=document.createElement('button');
     row.className='menu-close-actions';button.className='menu-close-button';button.setAttribute('type','button');button.textContent='閉じる';button.setAttribute('aria-label','このメニューを閉じる');button.onclick=closeMenu;row.appendChild(button);return row;
   }
+  function closeGoalDefaultsPanel(){
+    var menu=$('goalDefaultsPanel'),trigger=goalDefaultsReturnTrigger;goalDefaultsReturnTrigger=null;
+    menu.open=false;menu.removeAttribute('open');refreshMenuControls();
+    var destination=trigger||menu.querySelector('summary');destination.focus({preventScroll:true});if(trigger)scrollToControl(trigger,'center');
+  }
   document.querySelectorAll('details').forEach(function(menu){
     var summary=Array.prototype.find.call(menu.children,function(child){return child.tagName==='SUMMARY';});if(!summary)return;
     var content=menu.id==='displaySettings'?menu.querySelector('.display-settings-panel'):menu.querySelector('.header-help-panel')||menu;
-    var row=menuCloseRow(function(){menu.open=false;menu.removeAttribute('open');summary.focus({preventScroll:true});refreshMenuControls();});
+    var row=menuCloseRow(function(){if(menu.id==='goalDefaultsPanel'){closeGoalDefaultsPanel();return;}menu.open=false;menu.removeAttribute('open');summary.focus({preventScroll:true});refreshMenuControls();});
     content.insertBefore(row,content===menu?menu.children[1]||null:content.children[0]||null);
   });
   document.querySelectorAll('section.card').forEach(function(sec){
@@ -3355,6 +3373,8 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
   $('displaySettings').addEventListener('toggle',refreshMenuControls);
   $('refreshPage').onclick=function(){window.location.reload();};
   var headerMenus=[$('displaySettings'),$('toolDisclaimer'),$('toolContact'),$('toolUsage')];
+  $('goalDefaultsPanel').addEventListener('keydown',function(event){if(event.key!=='Escape'||event.isComposing||!$('selectWindow').hidden||!this.open)return;event.preventDefault();event.stopPropagation();closeGoalDefaultsPanel();});
+  $('goalDefaultsPanel').addEventListener('toggle',function(){if(!this.open)goalDefaultsReturnTrigger=null;});
   document.addEventListener('keydown',function(event){if(event.key!=='Escape'||!$('selectWindow').hidden)return;headerMenus.forEach(function(menu){if(menu.open){menu.open=false;menu.querySelector('summary').focus({preventScroll:true});}});});
   headerMenus.forEach(function(menu){menu.addEventListener('toggle',function(){if(!this.open)return;headerMenus.forEach(function(other){if(other!==menu){other.open=false;other.removeAttribute('open');}});refreshMenuControls();});});
   $('collapseAllMenus').onclick=function(){$('displaySettings').open=false;document.querySelectorAll('section.card').forEach(function(sec){setSectionCollapsed(sec,true);});refreshMenuControls();save();$('menuStatus').textContent='補助メニューをすべて折りたたみました。';};
@@ -3365,7 +3385,7 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
     var sec=target.closest('section.card');if(sec){setSectionCollapsed(sec,false);save();}
     for(var ancestor=target;ancestor;ancestor=ancestor.parentNode){if(ancestor.tagName==='DETAILS'){ancestor.open=true;ancestor.setAttribute('open','');}}
     scrollToControl(target,'start');
-    if(focus){var control=id==='manualGoal'?$('target'):id==='recordEditor'?(sec&&sec.querySelector('.sectionToggle')||target):['INPUT','SELECT','TEXTAREA','BUTTON'].indexOf(target.tagName)>=0?target:target.querySelector('.sectionToggle')||target.querySelector('button, input, select, textarea');if(!control)control=target;if(control===target&&['INPUT','SELECT','TEXTAREA','BUTTON','A'].indexOf(control.tagName)<0&&!control.hasAttribute('tabindex'))control.setAttribute('tabindex','-1');control.focus({preventScroll:true});}
+    if(focus){var control=id==='manualGoal'?$('target'):id==='goalDefaultsPanel'?target.querySelector('summary'):id==='recordEditor'?(sec&&sec.querySelector('.sectionToggle')||target):['INPUT','SELECT','TEXTAREA','BUTTON'].indexOf(target.tagName)>=0?target:target.querySelector('.sectionToggle')||target.querySelector('button, input, select, textarea');if(!control)control=target;if(control===target&&['INPUT','SELECT','TEXTAREA','BUTTON','A'].indexOf(control.tagName)<0&&!control.hasAttribute('tabindex'))control.setAttribute('tabindex','-1');control.focus({preventScroll:true});}
   }
   function navigateMenuTarget(id){if(!$(id))return;if(window.history&&typeof window.history.pushState==='function'&&window.location.hash!=='#'+id)window.history.pushState(null,'','#'+id);revealMenuTarget(id,true);}
   document.querySelectorAll('.navlinks a, .manual-link').forEach(function(a){a.addEventListener('click',function(e){var href=this.getAttribute('href')||'';if(href.charAt(0)!=='#')return;var id=href.slice(1);if(!$(id))return;e.preventDefault();navigateMenuTarget(id);});});
