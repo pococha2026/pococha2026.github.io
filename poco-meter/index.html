@@ -3,7 +3,7 @@
 <head>
 <!-- GitHub static publication: administration remains on Sites. -->
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-LrvX2Cb4ZrJhHoPvw7rmGv42AuqP5qUqedIke/XGJPw=' 'sha256-08LMRKKvplLncbRgFLWs5sXBl1uJzNm4prNFVU6G/C4='; style-src 'unsafe-inline'; img-src 'self' data: blob:; font-src 'none'; connect-src 'self' https://poco-meter.freefreelife2000.chatgpt.site; object-src 'none'; frame-src 'none'; worker-src 'self'; media-src 'none'; manifest-src 'self'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-LrvX2Cb4ZrJhHoPvw7rmGv42AuqP5qUqedIke/XGJPw=' 'sha256-vZJmxfQi3cefX5Or3YdyrAhXrcUynic+Jplqg3Wysvk='; style-src 'unsafe-inline'; img-src 'self' data: blob:; font-src 'none'; connect-src 'self' https://poco-meter.freefreelife2000.chatgpt.site; object-src 'none'; frame-src 'none'; worker-src 'self'; media-src 'none'; manifest-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="pococha-app" content="meter-offline-v1">
 <!-- offline-head:start -->
 <link rel="manifest" href="./meter.webmanifest">
@@ -1705,7 +1705,7 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
       </details>
       <!-- display-settings-menu:end -->
       <button type="button" id="refreshPage" aria-label="ページ全体を再読み込みする" title="ページ全体を再読み込み">更新</button>
-      <span class="ylogo-update" id="toolUpdatedDate" title="ツール本体の最終更新日時とバージョン（ボーダーデータの更新日時とは別）"><span>更新時間</span><time class="num" datetime="2026-10-13T15:58:23+09:00">2026/10/13 15:58:23</time><span class="num" id="toolVersion">最終更新バージョン：v2026.10.13.5</span></span>
+      <span class="ylogo-update" id="toolUpdatedDate" title="ツール本体の最終更新日時とバージョン（ボーダーデータの更新日時とは別）"><span>更新時間</span><time class="num" datetime="2026-10-14T13:25:05+09:00">2026/10/14 13:25:05</time><span class="num" id="toolVersion">最終更新バージョン：v2026.10.14.1</span></span>
     </div>
   </header>
   <p class="hint" id="borderSyncStatus" role="status" style="font-size:.68rem;margin:5px 2px 8px;line-height:1.5">ボーダー確認中…</p>
@@ -1802,7 +1802,7 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
       <div><label for="pickBorder">設定する目標のボーダー</label><select id="pickBorder" class="sm num"><option value="0" selected>±0</option><option value="1">+1</option><option value="2">+2</option><option value="">手入力</option></select></div>
     </div>
     <div class="builder-controls">
-      <div><label for="targetMethod">目標の算出方法</label><select id="targetMethod"><option value="mean">平均値</option><option value="median">中央値</option><option value="p75">上位25％の境界値</option><option value="max">期間内の最大値</option><option value="min">期間内の最小値</option></select></div>
+      <div><label for="targetMethod">目標の算出方法</label><select id="targetMethod"><option value="mean">平均値</option><option value="median">中央値</option><option value="p75" selected>上位25％の境界値</option><option value="max">期間内の最大値</option><option value="min">期間内の最小値</option></select></div>
       <div><label for="bufferPct">上乗せ率（％）</label><input id="bufferPct" type="text" inputmode="decimal" value="0" autocomplete="off"></div>
       <div><label for="roundUnit">目標を切り上げる単位</label><select id="roundUnit"><option value="1">1ポイント</option><option value="100">100ポイント</option><option value="1000">1,000ポイント</option><option value="10000">10,000ポイント</option></select></div>
     </div>
@@ -2018,7 +2018,7 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
   try{var displayRaw=JSON.parse(localStorage.getItem(DISPLAY_KEY)||'null');if(isRecord(displayRaw)){var storedColor=displayColor(displayRaw.color);if(Object.prototype.hasOwnProperty.call(DISPLAY_COLORS,storedColor))displaySettings.color=storedColor;if(DISPLAY_WEIGHTS.indexOf(displayRaw.weight)>=0)displaySettings.weight=displayRaw.weight;else if(displayRaw.weight==='heavy')displaySettings.weight='bold';if(DISPLAY_THEMES.indexOf(displayRaw.theme)>=0)displaySettings.theme=displayRaw.theme;else displaySettings.theme='light';['background','hudBackground','listColor','numberColor'].forEach(function(key){var choices=DISPLAY_CUSTOM[key==='listColor'?'list':key==='numberColor'?'number':'background'];if(Object.prototype.hasOwnProperty.call(choices,displayRaw[key]))displaySettings[key]=displayRaw[key];});}}catch(e){}
   var RANKS=['E','D1','D2','D3','C1','C2','C3','B1','B2','B3','A1','A2','A3','S1','S2','S3','S4','S5','S6'];
   var MAX_VALUE=Math.floor(Number.MAX_SAFE_INTEGER/25);
-  var state={target:'',current:'0',deadline:'22:00',endTime:'',items:[],presets:[],coreCount:'0',rank:'S2',period:'30d',pick:'',log:{},seedVer:0,provenance:{},asOfDate:'',targetMethod:'mean',bufferPct:0,roundUnit:1,targetOrigin:null,snapshotVersion:'',analysisBorder:null,goalDefaults:null,goalDefaultsVersion:0,borderSync:null};
+  var state={target:'',current:'0',deadline:'22:00',endTime:'',items:[],presets:[],coreCount:'0',rank:'S2',period:'30d',pick:'',log:{},seedVer:0,provenance:{},asOfDate:'',targetMethod:'p75',bufferPct:0,roundUnit:1,targetOrigin:null,snapshotVersion:'',analysisBorder:null,goalDefaults:null,goalDefaultsVersion:0,borderSync:null};
   // Compact repeated provenance without dropping historical or personal records.
   function packStoredState(value){
     var packed=Object.assign({},value),pool=[],indices=new Map(),refs={};
@@ -2066,7 +2066,7 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
   if(RANKS.indexOf(state.rank)<0){state.rank='S2';loadWarning=true;}
   if(['30d','all','3m','prev','month','est'].indexOf(state.period)<0){state.period='30d';loadWarning=true;}
   if(state.period==='est')state.period='30d';
-  if(['mean','median','p75','max','min'].indexOf(state.targetMethod)<0)state.targetMethod='mean';
+  if(['mean','median','p75','max','min'].indexOf(state.targetMethod)<0)state.targetMethod='p75';
   if(typeof state.bufferPct!=='number'||!Number.isFinite(state.bufferPct)||state.bufferPct<0||state.bufferPct>50||Math.abs(state.bufferPct*10-Math.round(state.bufferPct*10))>1e-7){state.bufferPct=0;loadWarning=true;}
   if([1,100,1000,10000].indexOf(state.roundUnit)<0)state.roundUnit=1;
   if(!validDate(state.asOfDate)||state.asOfDate>=new Date(todayMs()).toISOString().slice(0,10))state.asOfDate='';
@@ -2075,7 +2075,7 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
   if(state.targetOrigin!==null&&state.targetOrigin!==undefined&&loadedOrigin===null)loadWarning=true;
   state.targetOrigin=loadedOrigin;
   try{state.goalDefaults=state.goalDefaults===null?standardGoalDefaults():cleanGoalDefaults(state.goalDefaults);}catch(e){state.goalDefaults=standardGoalDefaults();loadWarning=true;}
-  if(state.goalDefaultsVersion!==1)state.goalDefaultsVersion=1;
+  if(state.goalDefaultsVersion!==2){if(state.targetMethod==='mean')state.targetMethod='p75';if(state.goalDefaults.targetMethod==='mean')state.goalDefaults.targetMethod='p75';state.goalDefaultsVersion=2;}
   var phoneDefaultsOnOpen=!!(window.matchMedia&&window.matchMedia('(max-width:700px)').matches);
   if(phoneDefaultsOnOpen){state.target='';state.current='0';state.currentSavedAt=Date.now();}
   if(state.goalDefaults.applyOnLoad||phoneDefaultsOnOpen)assignGoalDefaults(state.goalDefaults);
@@ -2245,7 +2245,7 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
     if(typeof value.periodLabel!=='string'||value.periodLabel.length>256||!validDate(value.start)||!validDate(value.end)||value.start>value.end||RANKS.indexOf(value.rank)<0||['13','22','24'].indexOf(value.close)<0||[0,1,2].indexOf(value.border)<0||['mean','median','p75','max','min'].indexOf(value.method)<0||!Number.isSafeInteger(value.n)||value.n<=0||typeof value.buffer!=='number'||!Number.isFinite(value.buffer)||value.buffer<0||value.buffer>50||Math.abs(value.buffer*10-Math.round(value.buffer*10))>1e-7||[1,100,1000,10000].indexOf(value.unit)<0||value.period!==undefined&&['30d','all','3m','prev','month'].indexOf(value.period)<0)return invalid();
     var clean={};['kind','value','periodLabel','start','end','rank','close','border','method','n','buffer','unit'].forEach(function(k){clean[k]=value[k];});clean.period=value.period===undefined?'30d':value.period;return clean;
   }
-  function standardGoalDefaults(){return {period:'30d',rank:'S2',pick:0,targetMethod:'mean',bufferPct:0,roundUnit:1,deadline:'22:00',coreCount:'0',target:'',asOfDate:'',applyOnLoad:false};}
+  function standardGoalDefaults(){return {period:'30d',rank:'S2',pick:0,targetMethod:'p75',bufferPct:0,roundUnit:1,deadline:'22:00',coreCount:'0',target:'',asOfDate:'',applyOnLoad:false};}
   function cleanGoalDefaults(value){
     if(!isRecord(value))throw new Error('デフォルト値の形式が正しくありません。');
     var clean={},keys=Object.keys(standardGoalDefaults());keys.forEach(function(k){clean[k]=value[k];});
