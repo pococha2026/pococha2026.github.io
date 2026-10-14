@@ -2,6 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="utf-8">
+<meta id="pococha-script-security-policy" http-equiv="Content-Security-Policy" content="script-src 'self' 'sha256-J5dmNSZGBqVBeoC4eWF6nAjZvN+mSEK5zPDAxCs/vag=' 'sha256-lRbovAFdFJjpZXg0TFYU/MNgnU4o/n6fLao9IxMqSMQ='; script-src-attr 'none'; object-src 'none'; base-uri 'self'; connect-src 'self' https://pococha-comment-access.freefreelife2000.chatgpt.site">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Pococha 時間稼ぎ・エール記録帳｜オフライン版</title>
 <meta name="description" content="Pocochaの時間稼ぎ・エールを記録するオフライン版。ログイン不要。記録は開いた端末のブラウザに保存します。">
@@ -110,7 +111,10 @@ footer{text-align:center;font-size:.75rem;color:var(--muted)}
   </section>
 
   <div class="tip"><b>ホーム画面に追加しておくと便利</b><br>iPhone：Safariで開き、共有ボタン →「ホーム画面に追加」<br>Android：Chromeで開き、︙メニュー →「ホーム画面に追加」</div>
-  <footer>© Pococha1012</footer>
+  <footer>© Pococha1012<!-- Pococha1012 security management: start -->
+<a id="pococha-security-management" href="https://pococha-comment-library.freefreelife2000.chatgpt.site/admin/tools/record" target="_blank" rel="noopener noreferrer">管理ページ</a>
+<!-- Pococha1012 security management: end -->
+</footer>
 </main>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script>
@@ -188,5 +192,108 @@ footer{text-align:center;font-size:.75rem;color:var(--muted)}
   });
 })();
 </script>
+<script id="pococha-public-access-tracker">(() => {
+  "use strict";
+  const toolId = "record";
+  const allowedPages = [{"origin":"https://pococha2026.github.io","paths":["/yell-log.html","/yell-log-share.html"]}];
+  const collectorOrigin = "https://pococha-comment-access.freefreelife2000.chatgpt.site";
+  const guard = "__pococha1012Visit_" + toolId;
+  if (window[guard]) return;
+  window[guard] = true;
+  let preparing = false, sent = false, eventId;
+  function allowed() {
+    try {
+      if (!allowedPages.some(item => location.origin === item.origin && item.paths.includes(location.pathname))) return false;
+      if (navigator.webdriver || document.visibilityState === "hidden") return false;
+      if (navigator.globalPrivacyControl === true) return false;
+      if ([navigator.doNotTrack, navigator.msDoNotTrack, window.doNotTrack].some(value => /^(?:1|yes)$/i.test(String(value || "")))) return false;
+      if (/bot|spider|crawl|slurp|headless|phantom|selenium|playwright|puppeteer|lighthouse|preview|facebookexternalhit|whatsapp|telegrambot/i.test(String(navigator.userAgent || ""))) return false;
+      if (window.top !== window.self) {
+        // Sites normally renders inside ChatGPT. Other embedded/automated frames are excluded.
+        if (!location.origin.endsWith(".chatgpt.site") || new URL(document.referrer || "").origin !== "https://chatgpt.com") return false;
+        const ancestors = Array.from(location.ancestorOrigins || []);
+        if (ancestors.some(origin => origin !== "https://chatgpt.com" && origin !== location.origin)) return false;
+      }
+      return typeof fetch === "function";
+    } catch { return false; }
+  }
+  function metadata() {
+    const ua = String(navigator.userAgent || "");
+    const ios = /iPhone|iPad|iPod/i.test(ua) || (/Macintosh/i.test(ua) && Number(navigator.maxTouchPoints || 0) > 1);
+    const android = /Android/i.test(ua);
+    let os = "unknown";
+    if (ios) os = "ios";
+    else if (android) os = "android";
+    else if (/Windows/i.test(ua)) os = "windows";
+    else if (/CrOS/i.test(ua)) os = "chromeos";
+    else if (/Macintosh|Mac OS X/i.test(ua)) os = "macos";
+    else if (/Linux|X11/i.test(ua)) os = "linux";
+    let device = "unknown";
+    if (/iPad/i.test(ua) || (ios && /Macintosh/i.test(ua))) device = "tablet";
+    else if (/iPhone|iPod|Mobile/i.test(ua)) device = "mobile";
+    else if (android) device = "tablet";
+    else if (os !== "unknown") device = "desktop";
+    let browser = "unknown";
+    if (/Edg(?:e|A|iOS)?\//i.test(ua)) browser = "edge";
+    else if (/OPR\/|Opera|OPT\//i.test(ua)) browser = "opera";
+    else if (/SamsungBrowser\//i.test(ua)) browser = "samsung";
+    else if (/Firefox\/|FxiOS\//i.test(ua)) browser = "firefox";
+    else if (/Chrome\/|CriOS\//i.test(ua)) browser = "chrome";
+    else if (/Safari\//i.test(ua)) browser = "safari";
+    else if (ua) browser = "other";
+    return { device, os, browser, model: "unknown" };
+  }
+  async function withReportedModel(meta) {
+    let timer;
+    try {
+      const hints = navigator.userAgentData;
+      if (!hints || typeof hints.getHighEntropyValues !== "function") return meta;
+      const result = await Promise.race([
+        Promise.resolve().then(() => hints.getHighEntropyValues(["model"])),
+        new Promise(resolve => { timer = setTimeout(() => resolve(null), 500); })
+      ]);
+      const model = typeof result?.model === "string" ? result.model.trim() : "";
+      if (/^[A-Za-z0-9][A-Za-z0-9 ._()+,-]{0,79}$/.test(model) && !/^(?:k|unknown|generic|android|iphone|ipad|ipod|pc)$/i.test(model) && !/^(?:\d{1,3}\.){3}\d{1,3}$/.test(model)) meta.model = "reported:" + model;
+    } catch { /* Unsupported hints remain unknown. */ }
+    finally { if (timer !== undefined) clearTimeout(timer); }
+    return meta;
+  }
+  function uuid() {
+    try {
+      if (typeof crypto.randomUUID === "function") {
+        const value = crypto.randomUUID();
+        if (/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value)) return value;
+      }
+      const bytes = new Uint8Array(16);
+      crypto.getRandomValues(bytes);
+      bytes[6] = (bytes[6] & 15) | 64;
+      bytes[8] = (bytes[8] & 63) | 128;
+      const hex = Array.from(bytes, byte => byte.toString(16).padStart(2, "0")).join("");
+      return hex.slice(0, 8) + "-" + hex.slice(8, 12) + "-" + hex.slice(12, 16) + "-" + hex.slice(16, 20) + "-" + hex.slice(20);
+    } catch { return undefined; }
+  }
+  async function record() {
+    if (sent || preparing || !allowed()) return;
+    preparing = true;
+    try {
+      const meta = await withReportedModel(metadata());
+      if (!allowed()) return;
+      eventId ||= uuid();
+      if (!eventId) return;
+      const page = location.origin + location.pathname;
+      const body = JSON.stringify({ toolId, eventId, page, meta });
+      if (body.length > 1024) return;
+      sent = true;
+      await fetch(collectorOrigin + "/api/visits", {
+        method: "POST", headers: { "Content-Type": "application/json" }, body,
+        credentials: "omit", cache: "no-store", keepalive: true, referrerPolicy: "no-referrer"
+      });
+    } catch { /* Tracking failure must never interrupt the tool. */ }
+    finally { preparing = false; }
+  }
+  window.addEventListener("pageshow", record);
+  document.addEventListener("visibilitychange", record);
+  void record();
+})();</script>
 </body>
 </html>

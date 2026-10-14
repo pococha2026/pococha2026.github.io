@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-P76ZEZ5Ew9+nPfi6VrZT9k4gtt03PiZCTBXGdRU2HiU=' 'sha256-uNaRaIumIn5v9WjqQEXs1MZ5RqTzBS0B49cDGxzj2Hs=' 'sha256-ri5sc4FFGCKdOP/KtGm25GxcsOszBb2kyVqU2oM0T6g=' 'sha256-73rUpSyOWJ2/rq3HTUzS6zkqkDCDiqVPM2Yx5/jVgcQ=' 'sha256-k9xuqUG8jwAWLjuV93yP/LLbS7x2hJ5hQWBKJ8Aq3wk='; style-src 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://pococha-challenge.freefreelife2000.chatgpt.site; base-uri 'none'; object-src 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-P76ZEZ5Ew9+nPfi6VrZT9k4gtt03PiZCTBXGdRU2HiU=' 'sha256-uNaRaIumIn5v9WjqQEXs1MZ5RqTzBS0B49cDGxzj2Hs=' 'sha256-ri5sc4FFGCKdOP/KtGm25GxcsOszBb2kyVqU2oM0T6g=' 'sha256-73rUpSyOWJ2/rq3HTUzS6zkqkDCDiqVPM2Yx5/jVgcQ=' 'sha256-WynkN4aRw/XUPKrs0dJYlhdM4xtUD/xfrjq44ooPkvI='; style-src 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://pococha-challenge.freefreelife2000.chatgpt.site https://pococha-comment-access.freefreelife2000.chatgpt.site; base-uri 'none'; object-src 'none'; form-action 'none'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="referrer" content="no-referrer">
 <meta name="theme-color" content="#111827">
@@ -329,7 +329,7 @@ html:not([data-display-theme]) .family .copy-btn,html[data-display-theme="standa
 <button class="toolbar-button" id="contactToggle" type="button" aria-expanded="false" aria-controls="footerContact">お問い合わせ</button>
 <button class="share-mini" id="sharePage" type="button" aria-expanded="false" aria-controls="sharePanel" aria-label="このページを共有" title="共有">共有</button>
 <div id="adminFooter" class="admin-link-row" hidden>
-<a id="adminPage" class="admin-link" href="https://pococha-challenge.freefreelife2000.chatgpt.site/admin" target="_blank" rel="noopener noreferrer" aria-label="管理ページを新しいタブで開く" title="新しいタブで開く" hidden>管理ページ</a>
+<a id="adminPage" class="admin-link" href="https://pococha-challenge.freefreelife2000.chatgpt.site/admin" target="_blank" rel="noopener noreferrer" aria-label="管理ページを新しいタブで開く" title="新しいタブで開く" hidden>解答集の管理</a>
 </div>
 </div>
 <section class="title-panel share-panel" id="sharePanel" aria-labelledby="sharePage" hidden>
@@ -347,7 +347,10 @@ html:not([data-display-theme]) .family .copy-btn,html[data-display-theme="standa
 <section class="title-panel" id="footerContact" aria-labelledby="contactToggle" hidden>
 <div class="title-detail-body"><p>このツール専用のスペースからメッセージを送信できます。</p><a class="contact-link" id="contactSpace" href="https://pococha-challenge.freefreelife2000.chatgpt.site/contact" target="_blank" rel="noopener noreferrer">専用お問い合わせを開く</a><div class="panel-actions"><button class="panel-close" id="closeContact" type="button" data-close-panel aria-label="お問い合わせを閉じる">閉じる</button></div></div>
 </section>
-<p class="status" id="toolReleaseVersion">最終更新バージョン：<strong>第121版</strong></p>
+<p class="status" id="toolReleaseVersion">最終更新バージョン：<strong>第122版</strong></p>
+<!-- Pococha1012 security management: start -->
+<a id="pococha-security-management" href="https://pococha-comment-library.freefreelife2000.chatgpt.site/admin/tools/answers" target="_blank" rel="noopener noreferrer">管理ページ</a>
+<!-- Pococha1012 security management: end -->
 </footer>
 </main>
 
@@ -659,154 +662,108 @@ $('shareSystem').addEventListener('click',async()=>{
 $('refreshPage').addEventListener('click',()=>{toast('更新中');setTimeout(()=>location.reload(),80);});$('month').addEventListener('change',e=>setMonth(e.target.value));$('prev').addEventListener('click',()=>{const i=keys.indexOf(current);if(i>0)setMonth(keys[i-1]);});$('next').addEventListener('click',()=>{const i=keys.indexOf(current);if(i<keys.length-1)setMonth(keys[i+1]);});$('month').min=keys[0];$('month').max=keys[keys.length-1];$('quick').innerHTML=keys.map(k=>{const d=DATA[k],r=RESEARCH[k],label=d?.title||r?.title||k;return `<button type="button" class="quick" data-month="${k}">${label.replace('2026年','')}</button>`;}).join('');$('quick').addEventListener('click',e=>{const b=e.target.closest('[data-month]');if(b)setMonth(b.dataset.month);});const requested=new URL(location.href).searchParams.get('month');const now=new Date();const currentMonth=`${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;const fallback=keys.filter(k=>k<=currentMonth).pop()||keys[keys.length-1];const initial=keys.includes(requested)?requested:(keys.includes(currentMonth)?currentMonth:fallback);setMonth(initial,false);
 })();
 </script>
-<script id="daily-visit-tracker">
-(() => {
-  const endpoint = 'https://pococha-challenge.freefreelife2000.chatgpt.site/api/visits';
-  const github = location.origin === 'https://pococha2026.github.io' && /^\/pococha-(?:answers|challenge)\/(?:index\.html)?$/.test(location.pathname);
-  const sites = location.origin === 'https://pococha-challenge.freefreelife2000.chatgpt.site' && /^\/(?:index\.html)?$/.test(location.pathname);
-  // Only the public GitHub main page participates in access counting.
-  if (!github) return;
-  const excludeKey = 'pococha_answers_exclude_self_v1';
-  let exclusionToken;
-  try { exclusionToken = localStorage.getItem('pococha_answers_exclusion_token_v1'); if (!/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(exclusionToken || '')) { exclusionToken = crypto.randomUUID(); localStorage.setItem('pococha_answers_exclusion_token_v1', exclusionToken); } } catch { exclusionToken = globalThis.crypto?.randomUUID?.(); }
-  let excluded = false, saveFailed = false;
-  try { excluded = localStorage.getItem(excludeKey) === '1'; } catch {}
-  const saveExclusion = value => {
-    excluded = value;
-    try { localStorage.setItem(excludeKey, value ? '1' : '0'); saveFailed = localStorage.getItem(excludeKey) !== (value ? '1' : '0'); } catch { saveFailed = true; }
-  };
-  const settingsRequest = new URL(location.href).searchParams.get('exclusionSettings');
-  const settingsBridge = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(settingsRequest || '') && !!window.opener;
-  const exclusionChoice = new URL(location.href).searchParams.get('excludeSelf');
-  if (exclusionChoice === '1' || exclusionChoice === '0') {
-    saveExclusion(exclusionChoice === '1');
-    if (saveFailed && typeof window.alert === 'function') window.alert('アクセス集計の設定を保存できません。この画面だけに適用します。サイトデータの保存設定を確認してください。');
-    try { const clean = new URL(location.href); clean.searchParams.delete('excludeSelf'); clean.searchParams.delete('exclusionSettings'); history.replaceState(history.state, '', clean.href); } catch {}
-  }
-  const isExcluded = () => {
-    if (saveFailed) return excluded;
-    try { return localStorage.getItem(excludeKey) === '1'; } catch {}
-    return excluded;
-  };
-  document.addEventListener('DOMContentLoaded', () => {
-    const control = document.getElementById('excludeSelfVisits');
-    if (!control) return;
-    control.checked = isExcluded();
-    control.addEventListener('change', () => {
-      saveExclusion(control.checked);
-      void syncExclusion(true).then(() => { if (!isExcluded()) track(); });
-      if (saveFailed && typeof window.alert === 'function') window.alert('アクセス集計の設定を保存できません。この画面だけに適用します。');
-    });
-  }, { once: true });
-  try { globalThis.localStorage?.removeItem('pococha_answers_statistics_choice_v1'); } catch { /* Device storage may be unavailable. */ }
-  try {
-    if (document.cookie.split(';').some(part => part.trim().startsWith('pococha_answers_daily_vid='))) {
-      for (const path of ['/', '/pococha-answers/', '/pococha-challenge/']) document.cookie = 'pococha_answers_daily_vid=; Path=' + path + '; Max-Age=0; SameSite=Lax; Secure';
-    }
-  } catch { /* The restored collector supports blocked Cookie access. */ }
-  if (window.self !== window.top || navigator.webdriver || navigator.doNotTrack === '1' || navigator.globalPrivacyControl === true || !globalThis.crypto?.randomUUID) return;
-  const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-  let started = false, exclusionReady = false;
-  let syncQueue = Promise.resolve(), syncVersion = 0;
-  const exclusionEvent = crypto.randomUUID();
-  function syncExclusion(update = false) {
-    const choice = isExcluded(), version = ++syncVersion;
-    exclusionReady = false;
-    syncQueue = syncQueue.catch(() => {}).then(async () => {
-      try {
-        const result = await fetch(endpoint.replace('/api/visits','/api/visit-exclusions'), { method:'POST', credentials:'omit', mode:'cors', headers:{'Content-Type':'application/json'}, body:JSON.stringify({token:exclusionToken,excluded:choice,update,settingsOnly:settingsBridge,eventId:exclusionEvent,page:location.origin+location.pathname,meta:metadata()}) });
-        if (!result.ok) throw Error('storage');
-        const state = await result.json();
-        if (version !== syncVersion) return;
-        if (!state.ignored && typeof state.active === 'boolean') { saveExclusion(state.active); const control=document.getElementById('excludeSelfVisits'); if(control)control.checked=state.active; }
-        exclusionReady = true;
-      } catch { if(version === syncVersion) exclusionReady = false; }
-    });
-    return syncQueue;
+<script id="pococha-public-access-tracker">(() => {
+  "use strict";
+  const toolId = "answers";
+  const allowedPages = [{"origin":"https://pococha-challenge.freefreelife2000.chatgpt.site","paths":["/","/index.html"]},{"origin":"https://pococha2026.github.io","paths":["/pococha-answers/","/pococha-answers/index.html","/pococha-challenge/","/pococha-challenge/index.html"]}];
+  const collectorOrigin = "https://pococha-comment-access.freefreelife2000.chatgpt.site";
+  const guard = "__pococha1012Visit_" + toolId;
+  if (window[guard]) return;
+  window[guard] = true;
+  let preparing = false, sent = false, eventId;
+  function allowed() {
+    try {
+      if (!allowedPages.some(item => location.origin === item.origin && item.paths.includes(location.pathname))) return false;
+      if (navigator.webdriver || document.visibilityState === "hidden") return false;
+      if (navigator.globalPrivacyControl === true) return false;
+      if ([navigator.doNotTrack, navigator.msDoNotTrack, window.doNotTrack].some(value => /^(?:1|yes)$/i.test(String(value || "")))) return false;
+      if (/bot|spider|crawl|slurp|headless|phantom|selenium|playwright|puppeteer|lighthouse|preview|facebookexternalhit|whatsapp|telegrambot/i.test(String(navigator.userAgent || ""))) return false;
+      if (window.top !== window.self) {
+        // Sites normally renders inside ChatGPT. Other embedded/automated frames are excluded.
+        if (!location.origin.endsWith(".chatgpt.site") || new URL(document.referrer || "").origin !== "https://chatgpt.com") return false;
+        const ancestors = Array.from(location.ancestorOrigins || []);
+        if (ancestors.some(origin => origin !== "https://chatgpt.com" && origin !== location.origin)) return false;
+      }
+      return typeof fetch === "function";
+    } catch { return false; }
   }
   function metadata() {
-    const ua = navigator.userAgent || '';
-    const tablet = /iPad|Tablet/i.test(ua) || (/Macintosh/i.test(ua) && navigator.maxTouchPoints > 1) || (/Android/i.test(ua) && !/Mobile/i.test(ua));
-    const device = tablet ? 'tablet' : /Mobile|iPhone|iPod|Android/i.test(ua) ? 'mobile' : /Windows|Macintosh|Linux|CrOS/i.test(ua) ? 'desktop' : 'unknown';
-    const os = /iPhone|iPad|iPod/i.test(ua) || (/Macintosh/i.test(ua) && tablet) ? 'ios' : /Android/i.test(ua) ? 'android' : /Windows/i.test(ua) ? 'windows' : /CrOS/i.test(ua) ? 'chromeos' : /Macintosh/i.test(ua) ? 'macos' : /Linux/i.test(ua) ? 'linux' : 'unknown';
-    const browser = /Edg(?:e|A|iOS)?\//i.test(ua) ? 'edge' : /SamsungBrowser\//i.test(ua) ? 'samsung' : /OPR\/|Opera|OPiOS\//i.test(ua) ? 'opera' : /Firefox\/|FxiOS\//i.test(ua) ? 'firefox' : /Chrome\/|CriOS\//i.test(ua) ? 'chrome' : /Safari\//i.test(ua) ? 'safari' : 'other';
-    let referrer = 'none';
-    try {
-      if (document.referrer) {
-        const host = new URL(document.referrer).hostname.toLowerCase();
-        const is = (domain) => host === domain || host.endsWith('.' + domain);
-        referrer = host === location.hostname ? 'internal' : is('google.com') || is('google.co.jp') || is('bing.com') || is('yahoo.co.jp') || is('duckduckgo.com') ? 'search' : is('instagram.com') ? 'instagram' : is('x.com') || is('twitter.com') || is('t.co') ? 'x' : is('tiktok.com') ? 'tiktok' : is('line.me') || is('lin.ee') ? 'line' : is('facebook.com') || is('fb.com') ? 'facebook' : is('youtube.com') || is('youtu.be') ? 'youtube' : is('chatgpt.com') || is('chatgpt.site') ? 'chatgpt' : 'other';
-      }
-    } catch { referrer = 'unknown'; }
-    let model = /iPhone/i.test(ua) ? 'iphone' : os === 'ios' && tablet ? 'ipad' : /iPod/i.test(ua) ? 'ipod' : os === 'android' ? 'android' : device === 'desktop' ? 'pc' : 'unknown';
-    if (os === 'android' && ua.includes('Build/')) {
-      const legacy = ua.split('Build/')[0].match(/;\s*([^;()]+?)\s*$/)?.[1]?.trim();
-      if (legacy && legacy !== 'K' && legacy.length <= 80 && /^[A-Za-z0-9][A-Za-z0-9 ._()+/-]*$/.test(legacy)) model = 'reported:' + legacy;
-    }
-    const browserPattern = { edge: /Edg(?:e|A|iOS)?\/(\d+)/i, samsung: /SamsungBrowser\/(\d+)/i, opera: /(?:OPR|OPiOS|Opera)\/(\d+)/i, firefox: /(?:Firefox|FxiOS)\/(\d+)/i, chrome: /(?:Chrome|CriOS)\/(\d+)/i, safari: /Version\/(\d+)/i }[browser];
-    const browserMajor = ua.match(browserPattern || /$^/)?.[1] || '';
-    const osMajor = os === 'ios' ? ua.match(/(?:CPU (?:iPhone )?OS|iPhone OS) (\d+)/i)?.[1] || '' : os === 'android' ? ua.match(/Android\s+(\d+)/i)?.[1] || '' : os === 'windows' ? 'NT' + (ua.match(/Windows NT\s+(\d+)/i)?.[1] || '') : os === 'macos' ? ua.match(/Mac OS X (\d+)/i)?.[1] || '' : '';
-    return { version: 3, device, os, browser, referrer, model, browserMajor, osMajor };
+    const ua = String(navigator.userAgent || "");
+    const ios = /iPhone|iPad|iPod/i.test(ua) || (/Macintosh/i.test(ua) && Number(navigator.maxTouchPoints || 0) > 1);
+    const android = /Android/i.test(ua);
+    let os = "unknown";
+    if (ios) os = "ios";
+    else if (android) os = "android";
+    else if (/Windows/i.test(ua)) os = "windows";
+    else if (/CrOS/i.test(ua)) os = "chromeos";
+    else if (/Macintosh|Mac OS X/i.test(ua)) os = "macos";
+    else if (/Linux|X11/i.test(ua)) os = "linux";
+    let device = "unknown";
+    if (/iPad/i.test(ua) || (ios && /Macintosh/i.test(ua))) device = "tablet";
+    else if (/iPhone|iPod|Mobile/i.test(ua)) device = "mobile";
+    else if (android) device = "tablet";
+    else if (os !== "unknown") device = "desktop";
+    let browser = "unknown";
+    if (/Edg(?:e|A|iOS)?\//i.test(ua)) browser = "edge";
+    else if (/OPR\/|Opera|OPT\//i.test(ua)) browser = "opera";
+    else if (/SamsungBrowser\//i.test(ua)) browser = "samsung";
+    else if (/Firefox\/|FxiOS\//i.test(ua)) browser = "firefox";
+    else if (/Chrome\/|CriOS\//i.test(ua)) browser = "chrome";
+    else if (/Safari\//i.test(ua)) browser = "safari";
+    else if (ua) browser = "other";
+    return { device, os, browser, model: "unknown" };
   }
-  function visitorId() {
+  async function withReportedModel(meta) {
+    let timer;
     try {
-      const read = () => document.cookie.split(';').map((part) => part.trim()).find((part) => part.startsWith('pococha_challenge_vid='))?.slice('pococha_challenge_vid='.length);
-      const existing = read();
-      if (existing && uuid.test(existing)) return existing.toLowerCase();
-      const id = crypto.randomUUID();
-      const cookiePath = github ? (location.pathname.startsWith('/pococha-answers/') ? '/pococha-answers/' : '/pococha-challenge/') : '/';
-      document.cookie = `pococha_challenge_vid=${id}; Path=${cookiePath}; Max-Age=31536000; SameSite=Lax; Secure`;
-      return read() === id ? id : null;
-    } catch { return null; }
+      const hints = navigator.userAgentData;
+      if (!hints || typeof hints.getHighEntropyValues !== "function") return meta;
+      const result = await Promise.race([
+        Promise.resolve().then(() => hints.getHighEntropyValues(["model"])),
+        new Promise(resolve => { timer = setTimeout(() => resolve(null), 500); })
+      ]);
+      const model = typeof result?.model === "string" ? result.model.trim() : "";
+      if (/^[A-Za-z0-9][A-Za-z0-9 ._()+,-]{0,79}$/.test(model) && !/^(?:k|unknown|generic|android|iphone|ipad|ipod|pc)$/i.test(model) && !/^(?:\d{1,3}\.){3}\d{1,3}$/.test(model)) meta.model = "reported:" + model;
+    } catch { /* Unsupported hints remain unknown. */ }
+    finally { if (timer !== undefined) clearTimeout(timer); }
+    return meta;
   }
-  function track() {
-    if (settingsBridge || !exclusionReady || started || isExcluded() || document.visibilityState !== 'visible') return;
-    started = true;
-    document.removeEventListener('visibilitychange', track);
-    const meta = metadata();
-    const payload = { eventId: crypto.randomUUID(), exclusionToken, visitorId: visitorId(), page: location.origin + location.pathname, meta };
-    function submit() {
-      if (isExcluded()) return;
-      const body = JSON.stringify(payload);
-      let attempt = 0;
-      async function send() {
-        if (isExcluded()) return;
-        attempt += 1;
-        try {
-          const result = await fetch(endpoint, { method: 'POST', credentials: 'omit', mode: 'cors', headers: { 'Content-Type': 'application/json' }, body, keepalive: true });
-          if (result.status >= 500 && attempt < 2) setTimeout(send, 1500);
-        } catch { if (attempt < 2) setTimeout(send, 1500); }
+  function uuid() {
+    try {
+      if (typeof crypto.randomUUID === "function") {
+        const value = crypto.randomUUID();
+        if (/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value)) return value;
       }
-      void send();
-    }
-    if (meta.os === 'android' && typeof navigator.userAgentData?.getHighEntropyValues === 'function') {
-      // Do not delay counting indefinitely when model hints are unavailable or blocked.
-      let timeout;
-      const fallback = new Promise(resolve => { timeout = setTimeout(() => resolve(null), 500); });
-      Promise.race([Promise.resolve().then(() => navigator.userAgentData.getHighEntropyValues(['model', 'platformVersion'])).catch(() => null), fallback]).then(hints => {
-        if (typeof globalThis.clearTimeout === 'function') clearTimeout(timeout);
-        const model = hints?.model;
-        if (typeof model === 'string' && model.length <= 80 && /^[A-Za-z0-9][A-Za-z0-9 ._()+/-]*$/.test(model) && !/^(?:k|unknown|generic|android|iphone|ipad|ipod|pc)$/i.test(model.trim())) meta.model = 'reported:' + model.trim();
-        if (typeof hints?.platformVersion === 'string' && /^\d{1,3}(?:\.\d+)*$/.test(hints.platformVersion)) meta.osMajor = hints.platformVersion.split('.')[0];
-        submit();
+      const bytes = new Uint8Array(16);
+      crypto.getRandomValues(bytes);
+      bytes[6] = (bytes[6] & 15) | 64;
+      bytes[8] = (bytes[8] & 63) | 128;
+      const hex = Array.from(bytes, byte => byte.toString(16).padStart(2, "0")).join("");
+      return hex.slice(0, 8) + "-" + hex.slice(8, 12) + "-" + hex.slice(12, 16) + "-" + hex.slice(16, 20) + "-" + hex.slice(20);
+    } catch { return undefined; }
+  }
+  async function record() {
+    if (sent || preparing || !allowed()) return;
+    preparing = true;
+    try {
+      const meta = await withReportedModel(metadata());
+      if (!allowed()) return;
+      eventId ||= uuid();
+      if (!eventId) return;
+      const page = location.origin + location.pathname;
+      const body = JSON.stringify({ toolId, eventId, page, meta });
+      if (body.length > 1024) return;
+      sent = true;
+      await fetch(collectorOrigin + "/api/visits", {
+        method: "POST", headers: { "Content-Type": "application/json" }, body,
+        credentials: "omit", cache: "no-store", keepalive: true, referrerPolicy: "no-referrer"
       });
-    } else submit();
+    } catch { /* Tracking failure must never interrupt the tool. */ }
+    finally { preparing = false; }
   }
-  if (typeof window.addEventListener === 'function') window.addEventListener('storage', event => {
-    if (!settingsBridge && (event.key === excludeKey || event.key === null)) void syncExclusion().then(track);
-  });
-  document.addEventListener('visibilitychange', track);
-  void syncExclusion(exclusionChoice === '1' || exclusionChoice === '0').then(() => {
-    if (settingsBridge) {
-      if (exclusionReady && !saveFailed) {
-        window.opener.postMessage({type:'pococha-public-exclusion',requestId:settingsRequest,active:isExcluded()},'https://pococha-challenge.freefreelife2000.chatgpt.site');
-        window.close();
-      }
-      return;
-    }
-    track();
-  });
-})();
-</script>
+  window.addEventListener("pageshow", record);
+  document.addEventListener("visibilitychange", record);
+  void record();
+})();</script>
 </body>
 </html>

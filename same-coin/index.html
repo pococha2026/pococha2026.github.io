@@ -1,4 +1,6 @@
-<!DOCTYPE html><html><head><meta charset="utf8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
+<!DOCTYPE html><html><head><meta charset="utf8">
+<meta id="pococha-script-security-policy" http-equiv="Content-Security-Policy" content="script-src 'self' 'sha256-rqK/W6uRi8gDuPAxtRBQ8hEEq7Aty9SCEUlIIafswtg=' 'sha256-pLagtWTPYWvs14ChIZpT+Dv0/f/4KgcWB5JT/z9L1fg=' 'sha256-1+nqm2ycPEuoZYy9sEaQJf+u+rcLrtMobc0Llsl0+to=' 'sha256-CVbPxm7TwS6hztv5I3m6W9o0WK+cYbDccGQ1MvmEw8w=' 'sha256-25Y0YX7d3oV1tI72JTqsiMAmmj4CdZ/iCjynEFhJm7w=' 'sha256-vr6CanPSkAJM9wJduuL8HpAGGilFIxsEvexyj0nxbTI=' 'sha256-lWJIXQoceLPg5pXNzgEM2bpsUEQZ5BvN65H/ZGqQSS8=' 'sha256-XLHEnt14gpoa6pOpQrmPP6EHmqZJqNB2Jset/QCS89Q=' 'sha256-j77JYkR4x8c1GDTWGH5dmyVrPxcfMDTuMZDZ+AS1Avc=' 'sha256-yqA7XRgkgJPbuFrTCAR1Xp4ub7XzG/TdS+ushXpFb+A=' 'sha256-Xlxl4iVWvBLjm2LfIPvtehVCBc5yVrt/ucxd964AllY=' 'sha256-rr++lWOuLECoXpM1JYbUvS0uvUmInjz46+OHBPBOfVo=' 'sha256-IbDx0r9BRs41SaZAENl+fYooptNwB5Zjwr/NDgxpIiQ=' 'sha256-m/aUNwcjuoLbr9NbymJsXMLdXS848tWJ13acl3heyRU=' 'sha256-bSvWdfEwyudGjErSs8kHB8DBRmtOgSnUlOSq5jXqNMw=' 'sha256-GtRFEbx5DI4mzwf1cTZdhH4iDa+uGK/RSDtTd5AqhGA=' 'sha256-vxdUyd2BXPYoccrjDhhZQ9g1g06376dJScpp/SF4hTg=' 'sha256-Butt3M69Ft3vr8qQVu+1+c3nOe70z8HjOaAWaQQx4aw=' 'sha256-RUrVhRtagK5vfaclz9tBX4seBWY/GUFvDEGof36iRyQ='; script-src-attr 'none'; object-src 'none'; base-uri 'self'; connect-src 'self' https://pococha-comment-access.freefreelife2000.chatgpt.site">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
 </style>
 
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22%23111e31%22%2F%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2222%22%20fill%3D%22none%22%20stroke%3D%22%236adaff%22%20stroke-width%3D%224%22%2F%3E%3Ctext%20x%3D%2232%22%20y%3D%2243%22%20font-family%3D%22sans-serif%22%20font-size%3D%2232%22%20font-weight%3D%22bold%22%20text-anchor%3D%22middle%22%20fill%3D%22%236adaff%22%3EC%3C%2Ftext%3E%3C%2Fsvg%3E"><style id="pc-v219-simplification">
@@ -13,7 +15,7 @@
 }
 @media print{.source-details-menu,.direct-input-tools,.direct-save-menu{display:none!important}}
 </style>
-<meta name="pococha-offline-version" content="2.47">
+<meta name="pococha-offline-version" content="2.48">
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" href="./icon-192.png">
 <meta name="apple-mobile-web-app-title" content="コイン計算">
@@ -745,7 +747,10 @@ button,summary,select,a,label,input[type=checkbox]{touch-action:manipulation}
   <p id="rightsMessage" class="rights-message" role="status" aria-live="polite"></p>
  </div>
 </details></section><details class="card usage"><summary>計算の前提</summary><div class="body"><p><b>同額の定義：</b>「全員同じK」は 人数×必要コイン＝元の予算、「Kを混ぜる」は原則として各人の必要コイン合計＝元の予算です。ただし「人数ごとの最大配分」の1人だけは、完全一致がない場合に予算以内最大と余りコインを参考表示します。カスタムカードは指定した垢数で予算内の最大Kと実際の余りコインを表示します。</p><p><b>配分の前提：</b>配分する人数には、1K以上になる人だけを含めます。0Kの人を人数に含めません。予算不足や、選択範囲の必要額が一致しない場合は「該当なし」を表示します。すべての人が条件1の非コイン条件も満たす場合だけの比較です。</p><p><b>最大配分：</b>整数の動的計画法で、人数と必要コイン合計ごとに合計Kの最大値を求めます。同じ最大値が複数人数で得られる場合、要約では少ない人数の1例を優先します。同じ人数・同じ最大Kでは、1つの配分のみ表示します。予算以内で同じ最大Kが得られるなら、必要コインの少ない配分を優先します。</p><p><b>保存と通信：</b>計算・CSV保存はHTMLファイル内で実行します。必要コインの手動変更は、利用できる場合のみブラウザーのローカル保存領域に保存します。ファイル名・場所・ブラウザーの変更やデータ削除で引き継がれない場合があります。入力値・計算結果をサーバーへ自動送信しません。Web版はアプリファイル取得・キャッシュ更新のため同じ配信元へアクセスします。共有・バックアップ送信・資料リンクは、自分で操作した場合にだけ実行します。保存領域は端末・ブラウザーごとで、自動同期しません。</p></div></details>
- <footer class="footer"><span class="copyright-footer">© 2026 Pococha1012</span><span class="footer-terms">無断転載・転用・再配布禁止・無断改変／販売禁止</span><span>非公式・数値比較用 ／ 各人1アカウントを前提</span><span>初期資料確認日 2026/09/23 ・ ソフト v2.47 ・ 最終更新 2026/10/14 JST</span></footer>
+ <footer class="footer"><span class="copyright-footer">© 2026 Pococha1012</span><span class="footer-terms">無断転載・転用・再配布禁止・無断改変／販売禁止</span><span>非公式・数値比較用 ／ 各人1アカウントを前提</span><span>初期資料確認日 2026/09/23 ・ ソフト v2.48 ・ 最終更新 2026/10/14 JST</span><!-- Pococha1012 security management: start -->
+<a id="pococha-security-management" href="https://pococha-comment-library.freefreelife2000.chatgpt.site/admin/tools/coin" target="_blank" rel="noopener noreferrer">管理ページ</a>
+<!-- Pococha1012 security management: end -->
+</footer>
 </main>
 <div id="displayPreferences" class="save-sheet display-preferences" role="dialog" aria-modal="true" aria-labelledby="displayPreferencesTitle" hidden>
  <div class="save-card display-preferences-card">
@@ -1278,7 +1283,7 @@ button,summary,select,a,label,input[type=checkbox]{touch-action:manipulation}
    doc.getElementById('pocochaCustomCardsConfig').textContent=JSON.stringify(window.pocochaCustomCards.counts());
    doc.getElementById('pocochaPatternDefaultsConfig').textContent=JSON.stringify(window.pocochaPatternDefaults.get());
    doc.querySelectorAll('.flow-switch,.smart-heading,#directOptions,#fixedMainPatterns').forEach(el=>el.remove());const directResult=doc.getElementById('directResult');if(directResult){directResult.replaceChildren();directResult.removeAttribute('data-state');}doc.getElementById('directOutputs').hidden=true;doc.body.classList.remove('direct-mode','source-mode','direct-settings');
-   doc.title='Pococha 同額コイン計算機 v2.47｜Pococha1012・利用者用';
+   doc.title='Pococha 同額コイン計算機 v2.48｜Pococha1012・利用者用';
    doc.querySelectorAll('link[rel=manifest],link[rel=apple-touch-icon],meta[name=pococha-offline-version]').forEach(el=>el.remove());
    // Runtime-created controls must not be serialized and created a second time on startup.
    ['sourcePeople','sourceK'].forEach(id=>doc.getElementById(id)?.replaceChildren());
@@ -3025,10 +3030,10 @@ body.large-text .pattern-search-select{font-size:18px}
 }
 </style>
 <script id="pc-offline-v221">
-/* © 2026 Pococha1012 — device-local offline and draft recovery v2.47. */
+/* © 2026 Pococha1012 — device-local offline and draft recovery v2.48. */
 (function(){
  'use strict';
- const VERSION='2.47',KEY='pococha-offline-draft-v1',FORMAT='pococha-local-input',MAX=16000,$=id=>document.getElementById(id);
+ const VERSION='2.48',KEY='pococha-offline-draft-v1',FORMAT='pococha-local-input',MAX=16000,$=id=>document.getElementById(id);
  let memory=null,lastContent='',diskSaved=false,timer=0,restoring=false,started=false,remote=null,importPending=null,regPromise=null,statusSerial=0,importSerial=0,reg=null,preparing=false,prepared=false,requestedReload=false,installPrompt=null,lastUpdate=0,newerActive=false,reloadTarget=null,reloadTimer=0,reloadSerial=0;
  const text=(id,value,error=false)=>{const el=$(id);if(!el)return;if(el.textContent!==value)el.textContent=value;el.classList.toggle('is-error',error);};
  const composing=()=>$('directBudget')?.dataset.composing==='true';
@@ -3920,4 +3925,107 @@ installCoinMenuClosers();
 @media screen and (max-height:480px){#displayPreferences .display-preview{position:static}#displayPreferences .display-settings-body{scroll-padding-top:12px}}
 @media(forced-colors:active){#coinHUD button,#displayPreferences .display-list-preview{border-color:ButtonText}}
 </style>
+<script id="pococha-public-access-tracker">(() => {
+  "use strict";
+  const toolId = "coin";
+  const allowedPages = [{"origin":"https://pococha-same-coin.freefreelife2000.chatgpt.site","paths":["/","/index.html"]},{"origin":"https://pococha2026.github.io","paths":["/same-coin/","/same-coin/index.html"]}];
+  const collectorOrigin = "https://pococha-comment-access.freefreelife2000.chatgpt.site";
+  const guard = "__pococha1012Visit_" + toolId;
+  if (window[guard]) return;
+  window[guard] = true;
+  let preparing = false, sent = false, eventId;
+  function allowed() {
+    try {
+      if (!allowedPages.some(item => location.origin === item.origin && item.paths.includes(location.pathname))) return false;
+      if (navigator.webdriver || document.visibilityState === "hidden") return false;
+      if (navigator.globalPrivacyControl === true) return false;
+      if ([navigator.doNotTrack, navigator.msDoNotTrack, window.doNotTrack].some(value => /^(?:1|yes)$/i.test(String(value || "")))) return false;
+      if (/bot|spider|crawl|slurp|headless|phantom|selenium|playwright|puppeteer|lighthouse|preview|facebookexternalhit|whatsapp|telegrambot/i.test(String(navigator.userAgent || ""))) return false;
+      if (window.top !== window.self) {
+        // Sites normally renders inside ChatGPT. Other embedded/automated frames are excluded.
+        if (!location.origin.endsWith(".chatgpt.site") || new URL(document.referrer || "").origin !== "https://chatgpt.com") return false;
+        const ancestors = Array.from(location.ancestorOrigins || []);
+        if (ancestors.some(origin => origin !== "https://chatgpt.com" && origin !== location.origin)) return false;
+      }
+      return typeof fetch === "function";
+    } catch { return false; }
+  }
+  function metadata() {
+    const ua = String(navigator.userAgent || "");
+    const ios = /iPhone|iPad|iPod/i.test(ua) || (/Macintosh/i.test(ua) && Number(navigator.maxTouchPoints || 0) > 1);
+    const android = /Android/i.test(ua);
+    let os = "unknown";
+    if (ios) os = "ios";
+    else if (android) os = "android";
+    else if (/Windows/i.test(ua)) os = "windows";
+    else if (/CrOS/i.test(ua)) os = "chromeos";
+    else if (/Macintosh|Mac OS X/i.test(ua)) os = "macos";
+    else if (/Linux|X11/i.test(ua)) os = "linux";
+    let device = "unknown";
+    if (/iPad/i.test(ua) || (ios && /Macintosh/i.test(ua))) device = "tablet";
+    else if (/iPhone|iPod|Mobile/i.test(ua)) device = "mobile";
+    else if (android) device = "tablet";
+    else if (os !== "unknown") device = "desktop";
+    let browser = "unknown";
+    if (/Edg(?:e|A|iOS)?\//i.test(ua)) browser = "edge";
+    else if (/OPR\/|Opera|OPT\//i.test(ua)) browser = "opera";
+    else if (/SamsungBrowser\//i.test(ua)) browser = "samsung";
+    else if (/Firefox\/|FxiOS\//i.test(ua)) browser = "firefox";
+    else if (/Chrome\/|CriOS\//i.test(ua)) browser = "chrome";
+    else if (/Safari\//i.test(ua)) browser = "safari";
+    else if (ua) browser = "other";
+    return { device, os, browser, model: "unknown" };
+  }
+  async function withReportedModel(meta) {
+    let timer;
+    try {
+      const hints = navigator.userAgentData;
+      if (!hints || typeof hints.getHighEntropyValues !== "function") return meta;
+      const result = await Promise.race([
+        Promise.resolve().then(() => hints.getHighEntropyValues(["model"])),
+        new Promise(resolve => { timer = setTimeout(() => resolve(null), 500); })
+      ]);
+      const model = typeof result?.model === "string" ? result.model.trim() : "";
+      if (/^[A-Za-z0-9][A-Za-z0-9 ._()+,-]{0,79}$/.test(model) && !/^(?:k|unknown|generic|android|iphone|ipad|ipod|pc)$/i.test(model) && !/^(?:\d{1,3}\.){3}\d{1,3}$/.test(model)) meta.model = "reported:" + model;
+    } catch { /* Unsupported hints remain unknown. */ }
+    finally { if (timer !== undefined) clearTimeout(timer); }
+    return meta;
+  }
+  function uuid() {
+    try {
+      if (typeof crypto.randomUUID === "function") {
+        const value = crypto.randomUUID();
+        if (/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value)) return value;
+      }
+      const bytes = new Uint8Array(16);
+      crypto.getRandomValues(bytes);
+      bytes[6] = (bytes[6] & 15) | 64;
+      bytes[8] = (bytes[8] & 63) | 128;
+      const hex = Array.from(bytes, byte => byte.toString(16).padStart(2, "0")).join("");
+      return hex.slice(0, 8) + "-" + hex.slice(8, 12) + "-" + hex.slice(12, 16) + "-" + hex.slice(16, 20) + "-" + hex.slice(20);
+    } catch { return undefined; }
+  }
+  async function record() {
+    if (sent || preparing || !allowed()) return;
+    preparing = true;
+    try {
+      const meta = await withReportedModel(metadata());
+      if (!allowed()) return;
+      eventId ||= uuid();
+      if (!eventId) return;
+      const page = location.origin + location.pathname;
+      const body = JSON.stringify({ toolId, eventId, page, meta });
+      if (body.length > 1024) return;
+      sent = true;
+      await fetch(collectorOrigin + "/api/visits", {
+        method: "POST", headers: { "Content-Type": "application/json" }, body,
+        credentials: "omit", cache: "no-store", keepalive: true, referrerPolicy: "no-referrer"
+      });
+    } catch { /* Tracking failure must never interrupt the tool. */ }
+    finally { preparing = false; }
+  }
+  window.addEventListener("pageshow", record);
+  document.addEventListener("visibilitychange", record);
+  void record();
+})();</script>
 </body></html>
