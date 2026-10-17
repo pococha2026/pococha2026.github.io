@@ -1643,7 +1643,7 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
 #clockAccuracy{display:block;font-size:11px;line-height:1.5;overflow-wrap:anywhere}
 #miniClockAccuracy{display:block;font-size:11px;line-height:1.5;white-space:normal;overflow-wrap:anywhere}
 #miniPeriodReview{min-height:44px;max-width:100%;white-space:normal;font-size:11px;line-height:1.4}
-.history-portal{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:12px 0}.history-portal a{min-height:44px;display:inline-flex;align-items:center;padding:8px 12px;border:1px solid var(--line);border-radius:9px;font-weight:700}
+.history-portal{margin:12px 0}.history-portal a{display:flex;align-items:center;gap:12px;width:100%;min-height:64px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;font-weight:700;text-decoration:none;background:var(--paper,var(--panel))}.history-portal-text{display:flex;flex:1;min-width:0;flex-direction:column;gap:3px}.history-portal-title{font-size:1rem;overflow-wrap:anywhere}.history-portal .hint{font-size:.8rem;font-weight:400;line-height:1.5}.history-portal-arrow{font-size:1.4rem;flex:0 0 auto}.history-portal a:focus-visible{outline:3px solid currentColor;outline-offset:3px}
 </style>
 </head>
 <body>
@@ -1702,12 +1702,12 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
       </details>
       <!-- display-settings-menu:end -->
       <button type="button" id="refreshPage" aria-label="ページ全体を再読み込みする" title="ページ全体を再読み込み">更新</button>
-      <span class="ylogo-update" id="toolUpdatedDate" title="ツール本体の最終更新日時とバージョン（ボーダーデータの更新日時とは別）"><span>更新時間</span><time class="num" datetime="2026-10-17T14:00:40+09:00">2026/10/17 14:00:40</time><span class="num" id="toolVersion">最終更新バージョン：v2026.10.17.3</span></span>
+      <span class="ylogo-update" id="toolUpdatedDate" title="ツール本体の最終更新日時とバージョン（ボーダーデータの更新日時とは別）"><span>更新時間</span><time class="num" datetime="2026-10-17T14:35:34+09:00">2026/10/17 14:35:34</time><span class="num" id="toolVersion">最終更新バージョン：v2026.10.17.4</span></span>
     </div>
   </header>
   <p class="hint" id="borderSyncStatus" role="status" style="font-size:.68rem;margin:5px 2px 8px;line-height:1.5">ボーダー確認中…</p>
   <p class="hint" id="storageStatus" role="status" hidden></p>
-  <div class="history-portal"><a href="./border-history.html" class="manual-link">🗂️ 過去のボーダー表を開く</a><span class="hint">日付・ランク・締め時間から検索</span></div>
+  <div class="history-portal"><a href="./border-history.html" class="manual-link" id="historyPortalLink"><span aria-hidden="true">🗂️</span><span class="history-portal-text"><span class="history-portal-title">過去のボーダー表を開く</span><span class="hint">日付・ランク・締め時間で探す／カードをコピー</span></span><span class="history-portal-arrow" aria-hidden="true">›</span></a></div>
   <p class="hint period-notice" id="periodNotice" role="status" hidden></p>
   <div class="period-notice-actions" id="periodNoticeActions" hidden><button type="button" id="reviewPeriodCurrent">現在値を確認・入力</button><button type="button" id="resetPeriodCurrent">0にリセット</button></div>
 
