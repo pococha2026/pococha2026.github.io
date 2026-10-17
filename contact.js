@@ -27,10 +27,17 @@
   function status(message,error=false){$('status').textContent=message;$('status').className='status'+(error?' error':'');}
   function clearThreadView(){renderedThreadId=null;releaseViews();$('thread').hidden=true;$('messages').replaceChildren();$('threadSubject').textContent=$('threadMeta').textContent='';imageControls();}
   function clearPrivate(){privateGeneration++;clearStorage();clearThreadView();clearSelection('first');clearSelection('reply');current=null;inboxPage=0;inboxHasNext=false;$('newInquiry').hidden=admin;$('receipt').hidden=true;$('inboxList').replaceChildren();for(const id of ['receiptLink','replyMessage','name','firstMessage','contactTool']){$(id).value='';$(id).readOnly=false;if(id==='contactTool')$(id).disabled=false;}$('inboxCount').textContent='';$('previousInbox').disabled=$('nextInbox').disabled=true;pendingCreate=pendingReply=null;}
-  async function api(path,{method='GET',data,token,images=[]}={}){
+  async function api(path,options={}){
+    const controller=typeof AbortController==='function'?new AbortController():null;
+    let timer;
+    const timeout=new Promise((_,reject)=>{timer=setTimeout(()=>{controller?.abort();reject(new Error('通信が時間切れになりました。入力内容は保持しています。送信済みか不明な場合も、同じ送信ボタンで安全に再確認できます。'));},20000);});
+    try{return await Promise.race([requestApi(path,{...options,signal:controller?.signal}),timeout]);}
+    finally{clearTimeout(timer);}
+  }
+  async function requestApi(path,{method='GET',data,token,images=[],signal}={}){
     const generation=privateGeneration;
     let body;if(data&&images.length){body=new FormData();body.append('payload',JSON.stringify(data));for(const image of images)body.append('images',image.blob,'attachment.jpg');}else if(data)body=JSON.stringify(data);
-    const response=await privateFetch(path,{method,credentials:admin?'same-origin':'omit',cache:'no-store',headers:{...(data&&!images.length?{'Content-Type':'application/json'}:{}),...(token?{Authorization:'Bearer '+token}:{})},...(data?{body}:{})});
+    const response=await privateFetch(path,{method,signal,credentials:admin?'same-origin':'omit',cache:'no-store',headers:{...(data&&!images.length?{'Content-Type':'application/json'}:{}),...(token?{Authorization:'Bearer '+token}:{})},...(data?{body}:{})});
     // Preserve authorization failures even when an intermediary returns an empty
     // or malformed body, so action() still destroys previously viewed data.
     let value;try{value=await response.json();}catch{const error=new Error(response.status===401&&admin?'ログインが切れました。管理ページを開き直してください。':'読み込み・送信を完了できませんでした。');error.status=response.status;throw error;}
@@ -55,7 +62,7 @@
     finally{storageBusy=false;$('refreshStorage').disabled=false;}
   }
   $('refreshStorage').addEventListener('click',loadStorage);
-  async function action(fn){if(busy)return;busy=true;imageControls();for(const id of ['createButton','refreshThread','refreshInbox','previousInbox','nextInbox'])$(id).disabled=true;status('処理中…');try{await fn();}catch(error){if([401,403].includes(error.status))clearPrivate();if([400,409,413,415].includes(error.status)){pendingCreate=pendingReply=null;for(const id of ['name','firstMessage','replyMessage'])$(id).readOnly=false;$('contactTool').disabled=false;}status(error.message||'通信を確認してお試しください。',true);}finally{busy=false;imageControls();for(const id of ['createButton','refreshThread','refreshInbox'])$(id).disabled=false;$('previousInbox').disabled=!admin||inboxPage===0;$('nextInbox').disabled=!admin||!inboxHasNext;}}
+  async function action(fn){if(busy)return;busy=true;$('newForm').setAttribute('aria-busy','true');$('replyForm').setAttribute('aria-busy','true');imageControls();for(const id of ['createButton','refreshThread','refreshInbox','previousInbox','nextInbox'])$(id).disabled=true;status('処理中…');try{await fn();}catch(error){if([401,403].includes(error.status))clearPrivate();if([400,409,413,415].includes(error.status)){pendingCreate=pendingReply=null;for(const id of ['name','firstMessage','replyMessage'])$(id).readOnly=false;$('contactTool').disabled=false;}status(error.message||'通信を確認してお試しください。',true);}finally{busy=false;$('newForm').setAttribute('aria-busy','false');$('replyForm').setAttribute('aria-busy','false');imageControls();for(const id of ['createButton','refreshThread','refreshInbox'])$(id).disabled=false;$('previousInbox').disabled=!admin||inboxPage===0;$('nextInbox').disabled=!admin||!inboxHasNext;}}
   const stamp=value=>new Intl.DateTimeFormat('ja-JP',{timeZone:'Asia/Tokyo',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'}).format(new Date(value));
   function render(data){
     const validStamp=value=>typeof value==='string'&&Number.isFinite(Date.parse(value));
@@ -79,7 +86,7 @@
     current={id:pendingCreate.id,token:pendingCreate.token};history.replaceState(null,'','#contact/'+current.id+'.'+current.token);$('receiptLink').value=location.origin+'/#contact/'+current.id+'.'+current.token;$('receipt').hidden=false;
     const data=await api('/api/contact/threads',{method:'POST',data:pendingCreate,images:selections.first});current={id:pendingCreate.id,token:pendingCreate.token};history.replaceState(null,'','#contact/'+current.id+'.'+current.token);render(data);pendingCreate=null;clearSelection('first');for(const id of ['name','firstMessage','contactTool']){$(id).value='';$(id).readOnly=false;if(id==='contactTool')$(id).disabled=false;}status('メッセージを送信しました。確認用リンクを保存して、返信をこのページで確認してください。');
   });});
-  $('replyForm').addEventListener('submit',event=>{event.preventDefault();if(busy||!replyReady()||!$('replyForm').reportValidity())return;action(async()=>{await selectionWork;if(!replyReady())return;if(!pendingReply)pendingReply={messageId:crypto.randomUUID(),message:$('replyMessage').value};imageControls();$('replyMessage').readOnly=true;const data=await api(threadPath(),{method:'POST',data:pendingReply,token:current.token,images:selections.reply});render(data);pendingReply=null;clearSelection('reply');$('replyMessage').value='';$('replyMessage').readOnly=false;if(admin)await loadStorage();status('メッセージを送信しました。');});});
+  $('replyForm').addEventListener('submit',event=>{event.preventDefault();if(busy||!replyReady()||!$('replyForm').reportValidity())return;if(!$('replyMessage').value.trim()){status('追加メッセージを入力してください。',true);$('replyMessage').focus();return;}action(async()=>{await selectionWork;if(!replyReady())return;if(!pendingReply)pendingReply={messageId:crypto.randomUUID(),message:$('replyMessage').value};imageControls();$('replyMessage').readOnly=true;const data=await api(threadPath(),{method:'POST',data:pendingReply,token:current.token,images:selections.reply});render(data);pendingReply=null;clearSelection('reply');$('replyMessage').value='';$('replyMessage').readOnly=false;if(admin)await loadStorage();status('メッセージを送信しました。');});});
   $('refreshThread').addEventListener('click',()=>{if(current)action(loadThread);});$('refreshInbox').addEventListener('click',()=>action(loadInbox));
   $('previousInbox').addEventListener('click',()=>{if(inboxPage>0)action(async()=>{inboxPage--;await loadInbox();});});$('nextInbox').addEventListener('click',()=>{if(inboxHasNext)action(async()=>{inboxPage++;await loadInbox();});});
   $('copyLink').addEventListener('click',async()=>{try{await navigator.clipboard.writeText($('receiptLink').value);status('確認用リンクをコピペしました。');}catch{$('receiptLink').focus();$('receiptLink').select();status('確認用リンクを選択しました。コピペして保存してください。');}});
