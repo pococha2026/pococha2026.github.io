@@ -3,7 +3,7 @@ const toolDescriptions={"meter":"Pocochaのメーターボーダーを確認。�
 const endpoint='https://pococha-comment-access.freefreelife2000.chatgpt.site/api/catalog',tools=document.querySelector('.tools'),status=document.getElementById('catalog-status'),refresh=document.getElementById('catalog-refresh'),toolId=document.body.dataset.toolId;
 let busy=false,signature=null,focusRefresh=false;
 async function sync(){
- if(busy)return;busy=true;refresh.disabled=true;
+ if(busy)return;busy=true;refresh.disabled=true;tools.setAttribute('aria-busy','true');refresh.setAttribute('aria-busy','true');
  const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),10000);
  try{
   const r=await fetch(endpoint,{cache:'no-store',credentials:'omit',signal:controller.signal});
@@ -22,6 +22,6 @@ async function sync(){
   const active=selected.filter(t=>t.enabled).length;
   status.textContent=selected.length?(active?(toolId?'公開中のツールを開けます。':'公開中のツールを選んでください。'):(toolId?'このツールは現在非公開中です。':'ツールはすべて非公開中です。')):'ツールが登録されていません。';
  }catch{const focused=document.activeElement?.dataset?.tool;tools.replaceChildren();signature=null;if(focused)focusRefresh=true;status.textContent='公開設定を確認できません。通信を確認して更新してください。';}
- finally{clearTimeout(timer);busy=false;refresh.disabled=false;if(focusRefresh){focusRefresh=false;refresh.focus({preventScroll:true});}}
+ finally{clearTimeout(timer);busy=false;refresh.disabled=false;tools.setAttribute('aria-busy','false');refresh.setAttribute('aria-busy','false');if(focusRefresh){focusRefresh=false;refresh.focus({preventScroll:true});}}
 }
 refresh.addEventListener('click',sync);window.addEventListener('pageshow',sync);document.addEventListener('visibilitychange',()=>{if(!document.hidden)sync();});setInterval(()=>{if(!document.hidden)sync();},15000);sync();})();
