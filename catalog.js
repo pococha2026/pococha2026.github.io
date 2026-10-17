@@ -8,17 +8,19 @@ async function sync(){
  try{
   const r=await fetch(endpoint,{cache:'no-store',credentials:'omit',signal:controller.signal});
   if(!r.ok)throw Error();const data=await r.json();if(!Array.isArray(data.tools))throw Error();
-  const selected=data.tools.filter(t=>t&&t.enabled===true&&(!toolId||t.id===toolId));
+  const selected=data.tools.filter(t=>t&&(!toolId||t.id===toolId));
   const next=document.createDocumentFragment(),ids=new Set();
   for(const t of selected){
-   if(typeof t.id!=='string'||ids.has(t.id)||typeof t.label!=='string'||typeof t.description!=='string')throw Error();ids.add(t.id);
-   const url=new URL(t.url);if(url.protocol!=='https:'||!url.hostname.endsWith('.freefreelife2000.chatgpt.site')||url.username||url.password||url.port)throw Error();
-   const a=document.createElement('a');a.className='tool';a.href=url.href;a.dataset.tool=t.id;
-   const span=document.createElement('span'),strong=document.createElement('strong'),small=document.createElement('small');strong.textContent=t.label;small.textContent=toolDescriptions[t.id]||t.description;span.append(strong,small);a.append(span);next.append(a);
+   if(typeof t.enabled!=='boolean'||typeof t.id!=='string'||ids.has(t.id)||typeof t.label!=='string'||typeof t.description!=='string')throw Error();ids.add(t.id);
+   const a=document.createElement(t.enabled?'a':'article');a.className='tool'+(t.enabled?' is-public':' is-disabled');a.dataset.tool=t.id;
+   if(t.enabled){const url=new URL(t.url);if(url.protocol!=='https:'||!url.hostname.endsWith('.freefreelife2000.chatgpt.site')||url.username||url.password||url.port)throw Error();a.href=url.href;}
+   else a.setAttribute('aria-disabled','true');
+   const span=document.createElement('span'),strong=document.createElement('strong'),small=document.createElement('small'),badge=document.createElement('span');strong.textContent=t.label;small.textContent=toolDescriptions[t.id]||t.description;badge.className='catalog-state '+(t.enabled?'public':'private');badge.textContent=t.enabled?'公開中':'非公開中';span.append(strong,small,badge);a.append(span);next.append(a);
   }
-  const key=JSON.stringify(selected.map(t=>[t.id,t.label,t.url,t.description]));
-  if(key!==signature){const focused=document.activeElement?.dataset?.tool;tools.replaceChildren(next);signature=key;if(focused){const link=Array.from(tools.children).find(a=>a.dataset.tool===focused);if(link)link.focus({preventScroll:true});else focusRefresh=true;}}
-  status.textContent=selected.length?(toolId?'公開中のツールを開けます。':'使いたいツールを選んでください。'):(toolId?'このツールは現在非公開です。':'現在公開中のツールはありません。');
+  const key=JSON.stringify(selected.map(t=>[t.id,t.label,t.url,t.description,t.enabled]));
+  if(key!==signature){const focused=document.activeElement?.dataset?.tool;tools.replaceChildren(next);signature=key;if(focused){const link=Array.from(tools.children).find(a=>a.dataset.tool===focused);if(link&&link.tagName==='A')link.focus({preventScroll:true});else focusRefresh=true;}}
+  const active=selected.filter(t=>t.enabled).length;
+  status.textContent=selected.length?(active?(toolId?'公開中のツールを開けます。':'公開中のツールを選んでください。'):(toolId?'このツールは現在非公開中です。':'ツールはすべて非公開中です。')):'ツールが登録されていません。';
  }catch{const focused=document.activeElement?.dataset?.tool;tools.replaceChildren();signature=null;if(focused)focusRefresh=true;status.textContent='公開設定を確認できません。通信を確認して更新してください。';}
  finally{clearTimeout(timer);busy=false;refresh.disabled=false;if(focusRefresh){focusRefresh=false;refresh.focus({preventScroll:true});}}
 }
