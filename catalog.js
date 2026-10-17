@@ -1,5 +1,5 @@
 (()=>{'use strict';
-const toolDescriptions={"meter":"Pocochaのメーターボーダーを確認。目標までのコイン・アイテム数の目安を計算。","coin":"コイン予算や人数・K数から、余りの少ない配分を比較。","answers":"Pococha「ぽこチャレ」の月別解答一覧。オープン・ファミリーの解答を確認・コピー。","record":"時間・エールを記録して、日々の活動を振り返る。","comments-library":"Pococha配信中に付けるタグや、キラコメ・連コメ・定期コメを探してコピー。","profile":"検索結果の文章からPocochaプロフィールURLを取り出す。"};
+const toolDescriptions={"meter":"Pocochaのメーターボーダーを確認。目標までのコイン・アイテム数の目安を計算。","coin":"コイン予算や人数・K数から、余りの少ない配分を比較。","answers":"Pococha「ぽこチャレ」の月別解答一覧。オープン・ファミリーの解答を確認・コピペ。","record":"時間・エールを記録して、日々の活動を振り返る。","comments-library":"Pococha配信中に付けるタグや、キラコメ・連コメ・定期コメを探してコピペ。","profile":"検索結果の文章からPocochaプロフィールURLを取り出す。"};
 const endpoint='https://pococha-comment-access.freefreelife2000.chatgpt.site/api/catalog',tools=document.querySelector('.tools'),status=document.getElementById('catalog-status'),refresh=document.getElementById('catalog-refresh'),toolId=document.body.dataset.toolId;
 let busy=false,signature=null,focusRefresh=false;
 async function sync(){
