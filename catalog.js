@@ -1,4 +1,5 @@
 (()=>{'use strict';
+const toolDescriptions={"meter":"目標までに必要なポイント・コイン・アイテム数の目安を計算。","coin":"コイン予算や人数・K数から、余りの少ない配分を比較。","answers":"月ごとのぽこチャレ解答を確認し、部門別にコピー。","record":"時間・エールを記録して、日々の活動を振り返る。","comments-library":"タグ・キラコメ・連コメ・定期文を探してコピー。","profile":"検索結果の文章からPocochaプロフィールURLを取り出す。"};
 const endpoint='https://pococha-comment-access.freefreelife2000.chatgpt.site/api/catalog',tools=document.querySelector('.tools'),status=document.getElementById('catalog-status'),refresh=document.getElementById('catalog-refresh'),toolId=document.body.dataset.toolId;
 let busy=false,signature=null,focusRefresh=false;
 async function sync(){
@@ -13,7 +14,7 @@ async function sync(){
    if(typeof t.id!=='string'||ids.has(t.id)||typeof t.label!=='string'||typeof t.description!=='string')throw Error();ids.add(t.id);
    const url=new URL(t.url);if(url.protocol!=='https:'||!url.hostname.endsWith('.freefreelife2000.chatgpt.site')||url.username||url.password||url.port)throw Error();
    const a=document.createElement('a');a.className='tool';a.href=url.href;a.dataset.tool=t.id;
-   const span=document.createElement('span'),strong=document.createElement('strong'),small=document.createElement('small');strong.textContent=t.label;small.textContent=toolId?'ツールを開く ↗':t.description;span.append(strong,small);a.append(span);next.append(a);
+   const span=document.createElement('span'),strong=document.createElement('strong'),small=document.createElement('small');strong.textContent=t.label;small.textContent=toolDescriptions[t.id]||t.description;span.append(strong,small);a.append(span);next.append(a);
   }
   const key=JSON.stringify(selected.map(t=>[t.id,t.label,t.url,t.description]));
   if(key!==signature){const focused=document.activeElement?.dataset?.tool;tools.replaceChildren(next);signature=key;if(focused){const link=Array.from(tools.children).find(a=>a.dataset.tool===focused);if(link)link.focus({preventScroll:true});else focusRefresh=true;}}
