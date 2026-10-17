@@ -3,7 +3,7 @@
 <head>
 <!-- GitHub static publication: administration remains on Sites. -->
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-LrvX2Cb4ZrJhHoPvw7rmGv42AuqP5qUqedIke/XGJPw=' 'sha256-2lKI6RO0yZ2Vkj+8UOmwX5MPrMSwppEjSqdKG3IpBsE=' 'sha256-MIrOb9N7J7Ofg2ILAxDCaT2K8JrW8mpIpNQa6X/OdCU='; style-src 'unsafe-inline'; img-src 'self' data: blob:; font-src 'none'; connect-src 'self' https://pococha-comment-access.freefreelife2000.chatgpt.site https://poco-meter.freefreelife2000.chatgpt.site; object-src 'none'; frame-src 'none'; worker-src 'self'; media-src 'none'; manifest-src 'self'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-LrvX2Cb4ZrJhHoPvw7rmGv42AuqP5qUqedIke/XGJPw=' 'sha256-LEgKKI5BEJXwpxYFLvTMMMSHY9YO/eml2TAUQz5FV/U=' 'sha256-MIrOb9N7J7Ofg2ILAxDCaT2K8JrW8mpIpNQa6X/OdCU='; style-src 'unsafe-inline'; img-src 'self' data: blob:; font-src 'none'; connect-src 'self' https://pococha-comment-access.freefreelife2000.chatgpt.site https://poco-meter.freefreelife2000.chatgpt.site; object-src 'none'; frame-src 'none'; worker-src 'self'; media-src 'none'; manifest-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="pococha-app" content="meter-offline-v1">
 <!-- offline-head:start -->
 <link rel="manifest" href="./meter.webmanifest">
@@ -1702,7 +1702,7 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
       </details>
       <!-- display-settings-menu:end -->
       <button type="button" id="refreshPage" aria-label="ページ全体を再読み込みする" title="ページ全体を再読み込み">更新</button>
-      <span class="ylogo-update" id="toolUpdatedDate" title="ツール本体の最終更新日時とバージョン（ボーダーデータの更新日時とは別）"><span>更新時間</span><time class="num" datetime="2026-10-17T12:04:55+09:00">2026/10/17 12:04:55</time><span class="num" id="toolVersion">最終更新バージョン：v2026.10.17.1</span></span>
+      <span class="ylogo-update" id="toolUpdatedDate" title="ツール本体の最終更新日時とバージョン（ボーダーデータの更新日時とは別）"><span>更新時間</span><time class="num" datetime="2026-10-17T13:24:50+09:00">2026/10/17 13:24:50</time><span class="num" id="toolVersion">最終更新バージョン：v2026.10.17.2</span></span>
     </div>
   </header>
   <p class="hint" id="borderSyncStatus" role="status" style="font-size:.68rem;margin:5px 2px 8px;line-height:1.5">ボーダー確認中…</p>
@@ -2469,7 +2469,7 @@ footer .footer-support .tool-disclaimer ul{font-size:.875rem;line-height:1.8}
         abortRequest=function(){reject(new Error('取得を中止しました。'));};
         controller.signal.addEventListener('abort',abortRequest,{once:true});
         timer=setTimeout(function(){reject(new Error('取得が時間切れになりました。'));controller.abort();},15000);
-        (async function(){var response=await fetch('https://poco-meter.freefreelife2000.chatgpt.site/api/borders',{cache:'no-store',credentials:'omit',signal:controller.signal});if(!response.ok||!(response.headers.get('content-type')||'').includes('application/json'))throw new Error('通信不可');return response.json();})().then(resolve,reject);
+        (async function(){var response=await fetch('https://poco-meter.freefreelife2000.chatgpt.site/api/borders',{cache:'no-cache',credentials:'omit',signal:controller.signal});if(!response.ok||!(response.headers.get('content-type')||'').includes('application/json'))throw new Error('通信不可');return response.json();})().then(resolve,reject);
       });
       if(controller.signal.aborted)throw new Error('取得を中止しました。');
       var changed=mergeLiveBorders(payload);
