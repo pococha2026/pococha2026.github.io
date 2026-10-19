@@ -209,7 +209,7 @@ export function addSecurityManagement(html, toolId, { track = true, admin = true
 }
 export function buildAdminLanding(toolId) {
   const url = adminUrl(toolId);
-  return `<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="referrer" content="no-referrer"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'"><title>Pococha1012 管理ページ</title></head><body><main><h1>管理ページ</h1><p><a href="${url}" target="_blank" rel="noopener noreferrer">管理ページを開く</a></p></main></body></html>\n`;
+  return `<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="referrer" content="no-referrer"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'"><title>管理ページ</title></head><body><main><h1>管理ページ</h1><p><a href="${url}" target="_blank" rel="noopener noreferrer">管理ページを開く</a></p></main></body></html>\n`;
 }
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   const [, , path, toolId, flag] = process.argv;
